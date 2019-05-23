@@ -1,0 +1,530 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>MySqL数据库结构及优化介绍</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《MySqL数据库结构及优化介绍》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		5/23/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/05/23/MySqL数据库优化----基础介绍/" itemprop="url">		
+			MySqL数据库结构及优化介绍		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/05/23/MySqL数据库优化----基础介绍/" itemprop="url">
+	<time datetime="2019-05-23T04:04:46.000Z" itemprop="datePublished">
+  		2019-05-23
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#MySQL" title="MySQL" rel="1">MySQL</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="MySqL数据库结构介绍"><a href="#MySqL数据库结构介绍" class="headerlink" title="MySqL数据库结构介绍"></a>MySqL数据库结构介绍</h1><h2 id="MySQL-DBMS数据库管理系统"><a href="#MySQL-DBMS数据库管理系统" class="headerlink" title="MySQL_DBMS数据库管理系统"></a>MySQL_DBMS数据库管理系统</h2><p>第一次写博客 可能会有很多引用内容。小华会将引用地址附在文章尾，以表示对各博主的尊重.</p>
+<p>对于MySQL的查询优化，相信大家积累了一堆技巧：不能使用SELECT *、不使用NULL字段、合理创建索引、为字段选择合适的数据类型等，但是你真的知道其原理么？实际这么做提升的空间在哪里？那么今天小华就来带你看看MySQl数据库优化，MySQL结构探索！</p>
+<p>废话不多说 直接上结构图：</p>
+<h2 id="MySQL结构图及说明"><a href="#MySQL结构图及说明" class="headerlink" title="MySQL结构图及说明"></a>MySQL结构图及说明</h2><p><img src="./img/1.webp" alt="enter description here"></p>
+<p>​                                          <strong>简单结构图</strong></p>
+<p>MySQL简单结构大致可划分为三层</p>
+<p>第一层：客户端连接，客户端包括：常用的数据库连接工具，JDBC代码连接等数据库连接。在这一层做数据库连接安全认证以及其他安全功能。</p>
+<p>第二层 :  核心服务层 ，MySQL核心服务都在这层，数据库优化主要就集中在这层。核心服务包括1.连接/线程处理，主要是网络层面，和并发方面的支持，2.解析器  其主要进行对操作语句的解析分发。3.查询缓存，主要是数据库的实现。4，优化器.MySQL提供的系统自带的一些优化策略。</p>
+<p>第三层 ：存储引擎层 ， 数据文件底层，不同的数据引擎对数据文件有不同的管理方式。</p>
+<p><img src="./img/3.png" alt="enter description here"></p>
+<p>​                                                                        <strong>详细结构图</strong></p>
+<p>简单结构图细化后相应的功能实现更加清晰，其中MySQLD(Mysql_DBMS的简写）是MySQL的核心服务，主题的优化就在这里，其中有很多的模块，以及解析器，解析器会将不同的SQL操作命令分发至不同形式的处理模块，在去调相应的访问控制模块，最终通过存储引擎接口实现对底层数据文件的操作。</p>
+<p>具体详细就看图吧，这是很详细的结构图，一次连接从上至下完成。此处介绍一下数据库语句分类。当做复习。</p>
+<p>SQL语言共分为四大类：</p>
+<p><strong>1数据查询语言DQL，（Data Query Language ）</strong></p>
+<p> 数据查询语言DQL基本结构是由SELECT子句，FROM子句，WHERE 结构等查询结构构成的查询语句。</p>
+<p><strong>2数据操纵语言DML，（Data Manipulation Language ）</strong></p>
+<p>数据操纵语言DML主要有三种形式： （增删改）</p>
+<p>1插入：INSERT      </p>
+<p>2更新：UPDATE        </p>
+<p>3删除：DELETE </p>
+<p><strong>3数据定义语言DDL，（Data Definition Language）</strong></p>
+<p>数据定义语言DDL用来创建数据库中的各种对象—–</p>
+<p>表、视图、 索引、同义词、聚簇等如： CREATE TABLE/VIEW/INDEX/SYN/CLUSTER 等数据库定义性的语句。</p>
+<p><strong>4数据控制语言DCL，（Data Control Language ）</strong></p>
+<p>数据控制语言DCL用来授予或回收访问数据库的某种特权，并控制 数据库操纵事务发生的时间及效果，对数据库实行监视等。如： </p>
+<p>1.GRANT：授权。</p>
+<p>2.ROLLBACK [WORK] TO [SAVEPOINT]：回退到某一点。<br>回滚—ROLLBACK<br>回滚命令使数据库状态回到上次最后提交的状态。其格式为：<br>SQL&gt;ROLLBACK;</p>
+<p>3.COMMIT [WORK]：提交。</p>
+<p>在数据库的插入、删除和修改操作时，只有当事务在提交到数据库时才算完成。在事务提交前，只有操作数据库的这个人才能有权看到所做的事情，别人只有在最后提交完成后才可以看到。<br><img src="./img/2.webp" alt="enter description here"></p>
+<p>​                                             <strong>SQL语句查询过程图</strong></p>
+<p>结构图最后我们也上一个SQL查询的具体的查询过程详细图，其实小华更多的是通过这个三层模型来理解优化的。</p>
+<p>此处用个人理解的语句描述一下，可能有不足的地方可自行理解。</p>
+<p>1.首先是客户端连接 此处假设用Sql查询工具查询Mysql数据库，例如select * from user where id=1;</p>
+<p>2.连接上之后进入查询缓存②，如果数据库缓存存在该语句的查询结果，就直接将相应的结果返回给客户端 若不存在则对Sql语句进行解析③，进入解析器模块，解析器处理语句后分发调用处理器去查询，查询首先会通过Mysql内置的查询优化器④进行处理，在去调用查询执行引擎⑤通过调用API操作底层的存储引擎获取相应的数据，存储引擎得到的数据返回时会先检测是否数据库缓存存在该数据的存储过程⑥，如果没有就将这一结果进行缓存，方便下次查询。最终在返回结果给客户端。</p>
+<p>下面也引用一下大佬的解释：</p>
+<hr>
+<h3 id="客户端-服务端通信协议"><a href="#客户端-服务端通信协议" class="headerlink" title="客户端/服务端通信协议"></a><strong>客户端/服务端通信协议</strong></h3><p>MySQL客户端/服务端通信协议是“<strong>半双工</strong>”的：在任一时刻，要么是服务器向客户端发送数据，要么是客户端向服务器发送数据，这两个动作不能同时发生。一旦一端开始发送消息，另一端要接收完整个消息才能响应它，所以我们无法也无须将一个消息切成小块独立发送，也没有办法进行流量控制。</p>
+<p>客户端用一个单独的数据包将查询请求发送给服务器，所以当查询语句很长的时候，需要设置<code>max_allowed_packet</code>参数。但是需要注意的是，<strong>如果查询实在是太大，服务端会拒绝接收更多数据并抛出异常。</strong></p>
+<p>与之相反的是，服务器响应给用户的数据通常会很多，由多个数据包组成。但是当服务器响应客户端请求时，客户端必须完整的接收整个返回结果，而不能简单的只取前面几条结果，然后让服务器停止发送。因而在实际开发中，尽量保持查询简单且只返回必需的数据，减小通信间数据包的大小和数量是一个非常好的习惯，</p>
+<p><strong>这也是查询中尽量避免使用<code>SELECT *</code>以及加上 limit  限制减少数据量分页的原因之一。</strong></p>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a><strong>查询缓存</strong></h3><p>在解析一个查询语句前，<strong>如果查询缓存是打开的</strong>，那么MySQL会检查这个查询语句是否命中查询缓存中的数据。如果当前查询恰好命中查询缓存，在检查一次用户权限后<strong>直接返回缓存中的结果</strong>。这种情况下，查询不会被解析，也不会生成执行计划，更不会执行。</p>
+<p>MySQL将缓存存放在一个引用表（<strong>不要理解成table，可以认为是类似于HashMap的数据结构</strong>），通过一个哈希值索引，这个哈希值通过查询本身、当前要查询的数据库、客户端协议版本号等一些可能影响结果的信息计算得来。所以<strong>两个查询在任何字符上的不同</strong>（例如：空格、注释），<strong>都会导致缓存不会命中。</strong></p>
+<p>如果<strong>查询中</strong>包含任何<strong>用户自定义函数、存储函数、用户变量、临时表、mysql库中的系统表</strong>，其查询结果都不会被缓存。比如函数<code>NOW()</code>或者<code>CURRENT_DATE()</code>会因为不同的查询时间，返回不同的查询结果，再比如包含<code>CURRENT_USER</code>或者<code>CONNECION_ID()</code>的查询语句会因为不同的用户而返回不同的结果，将这样的查询结果缓存起来没有任何的意义。</p>
+<p><strong>既然是缓存，就会失效，那查询缓存何时失效呢？</strong>MySQL的查询缓存系统会跟踪查询中涉及的每个表，<strong>如果这些表（数据或结构）发生变化，那么和这张表相关的所有缓存数据都将失效。</strong>正因为如此，在任何的<strong>写，更新，删除</strong>操作时，MySQL必须将对应表的所有缓存都设置为失效。<strong>如果查询缓存非常大或者碎片很多，这个操作就可能带来很大的系统消耗</strong>，甚至导致系统僵死一会儿。而且查询缓存对系统的额外消耗也不仅仅在写操作，读操作也不例外：</p>
+<ul>
+<li>任何的查询语句在开始之前都必须经过检查，即使这条SQL语句永远不会命中缓存</li>
+<li>如果查询结果可以被缓存，那么执行完成后，会将结果存入缓存，也会带来额外的系统消耗</li>
+</ul>
+<p>基于此，我们要知道并不是什么情况下查询缓存都会提高系统性能，缓存和失效都会带来额外消耗，只有当缓存带来的资源节约大于其本身消耗的资源时，才会给系统带来性能提升。但要如何评估打开缓存是否能够带来性能提升是一件非常困难的事情，也不在本文讨论的范畴内。<strong>如果系统确实存在一些性能问题，可以尝试打开查询缓存，并在数据库设计上做一些优化</strong>，比如：</p>
+<ul>
+<li><strong>用多个小表代替一个大表</strong>，注意不要过度设计（范式）</li>
+<li><strong>批量插入代替循环单条插入</strong>-减少缓存失效带来的系统消耗</li>
+<li><strong>合理控制缓存空间大小</strong>，一般来说其大小设置为几十兆比较合适</li>
+<li><strong>可以通过<code>SQL_CACHE</code>和<code>SQL_NO_CACHE</code>来控制某个查询语句是否需要进行缓存</strong></li>
+</ul>
+<p><strong>最后的忠告是不要轻易打开查询缓存</strong>，特别是写密集型应用。如果你实在是忍不住，可以将<code>query_cache_type</code>设置为DEMAND，这时只有加入<code>SQL_CACHE</code>的查询才会走缓存，其他查询则不会，这样可以非常自由地控制哪些查询需要被缓存。</p>
+<p>当然查询缓存系统本身是非常复杂的，这里讨论的也只是很小的一部分，其他更深入的话题，比如：缓存是如何使用内存的？如何控制内存的碎片化？事务对查询缓存有何影响等等，读者可以自行阅读相关资料，这里权当抛砖引玉吧。</p>
+<h3 id="语法解析和预处理"><a href="#语法解析和预处理" class="headerlink" title="语法解析和预处理"></a><strong>语法解析和预处理</strong></h3><p>MySQL通过关键字将SQL语句进行解析，并生成一颗对应的解析树（看第二幅图去）。这个过程解析器主要通过语法规则来验证和解析。比如SQL中是否使用了错误的关键字或者关键字的顺序是否正确等等。预处理则会根据MySQL规则进一步检查解析树是否合法。比如检查要查询的数据表和数据列是否存在等等。</p>
+<h3 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a><strong>查询优化</strong></h3><p>经过前面的步骤生成的语法树被认为是合法的了，并且由优化器将其转化成查询计划。多数情况下，一条查询可以有很多种执行方式，最后都返回相应的结果。优化器的作用就是找到这其中最好的执行计划。</p>
+<p>MySQL使用基于成本的优化器，它尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最小的一个。</p>
+<p>MySQL的查询优化器是一个非常复杂的部件，它使用了非常多的优化策略来生成一个最优的执行计划：</p>
+<ul>
+<li><strong>重新定义表的关联顺序</strong>（多张表关联查询时，并不一定按照SQL中指定的顺序进行，但有一些技巧可以指定关联顺序）</li>
+<li><strong>优化<code>MIN()</code>和<code>MAX()</code>函数</strong>（找某列的最小值，如果该列有索引，只需要查找B+Tree索引最左端，反之则可以找到最大值，具体原理见下文）</li>
+<li><strong>提前终止查询</strong>（比如：使用Limit时，查找到满足数量的结果集后会立即终止查询）</li>
+<li>优化排序（在老版本MySQL会使用两次传输排序，即先读取行指针和需要排序的字段在内存中对其排序，然后再根据排序结果去读取数据行，而新版本采用的是单次传输排序，也就是一次读取所有的数据行，然后根据给定的列排序。对于I/O密集型应用，效率会高很多）</li>
+</ul>
+<p>随着MySQL的不断发展，优化器使用的优化策略也在不断的进化，这里仅仅介绍几个非常常用且容易理解的优化策略，其他的优化策略，大家自行查阅吧。</p>
+<h3 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a><strong>查询执行引擎</strong></h3><p>在完成解析和优化阶段以后，MySQL会生成对应的<strong>执行计划</strong>，查询执行引擎根据执行计划给出的指令逐步执行得出结果。<strong>整个执行过程的大部分操作均是通过调用存储引擎实现的接口来完成</strong>，这些接口被称为handlerAPI。查询过程中的每一张表由一个handler实例表示。实际上，MySQL在查询优化阶段就为每一张表创建了一个handler实例，优化器可以根据这些实例的接口来获取表的相关信息，包括表的所有列名、索引统计信息等。存储引擎接口提供了非常丰富的功能，但其底层仅有几十个接口，这些接口像搭积木一样完成了一次查询的大部分操作</p>
+<h3 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a><strong>返回结果给客户端</strong></h3><p>查询执行的最后一个阶段就是将结果返回给客户端。即使查询不到数据，MySQL仍然会返回这个查询的相关信息，比如改查询影响到的行数以及执行时间等等。</p>
+<p>如果查询缓存被打开且这个查询可以被缓存，MySQL也会将结果存放到缓存中。</p>
+<p>结果集返回客户端是一个增量且逐步返回的过程。有可能MySQL在生成第一条结果时，就开始向客户端逐步返回结果集了。这样服务端就无须存储太多结果而消耗过多内存，也可以让客户端第一时间获得返回结果。需要注意的是，结果集中的每一行都会以一个满足①中所描述的通信协议的数据包发送，再通过TCP协议进行传输，在传输过程中，可能对MySQL的数据包进行缓存然后批量发送。</p>
+<p>回头总结一下MySQL整个查询执行过程，总的来说分为5个步骤：</p>
+<p>（看的头晕了不  这里大佬进行了总结–大致流程就是如下）</p>
+<ul>
+<li><strong>客户端向MySQL服务器发送一条查询请求</strong></li>
+<li><strong>服务器首先检查查询缓存，如果命中缓存，则立刻返回存储在缓存中的结果。否则进入下一阶段</strong></li>
+<li><strong>服务器进行SQL解析、预处理、再由优化器生成对应的执行计划</strong></li>
+<li><strong>MySQL根据执行计划，调用存储引擎的API来执行查询</strong></li>
+<li><strong>将结果返回给客户端，同时缓存查询结果</strong></li>
+</ul>
+<p>那么今天的介绍就到此结束了，总体来说就是围绕简单的三层结构，一步一步细化，最终抽象出一个sql操作的具体流程</p>
+<hr>
+<h3 id="这里总结一下大佬的优化策略："><a href="#这里总结一下大佬的优化策略：" class="headerlink" title="这里总结一下大佬的优化策略："></a>这里总结一下大佬的优化策略：</h3><p><strong>1.</strong>选择数据类型只要遵循小而简单的原则就好，越小的数据类型通常会更快。比如，整型就比字符操作代价低，因而会使用整型来存储ip地址，使用DATETIME来存储时间，而不是使用字符串。 </p>
+<p>这里总结几个可能容易理解错误的技巧：</p>
+<ul>
+<li>通常来说把可为<code>NULL</code>的列改为<code>NOT NULL</code>不会对性能提升有多少帮助，只是如果<strong>计划在列上创建索引，就应该将该列设置为NOT NULL。</strong></li>
+<li><strong>对整数类型指定宽度，比如<code>INT(11)</code>，没有任何卵用</strong>。INT使用16为存储空间，那么它的表示范围已经确定，所以<code>INT(1)</code>和<code>INT(20)</code>对于存储和计算是相同的。</li>
+<li><strong><code>UNSIGNED</code>表示不允许负值，大致可以使正数的上限提高一倍</strong>。（一般业务没有负数要求）比如<code>TINYINT</code>存储范围是通常来讲，没有太大的必要使用<code>DECIMAL</code>数据类型。即使是在需要存储财务数据时，仍然可以使用BIGINT。比如需要精确到万分之一，那么可以将数据乘以一百万然后使用<code>TIMESTAMP</code>使用4个字节存储空间，<code>DATETIME</code>使用8个字节存储空间。因而，<code>TIMESTAMP</code>只能表示1970 - 2038年，比<code>DATETIME</code>表示的范围小得多，而且<code>TIMESTAMP</code>的值因时区不同而不同。</li>
+<li>大多数情况下没有使用枚举类型的必要，其中一个缺点是枚举的字符串列表是固定的，添加和删除字符串（枚举选项）必须使用<code>ALTER TABLE</code>（如果只只是在列表末尾追加元素，不需要重建表）。</li>
+<li>schema的列不要太多。原因是存储引擎的API工作时需要在服务器层和存储引擎层之间通过行缓冲格式拷贝数据，然后在服务器层将缓冲内容解码成各个列，这个转换过程的代价是非常高的。如果列太多而实际使用的列又很少的话，有可能会导致CPU占用过高。</li>
+<li><strong>大表<code>ALTER TABLE</code>非常耗时</strong>，MySQL执行大部分修改表结果操作的方法是用新的结构创建一个张空表，从旧表中查出所有的数据插入新表，然后再删除旧表。尤其当内存不足而表又很大，而且还有很大索引的情况下，耗时更久。当然有一些奇淫技巧可以解决这个问题，有兴趣可自行查阅。</li>
+</ul>
+<p><strong>2.</strong>索引是提高MySQL查询性能的一个重要途径 </p>
+<ul>
+<li><p>如果列很长，通常可以索引开始的部分字符，这样可以有效节约索引空间，从而提高索引效率。 </p>
+</li>
+<li><p>在多数情况下，在多个列上建立独立的索引并不能提高查询性能 </p>
+</li>
+<li><p>建表时应该把选择性更高的字段放到索引的前面，这样通过第一个字段就可以过滤掉大多数不符合条件的数据。 </p>
+</li>
+<li><p>定期删除一些长时间未使用过的索引是一个非常好的习惯。 </p>
+</li>
+<li><p>对于索引值比较单一的不建议建立索引，如性别 —<strong>索引选择性</strong>：是指不重复的索引值和数据表的总记录数的比值，选择性越高查询效率越高，因为选择性越高的索引可以让MySQL在查询时过滤掉更多的行。<strong>唯一索引</strong>的选择性是1，这是最好的索引选择性，性能也是最好的。 </p>
+</li>
+<li><p>实际开发中，我们要避免经常使用多个范围条件查询，比如想查询某个时间段内登录过的用户：</p>
+<pre><code>select user.* from user where login_time &gt; &#39;2017-04-01&#39; and age between 18 and 30;
+</code></pre><p>这个查询有一个问题：它有两个范围条件，<code>login_time</code>列和<code>age</code>列，MySQL可以使用<code>login_time</code>列的索引或者age列的索引，但无法同时使用它们。</p>
+</li>
+</ul>
+<hr>
+<h3 id="特定类型查询优化"><a href="#特定类型查询优化" class="headerlink" title="特定类型查询优化"></a><strong>特定类型查询优化</strong></h3><h3 id="优化COUNT-查询"><a href="#优化COUNT-查询" class="headerlink" title="优化COUNT()查询"></a><strong>优化COUNT()查询</strong></h3><p><code>COUNT()</code>可能是被大家误解最多的函数了，它有两种不同的作用，<strong>其一是统计某个列值的总数量，其二是统计行数</strong>。<strong>统计列值时，要求列值是非空的，它不会统计NULL</strong>。如果确认括号中的表达式不可能为空时，实际上就是在统计行数。最简单的就是当使用<code>COUNT(*)</code>时，并不是我们所想象的那样扩展成所有的列，实际上，它会忽略所有的列而直接统计行数。</p>
+<p>我们最常见的误解也就在这儿，<strong>在括号内指定了一列却希望统计结果是行数</strong>（容我笑笑 我长犯），而且还常常误以为前者的性能会更好。但实际并非这样，如果要统计行数，直接使用<code>COUNT(*)</code>，意义清晰，且性能更好。</p>
+<p>有时候某些业务场景并不需要完全精确的<code>COUNT</code>值，可以用近似值来代替，<code>EXPLAIN</code>出来的行数就是一个不错的近似值，而且执行<code>EXPLAIN</code>并不需要真正地去执行查询，所以成本非常低。<strong>通常来说，执行<code>COUNT()</code>都需要扫描大量的行才能获取到精确的数据，因此很难优化</strong>，MySQL层面还能做得也就只有覆盖索引了。如果不还能解决问题，只有从架构层面解决了，比如添加汇总表，或者使用redis这样的外部缓存系统。</p>
+<h3 id="优化关联查询"><a href="#优化关联查询" class="headerlink" title="优化关联查询"></a><strong>优化关联查询</strong></h3><p>在大数据场景下，表与表之间通过一个冗余字段来关联，要比直接使用JOIN有更好的性能。如果确实需要使用关联查询的情况下，需要特别注意的是：</p>
+<ul>
+<li><strong>确保ON和USING字句中的列上有索引。在创建索引的时候就要考虑到关联的顺序</strong>。当表A和表B用列c关联的时候，如果优化器关联的顺序是A、B，那么就不需要在A表的对应列上创建索引。没有用到的索引会带来额外的负担，<strong>一般来说，除非有其他理由，只需要在关联顺序中的第二张表的相应列上创建索引</strong></li>
+<li>确保任何的<code>GROUP BY</code>和<code>ORDER BY</code>中的表达式<strong>只涉及到一个表中的列</strong>，这样MySQL才有可能使用索引来优化。</li>
+</ul>
+<h3 id="优化LIMIT分页（此处）"><a href="#优化LIMIT分页（此处）" class="headerlink" title="优化LIMIT分页（此处）"></a><strong>优化LIMIT分页</strong>（此处）</h3><p>当需要分页操作时，通常会使用LIMIT加上偏移量的办法实现，同时加上合适的<code>ORDER BY</code>字句。如果有对应的索引，通常效率会不错，否则，MySQL需要做大量的文件排序操作。</p>
+<p>一个常见的问题是当偏移量非常大的时候，比如：<code>LIMIT 10000 20</code>这样的查询，MySQL需要查询10020条记录然后只返回20条记录，前面的10000条都将被抛弃，这样的代价非常高。</p>
+<p>优化这种查询一个最简单的办法就是尽可能的使用覆盖索引扫描，而不是查询所有的列。然后根据需要做一次关联查询再返回所有的列。对于偏移量很大时，这样做的效率会提升非常大。考虑下面的查询：</p>
+<pre><code>SELECT film_id,description FROM film ORDER BY title LIMIT 50,5;
+</code></pre><p>如果这张表非常大，那么这个查询最好改成下面的样子：</p>
+<pre><code>SELECT film.film_id,film.description
+FROM film INNER JOIN (
+    SELECT film_id FROM film ORDER BY title LIMIT 50,5
+) AS tmp USING(film_id);
+</code></pre><p>这里的延迟关联将大大提升查询效率，让MySQL扫描尽可能少的页面，获取需要访问的记录后在根据关联列回原表查询所需要的列。</p>
+<p>有时候如果可以使用书签记录上次取数据的位置，那么下次就可以直接从该书签记录的位置开始扫描，这样就可以避免使用<code>OFFSET</code>，比如下面的查询：</p>
+<pre><code>SELECT id FROM t LIMIT 10000, 10;
+</code></pre><p>改为：</p>
+<pre><code>SELECT id FROM t WHERE id &gt; 10000 LIMIT 10;
+</code></pre><p>其他优化的办法还包括使用预先计算的汇总表，或者关联到一个冗余表，冗余表中只包含主键列和需要做排序的列。</p>
+<p>（看到头晕  —-〒▽〒）</p>
+<h3 id="优化UNION"><a href="#优化UNION" class="headerlink" title="优化UNION"></a><strong>优化UNION</strong></h3><p>MySQL处理<code>UNION</code>的策略是先创建临时表，然后再把各个查询结果插入到临时表中，最后再来做查询。因此很多优化策略在<code>UNION</code>查询中都没有办法很好的时候。经常需要手动将<code>WHERE、LIMIT、ORDER BY</code>等字句“下推”到各个子查询中，以便优化器可以充分利用这些条件先优化。</p>
+<p>除非确实需要服务器去重，否则就一定要使用<code>UNION ALL</code>，如果没有ALL关键字，MySQL会给临时表加上<code>DISTINCT</code>选项，这会导致整个临时表的数据做唯一性检查，这样做的代价非常高。当然即使使用<code>ALL</code>关键字，MySQL总是将结果放入临时表，然后再读出，再返回给客户端。虽然很多时候没有这个必要，比如有时候可以直接把每个子查询的结果返回给客户端。</p>
+<hr>
+<p>最近在看MySQL这一块，也就稍微总结一下，第一次写博客，很多是引用。回顾一下发现逻辑还是有点乱的。希望各位看官们别嫌弃 。有兴趣的可以看看后面的大佬链接</p>
+<p>附上大佬链接：</p>
+<p><strong>不知怎么优化MySQL？先搞懂原理再说吧！</strong></p>
+<p><a href="https://mp.weixin.qq.com/s/NPeJPesMb6KbFjbWji5xdw?client=tim&amp;ADUIN=793141126&amp;ADSESSION=1558617316&amp;ADTAG=CLIENT.QQ.5603_.0&amp;ADPUBNO=26882" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/NPeJPesMb6KbFjbWji5xdw?client=tim&amp;ADUIN=793141126&amp;ADSESSION=1558617316&amp;ADTAG=CLIENT.QQ.5603_.0&amp;ADPUBNO=26882</a> </p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2018/10/17/hello-world/" title="Hello hexo测试文章">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MySqL数据库结构介绍"><span class="post-toc-text">MySqL数据库结构介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL-DBMS数据库管理系统"><span class="post-toc-text">MySQL_DBMS数据库管理系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL结构图及说明"><span class="post-toc-text">MySQL结构图及说明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#客户端-服务端通信协议"><span class="post-toc-text">客户端/服务端通信协议</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查询缓存"><span class="post-toc-text">查询缓存</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#语法解析和预处理"><span class="post-toc-text">语法解析和预处理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查询优化"><span class="post-toc-text">查询优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查询执行引擎"><span class="post-toc-text">查询执行引擎</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#返回结果给客户端"><span class="post-toc-text">返回结果给客户端</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#这里总结一下大佬的优化策略："><span class="post-toc-text">这里总结一下大佬的优化策略：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特定类型查询优化"><span class="post-toc-text">特定类型查询优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优化COUNT-查询"><span class="post-toc-text">优化COUNT()查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优化关联查询"><span class="post-toc-text">优化关联查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优化LIMIT分页（此处）"><span class="post-toc-text">优化LIMIT分页（此处）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优化UNION"><span class="post-toc-text">优化UNION</span></a></li></ol></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
