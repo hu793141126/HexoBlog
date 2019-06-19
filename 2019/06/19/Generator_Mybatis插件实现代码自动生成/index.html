@@ -1,0 +1,463 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Generator_Mybatis插件实现代码自动生成</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Generator_Mybatis插件实现代码自动生成》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		6/20/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/06/19/Generator_Mybatis插件实现代码自动生成/" itemprop="url">		
+			Generator_Mybatis插件实现代码自动生成		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/06/19/Generator_Mybatis插件实现代码自动生成/" itemprop="url">
+	<time datetime="2019-06-19T15:54:34.321Z" itemprop="datePublished">
+  		2019-06-19
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#java工具" title="java工具" rel="1">java工具</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="Generator-Mybatis插件实现代码自动生成"><a href="#Generator-Mybatis插件实现代码自动生成" class="headerlink" title="Generator_Mybatis插件实现代码自动生成"></a>Generator_Mybatis插件实现代码自动生成</h1><p>在代码编写的过程中，很多实体对象和数据库的表是一一对应的，Generator插件可将数据库的表一一映射成Java的实体类，同时可生成Mybatis对应的持久层接口和Xml文件。</p>
+<p>以下介绍通过Maven集成该Generator插件的使用</p>
+<h3 id="1-首先在Pom-xml中声明Generator插件"><a href="#1-首先在Pom-xml中声明Generator插件" class="headerlink" title="1.首先在Pom.xml中声明Generator插件"></a>1.首先在Pom.xml中声明Generator插件</h3><pre><code class="xml">&lt;!--genarator 自动生成代码 打包时需要注释--&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+                &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.3.5&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;!--Generator配置文件路径--&gt;
+                    &lt;configurationFile&gt;src/test/resources/generatorConfig.xml&lt;/configurationFile&gt;
+                    &lt;verbose&gt;true&lt;/verbose&gt;
+                    &lt;overwrite&gt;true&lt;/overwrite&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;generate&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;dependencies&gt;
+                    &lt;!--插件依赖--&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+                        &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;
+                        &lt;version&gt;1.3.5&lt;/version&gt;
+                    &lt;/dependency&gt;
+                &lt;/dependencies&gt;
+            &lt;/plugin&gt;
+</code></pre>
+<p>配置好自己的Generator配置文件路径和名称    —–（若插件加载失败 可试试将maven换成国内的镜像）</p>
+<h3 id="2添加配置文件-并修改"><a href="#2添加配置文件-并修改" class="headerlink" title="2添加配置文件 并修改"></a>2添加配置文件 并修改</h3><p>（1）实体类，</p>
+<p>（2）dao层mapper接口，</p>
+<p>（3）mapper对应的xml文件的存放路径</p>
+<p>这三个的文件存放位置</p>
+<p>（4）MySQL的驱动包位置</p>
+<p>（5）MySQL的JDBC连接信息</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE generatorConfiguration
+        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;
+&lt;generatorConfiguration&gt;
+    &lt;!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包--&gt;
+    &lt;classPathEntry  location=&quot;E:\javahome\repository\mysql\mysql-connector-java\5.1.21\mysql-connector-java-5.1.21.jar&quot;/&gt;
+    &lt;context id=&quot;DB2Tables&quot;  targetRuntime=&quot;MyBatis3&quot;&gt;
+        &lt;commentGenerator&gt;
+            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;
+            &lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&gt;
+            &lt;property name=&quot;suppressAllComments&quot; value=&quot;true&quot;/&gt;
+        &lt;/commentGenerator&gt;
+        &lt;!--数据库链接URL，用户名、密码 --&gt;
+        &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot; connectionURL=&quot;jdbc:mysql://ip:port/数据库名&quot; userId=&quot;账号&quot; password=&quot;密码.&quot;&gt;
+        &lt;/jdbcConnection&gt;
+        &lt;javaTypeResolver&gt;
+            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;
+        &lt;/javaTypeResolver&gt;
+        &lt;!-- 生成模型的包名和位置--&gt;
+        &lt;javaModelGenerator targetPackage=&quot;com.huyanhua.mibook.bean&quot; targetProject=&quot;src/main/java&quot;&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;
+            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;
+        &lt;/javaModelGenerator&gt;
+        &lt;!-- 生成映射文件的包名和位置--&gt;
+        &lt;sqlMapGenerator targetPackage=&quot;mapper&quot; targetProject=&quot;src/main/resources&quot;&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;
+        &lt;/sqlMapGenerator&gt;
+        &lt;!-- 生成DAO的包名和位置--&gt;
+        &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;com.huyanhua.mibook.dao&quot; targetProject=&quot;src/main/java&quot;&gt;
+            &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot;/&gt;
+        &lt;/javaClientGenerator&gt;
+        &lt;!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名--&gt;
+        &lt;table tableName=&quot;booknote&quot; domainObjectName=&quot;Booknote&quot; enableCountByExample=&quot;false&quot; enableUpdateByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot; selectByExampleQueryId=&quot;false&quot;&gt;&lt;/table&gt;
+    &lt;/context&gt;
+&lt;/generatorConfiguration&gt;
+</code></pre>
+<h3 id="3-修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。"><a href="#3-修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。" class="headerlink" title="3.修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。"></a>3.修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。</h3><p><img src="http://blog.mibook.top/generator.png" alt="generator"></p>
+<h3 id="4-配置完成"><a href="#4-配置完成" class="headerlink" title="4.配置完成"></a>4.配置完成</h3>
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/06/17/java线程池ThreadPoolExecutor类使用详解/" title="java线程池ThreadPoolExecutor类使用详解">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Generator-Mybatis插件实现代码自动生成"><span class="post-toc-text">Generator_Mybatis插件实现代码自动生成</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-首先在Pom-xml中声明Generator插件"><span class="post-toc-text">1.首先在Pom.xml中声明Generator插件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2添加配置文件-并修改"><span class="post-toc-text">2添加配置文件 并修改</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。"><span class="post-toc-text">3.修改配置文件的table属性，每修改一张表运行一次插件完成一次代码对象的自动生成。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-配置完成"><span class="post-toc-text">4.配置完成</span></a></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
