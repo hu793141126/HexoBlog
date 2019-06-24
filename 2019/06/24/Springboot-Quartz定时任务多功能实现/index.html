@@ -1,0 +1,793 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Springboot-Quartz实现任务定时多功能化</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Springboot-Quartz实现任务定时多功能化》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		6/24/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" itemprop="url">		
+			Springboot-Quartz实现任务定时多功能化		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" itemprop="url">
+	<time datetime="2019-06-24T14:47:51.022Z" itemprop="datePublished">
+  		2019-06-24
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="2">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="Springboot-Quartz实现任务定时多功能化"><a href="#Springboot-Quartz实现任务定时多功能化" class="headerlink" title="Springboot-Quartz实现任务定时多功能化"></a>Springboot-Quartz实现任务定时多功能化</h1><p>1.前面我们介绍了简单的定时任务Spring—task实现简单的任务定时，此定时任务一般不可暂停，并且此任务定时是单线程执行，容易产生相关bug,此处，我们就来学习更高一点的定时框架Quartz.</p>
+<h5 id="2-Quartz常用来做定时任务"><a href="#2-Quartz常用来做定时任务" class="headerlink" title="2,Quartz常用来做定时任务"></a>2,Quartz常用来做定时任务</h5><p>它不仅能实现简单的定时任务，同时提供定时任务暂停，定时任务恢复，定时任务开始，定时任务移除等相关任务操作</p>
+<h5 id="3首先导入Quartz的jar包"><a href="#3首先导入Quartz的jar包" class="headerlink" title="3首先导入Quartz的jar包"></a>3首先导入Quartz的jar包</h5><pre><code class="xml">   &lt;!-- quartz --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre>
+<h5 id="4新建任务类实现具体的逻辑（需要实现job接口-重写Execute方法）"><a href="#4新建任务类实现具体的逻辑（需要实现job接口-重写Execute方法）" class="headerlink" title="4新建任务类实现具体的逻辑（需要实现job接口 重写Execute方法）"></a>4新建任务类实现具体的逻辑（需要实现job接口 重写Execute方法）</h5><pre><code class="java">public class QuartzJob1 implements Job {
+
+    @Override
+    public void execute(JobExecutionContext arg0) throws JobExecutionException {
+        System.out.println(&quot;[卖包子的]&quot;);
+    }
+}
+</code></pre>
+<h5 id="5配置一个简单的配置类"><a href="#5配置一个简单的配置类" class="headerlink" title="5配置一个简单的配置类"></a>5配置一个简单的配置类</h5><p>（根据具体业务需求 此处可配置到其他地方）</p>
+<p>  (配置计划者 Scheduler)</p>
+<pre><code class="java">/**
+ * spring容器加载完毕后事件，启动任务调用
+ */
+@Configuration
+public class ApplicationQuartzListener implements ApplicationListener&lt;ContextRefreshedEvent&gt; {
+
+    @Autowired
+    private QuartzJobManage quartzJobManage;
+
+    /**
+     * 初始启动quartz
+     */
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        try {
+            quartzJobManage.startJob();
+            System.out.println(&quot;StartQuartzJobListener 任务已经启动...&quot;);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 初始注入scheduler
+     *
+     * @return
+     * @throws SchedulerException
+     */
+    @Bean
+    public Scheduler scheduler() throws SchedulerException {
+        SchedulerFactory schedulerFactoryBean = new StdSchedulerFactory();
+        return schedulerFactoryBean.getScheduler();
+    }
+
+}
+</code></pre>
+<h5 id="6-实现具体的quartz任务调度"><a href="#6-实现具体的quartz任务调度" class="headerlink" title="6 实现具体的quartz任务调度"></a>6 实现具体的quartz任务调度</h5><pre><code class="java">/**
+ * 任务调度处理
+ */
+@Configuration
+public class QuartzJobManage {
+
+    // 注入配置类中的Scheduler
+    @Autowired
+    private Scheduler scheduler;
+
+    /**
+     * 开始执行所有任务
+     *
+     * @throws SchedulerException
+     */
+    public void startJob() throws SchedulerException {
+        startJob1(scheduler);
+        scheduler.start();
+    }
+
+    /**
+     * 获取Job信息
+     *
+     * @param name
+     * @param group
+     * @return
+     * @throws SchedulerException
+     */
+    public String getJobInfo(String name, String group) throws SchedulerException {
+        TriggerKey triggerKey = new TriggerKey(name, group);
+        CronTrigger cronTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+        return String.format(&quot;time:%s,state:%s&quot;, cronTrigger.getCronExpression(),
+                scheduler.getTriggerState(triggerKey).name());
+    }
+
+    /**
+     * 修改某个任务的执行时间
+     *
+     * @param name
+     * @param group
+     * @param time
+     * @return
+     * @throws SchedulerException
+     */
+    public boolean modifyJob(String name, String group, String time) throws SchedulerException {
+        Date date = null;
+        TriggerKey triggerKey = new TriggerKey(name, group);
+        CronTrigger cronTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+        String oldTime = cronTrigger.getCronExpression();
+        if (!oldTime.equalsIgnoreCase(time)) {
+            CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(time);
+            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(name, group)
+                    .withSchedule(cronScheduleBuilder).build();
+            date = scheduler.rescheduleJob(triggerKey, trigger);
+        }
+        return date != null;
+    }
+
+    /**
+     * 暂停所有任务
+     *
+     * @throws SchedulerException
+     */
+    public void pauseAllJob() throws SchedulerException {
+        scheduler.pauseAll();
+    }
+
+    /**
+     * 暂停某个任务
+     *
+     * @param name
+     * @param group
+     * @throws SchedulerException
+     */
+    public void pauseJob(String name, String group) throws SchedulerException {
+        JobKey jobKey = new JobKey(name, group);
+        JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+        if (jobDetail == null)
+            return;
+        scheduler.pauseJob(jobKey);
+    }
+
+    /**
+     * 恢复所有任务
+     *
+     * @throws SchedulerException
+     */
+    public void resumeAllJob() throws SchedulerException {
+        scheduler.resumeAll();
+    }
+
+    /**
+     * 恢复某个任务
+     *
+     * @param name
+     * @param group
+     * @throws SchedulerException
+     */
+    public void resumeJob(String name, String group) throws SchedulerException {
+        JobKey jobKey = new JobKey(name, group);
+        JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+        if (jobDetail == null)
+            return;
+        scheduler.resumeJob(jobKey);
+    }
+
+    /**
+     * 删除某个任务
+     *
+     * @param name
+     * @param group
+     * @throws SchedulerException
+     */
+    public void deleteJob(String name, String group) throws SchedulerException {
+        JobKey jobKey = new JobKey(name, group);
+        JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+        if (jobDetail == null)
+            return;
+        scheduler.deleteJob(jobKey);
+    }
+
+    private void startJob1(Scheduler scheduler) throws SchedulerException {
+        // 通过JobBuilder构建JobDetail实例，JobDetail规定只能是实现Job接口的实例
+        // JobDetail 是具体Job实例
+        JobDetail jobDetail = JobBuilder.newJob(QuartzJob1.class).withIdentity(&quot;job1&quot;, &quot;group1&quot;).build();
+        // 基于表达式构建触发器
+        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(&quot;0/5 * * * * ?&quot;);
+        // CronTrigger表达式触发器 继承于Trigger
+        // TriggerBuilder 用于构建触发器实例
+        CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity(&quot;job1&quot;, &quot;group1&quot;)
+                .withSchedule(cronScheduleBuilder).build();
+        scheduler.scheduleJob(jobDetail, cronTrigger);
+    }
+}
+</code></pre>
+<h5 id="7-可实现具体的控制器控制任务"><a href="#7-可实现具体的控制器控制任务" class="headerlink" title="7 可实现具体的控制器控制任务"></a>7 可实现具体的控制器控制任务</h5><pre><code class="java">
+@RestController
+@RequestMapping(&quot;/quartz&quot;)
+public class QuartzJobController {
+
+    @Autowired
+    private QuartzJobManage quartzJobManage;
+
+    /**
+     * 开始执行所有任务
+     */
+    @RequestMapping(&quot;/start&quot;)
+    public void startQuartzJob() {
+        try {
+            quartzJobManage.startJob();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取Job信息
+     *
+     * @param name
+     * @param group
+     * @return
+     */
+    @RequestMapping(&quot;/info&quot;)
+    public String getQuartzJob(String name, String group) {
+        String info = null;
+        try {
+            info = quartzJobManage.getJobInfo(name, group);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+
+    /**
+     * 修改某个任务的执行时间
+     *
+     * @param name
+     * @param group
+     * @param time
+     * @return
+     */
+    @RequestMapping(&quot;/modify&quot;)
+    public boolean modifyQuartzJob(String name, String group, String time) {
+        boolean flag = true;
+        try {
+            flag = quartzJobManage.modifyJob(name, group, time);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 暂停某个任务
+     *
+     * @param name
+     * @param group
+     */
+    @RequestMapping(value = &quot;/pause&quot;)
+    public void pauseQuartzJob(String name, String group) {
+        try {
+            quartzJobManage.pauseJob(name, group);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 恢复某个任务
+     *
+     * @param name
+     * @param group
+     */
+    @RequestMapping(value = &quot;/resumeJob&quot;)
+    public void resumeJob(String name, String group) {
+        try {
+            quartzJobManage.resumeJob(name, group);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 暂停所有任务
+     */
+    @RequestMapping(value = &quot;/pauseAll&quot;)
+    public void pauseAllQuartzJob() {
+        try {
+            quartzJobManage.pauseAllJob();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 恢复所有任务
+     */
+    @RequestMapping(value = &quot;/resumeAllJob&quot;)
+    public void resumeJob() {
+        try {
+            quartzJobManage.resumeAllJob();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除某个任务
+     *
+     * @param name
+     * @param group
+     */
+    @RequestMapping(value = &quot;/delete&quot;)
+    public void deleteJob(String name, String group) {
+        try {
+            quartzJobManage.deleteJob(name, group);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+</code></pre>
+<p>8 需要注意的地方：</p>
+<p>（1）、springboot使用@EnableScheduling注解打开定时任务功能后，默认创建一个固定线程数为1的线程池给定时任务框架调用执行定时任务。</p>
+<p>当多个任务同时执行时，会导致多个任务竞争执行线程，当上一个任务执行完毕后，线程才会被释放出来用于其他任务的执行。导致定时任务延时执行。</p>
+<p>因此需要创建一个多线程数量的线程池供定时任务使用。</p>
+<p>（2）Quartz是一个非常强大的任务定时框架，</p>
+<h3 id="三个核心概念："><a href="#三个核心概念：" class="headerlink" title="三个核心概念："></a>三个核心概念：</h3><p><strong>Scheduler</strong>：调度器。所有的调度都是由它控制。</p>
+<p><strong>Trigger：</strong> 定义触发的条件。</p>
+<p> <strong>Job &amp; JobDetail</strong>： JobDetail 定义的是任务数据，而真正的执行逻辑是在Job中，为什么设计成 JobDetail + Job，不直接使用Job？这是因为任务是有可能并发执行，如果Scheduler直接使用Job，就会存在对同一个Job实例并发访问的问题。而JobDetail &amp; Job 方式，sheduler每次执行，都会根据JobDetail创建一个新的Job实例，这样就可以规避并发访问的问题。</p>
+<p>　　<strong>核心关系图</strong></p>
+<p><img src="http://blog.mibook.top/springboot-quartz1.png" alt="img"></p>
+<h3 id="Quartz体系结构"><a href="#Quartz体系结构" class="headerlink" title="Quartz体系结构"></a>Quartz体系结构</h3><p><img src="http://blog.mibook.top/springboot-quartz2.png" alt="img"></p>
+<h3 id="重要组成部分"><a href="#重要组成部分" class="headerlink" title="重要组成部分"></a>重要组成部分</h3><p><strong>Job</strong></p>
+<p>Job实例在Quartz中的生命周期</p>
+<p>每次调度器执行Job时，它在调用execute方法前会创建一个新的Job实例</p>
+<p>当调用完成后，关联的Job对象实例会被释放，释放实例会被垃圾回收机制回收。</p>
+<p><strong>JobBuild</strong></p>
+<p><strong>JonDetail</strong></p>
+<p>JobDetail为Job实例提供了许多设置属性，以及JobDataMap成员变量属性，它用来存储特定Job实例信息，可以理解为Job携带的内容。调度器需要借助JobDetail对象来添加Job实例</p>
+<p>JobDetail和Trigger都有<strong>name</strong>和<strong>group</strong>。</p>
+<p><strong>name</strong>是它们在这个sheduler里面的唯一标识。如果我们要更新一个JobDetail定义，只需要设置一个name相同的JobDetail实例即可。</p>
+<p><strong>group</strong>是一个组织单元，sheduler会提供一些对整组操作的API，比如 scheduler.resumeJobs()。</p>
+<p><strong>JobExecutionContext</strong></p>
+<p>当Scheduler调用一个Job，就会将JobExecutionContext传递给Job的execute（）方法</p>
+<p>Job能通过JobExecutionContext对象访问到Quartz运行时候的环境以及Job本身的明细数据</p>
+<p><strong>JobDataMap</strong></p>
+<p>在进行任务调度时JobDataMap存储，在JobExecutionContext中，非常方便获取</p>
+<p>JobDataMap可以用来装载任何可序列化的数据对象，当Job实例对象被执行时这些参数对象会传递给他</p>
+<p>JobDataMap实现了JDK的Map接口，并且添加了一些非常方便的方法用来存取基本的数据类型</p>
+<p><strong>获取JobDataMap的两种方式</strong></p>
+<p>从Map中直接获取</p>
+<p>Job实现类中添加Setter方法对应JobDataMap的键值（Quartz框架默认的JobFactory实现类在初始化Job实例对象时就会自动调用这些setter方法<em>）</em></p>
+<p><strong>Trigger</strong></p>
+<p><strong>startTime</strong>和<strong>endTime</strong>指定的Trigger会被触发的时间区间。在这个区间之外，Trigger是不会被触发的。</p>
+<p><strong>Trigger的实现类</strong></p>
+<p><img src="http://blog.mibook.top/springboot-quartz3.png" alt="img"></p>
+<p><strong>SimpleTrigger</strong></p>
+<p>指定从某一个时间开始，以一定的时间间隔（单位是毫秒）执行的任务。</p>
+<p>它适合的任务类似于：9:00 开始，每隔1小时，执行一次。</p>
+<p>它的属性有：</p>
+<p><strong>repeatInterval</strong> 重复间隔</p>
+<p><strong>repeatCount</strong> 重复次数。实际执行次数是 repeatCount+1。因为在startTime的时候一定会执行一次。</p>
+<p><strong>CronTrigger</strong></p>
+<p>适合于更复杂的任务，它支持类型于Linux Cron的语法（并且更强大）。基本上它覆盖了以上三个Trigger的绝大部分能力（但不是全部）—— 当然，也更难理解。</p>
+<p>它适合的任务类似于：每天0:00,9:00,18:00各执行一次。</p>
+<p>它的属性只有:</p>
+<ul>
+<li><ul>
+<li>Cron表达式。虽然有在线生成器，但是还是介绍一下</li>
+</ul>
+</li>
+</ul>
+<p><strong><img src="http://blog.mibook.top/springboot-quartz4.png" alt="img"></strong></p>
+<p>星号(<em>)：可用在所有字段中，表示对应时间域的每一个时刻，例如，</em> 在分钟字段时，表示“每分钟”；</p>
+<p>问号（?）：该字符只在日期和星期字段中使用，它通常指定为“无意义的值”，相当于点位符；</p>
+<p>减号(-)：表达一个范围，如在小时字段中使用“10-12”，则表示从10到12点，即10,11,12；</p>
+<p>逗号(,)：表达一个列表值，如在星期字段中使用“MON,WED,FRI”，则表示星期一，星期三和星期五；</p>
+<p>斜杠(/)：x/y表达一个等步长序列，x为起始值，y为增量步长值。如在分钟字段中使用0/15，则表示为0,15,30和45秒，而5/15在分钟字段中表示5,20,35,50，你也可以使用*/y，它等同于0/y；</p>
+<p>L：该字符只在日期和星期字段中使用，代表“Last”的意思，但它在两个字段中意思不同。L在日期字段中，表示这个月份的最后一天，如一月的31号，非闰年二月的28号；如果L用在星期中，则表示星期六，等同于7。但是，如果L出现在星期字段里，而且在前面有一个数值X，则表示“这个月的最后X天”，例如，6L表示该月的最后星期五；</p>
+<p>W：该字符只能出现在日期字段里，是对前导日期的修饰，表示离该日期最近的工作日。例如15W表示离该月15号最近的工作日，如果该月15号是星期六，则匹配14号星期五；如果15日是星期日，则匹配16号星期一；如果15号是星期二，那结果就是15号星期二。但必须注意关联的匹配日期不能够跨月，如你指定1W，如果1号是星期六，结果匹配的是3号星期一，而非上个月最后的那天。W字符串只能指定单一日期，而不能指定日期范围；</p>
+<p>LW组合：在日期字段可以组合使用LW，它的意思是当月的最后一个工作日；</p>
+<p>井号(#)：该字符只能在星期字段中使用，表示当月某个工作日。如6#3表示当月的第三个星期五(6表示星期五，#3表示当前的第三个)，而4#5表示当月的第五个星期三，假设当月没有第五个星期三，忽略不触发；</p>
+<p>C：该字符只在日期和星期字段中使用，代表“Calendar”的意思。它的意思是计划所关联的日期，如果日期没有被关联，则相当于日历中所有日期。例如5C在日期字段中就相当于日历5日以后的第一天。1C在星期字段中相当于星期日后的第一天。</p>
+<p><strong>JobStore</strong></p>
+<p> Quartz支持任务持久化，这可以让你在运行时增加任务或者对现存的任务进行修改，并为后续任务的执行持久化这些变更和增加的部分。中心概念是JobStore接口。默认的是RAMJobStore。</p>
+<p><img src="http://blog.mibook.top/springboot-quartz5.png" alt="img"></p>
+<p><strong>ThreadTool</strong></p>
+<p><strong>TriggerBuild</strong></p>
+<p><strong>Scheduler</strong></p>
+<p><strong>Calendar</strong></p>
+<p>Quartz体贴地为我们提供以下几种Calendar，注意，所有的Calendar既可以是排除，也可以是包含，取决于：</p>
+<p>HolidayCalendar。指定特定的日期，比如20140613。精度到天。</p>
+<p>DailyCalendar。指定每天的时间段（rangeStartingTime, rangeEndingTime)，格式是HH:MM[:SS[:mmm]]。也就是最大精度可以到毫秒。</p>
+<p>WeeklyCalendar。指定每星期的星期几，可选值比如为java.util.Calendar.SUNDAY。精度是天。</p>
+<p>MonthlyCalendar。指定每月的几号。可选值为1-31。精度是天</p>
+<p>AnnualCalendar。 指定每年的哪一天。使用方式如上例。精度是天。</p>
+<p>CronCalendar。指定Cron表达式。精度取决于Cron表达式，也就是最大精度可以到秒。</p>
+<p>一个Trigger可以和多个Calendar关联，以排除或包含某些时间点</p>
+<p><strong>监听器：</strong></p>
+<p>JobListener，TriggerListener，SchedulerListener</p>
+<h3 id="原生执行过程：（原生创建可设置相关属性）"><a href="#原生执行过程：（原生创建可设置相关属性）" class="headerlink" title="原生执行过程：（原生创建可设置相关属性）"></a>原生执行过程：（原生创建可设置相关属性）</h3><p>通过工厂创建一个Scheduler</p>
+<p>创建一个实现Job接口的实现类（就是要具体做的事情，可以具体调用自己写的service）</p>
+<p>定义一个Job，并绑定我们自己实现Job接口的实现类（例如通过JobBuilder的方式）</p>
+<p>创建Trigger，并设置相关参数，如启动时间等。</p>
+<p>将job和trigger绑定到scheduler对象上，并启动</p>
+<p>代码略（网上一百度都有的HelloQuartz，我就懒得写了）</p>
+<p>参考博客：</p>
+<p><a href="https://www.cnblogs.com/nullering/p/9755534.html" target="_blank" rel="noopener">https://www.cnblogs.com/nullering/p/9755534.html</a> </p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/06/24/Springboot-task定时任务/" title="Springboot-Task实现简单定时任务">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Springboot-Quartz实现任务定时多功能化"><span class="post-toc-text">Springboot-Quartz实现任务定时多功能化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-Quartz常用来做定时任务"><span class="post-toc-text">2,Quartz常用来做定时任务</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3首先导入Quartz的jar包"><span class="post-toc-text">3首先导入Quartz的jar包</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4新建任务类实现具体的逻辑（需要实现job接口-重写Execute方法）"><span class="post-toc-text">4新建任务类实现具体的逻辑（需要实现job接口 重写Execute方法）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5配置一个简单的配置类"><span class="post-toc-text">5配置一个简单的配置类</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#6-实现具体的quartz任务调度"><span class="post-toc-text">6 实现具体的quartz任务调度</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#7-可实现具体的控制器控制任务"><span class="post-toc-text">7 可实现具体的控制器控制任务</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三个核心概念："><span class="post-toc-text">三个核心概念：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Quartz体系结构"><span class="post-toc-text">Quartz体系结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重要组成部分"><span class="post-toc-text">重要组成部分</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#原生执行过程：（原生创建可设置相关属性）"><span class="post-toc-text">原生执行过程：（原生创建可设置相关属性）</span></a></li>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

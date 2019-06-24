@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>Hello hexo测试文章</title>
+	<title>Springboot-Task实现简单定时任务</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《Hello hexo测试文章》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Springboot-Task实现简单定时任务》</p>
 			
 		
 	
@@ -160,8 +160,8 @@
 					
 					
 	
-		<a href="/2018/10/17/hello-world/" itemprop="url">		
-			Hello hexo测试文章		
+		<a href="/2019/06/24/Springboot-task定时任务/" itemprop="url">		
+			Springboot-Task实现简单定时任务		
 		</a>
 	
 
@@ -170,9 +170,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2018/10/17/hello-world/" itemprop="url">
-	<time datetime="2018-10-17T04:04:47.000Z" itemprop="datePublished">
-  		2018-10-17
+						<a href="/2019/06/24/Springboot-task定时任务/" itemprop="url">
+	<time datetime="2019-06-24T14:10:33.389Z" itemprop="datePublished">
+  		2019-06-24
   </time>
 </a>    
 &nbsp;
@@ -182,7 +182,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#软件技术" title="软件技术" rel="1">软件技术</a>&nbsp;
+								<a href="#springboot" title="springboot" rel="2">springboot</a>&nbsp;
 													 											
 						
 					</span>
@@ -192,19 +192,89 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+						<h1 id="Springboot-Task实现简单定时任务"><a href="#Springboot-Task实现简单定时任务" class="headerlink" title="Springboot-Task实现简单定时任务"></a>Springboot-Task实现简单定时任务</h1><p>1.今天学习一下Spring下的一个定时组件，spring-task</p>
+<p>2.首先加载Spring包即可包含该组件，Pom就暂时省略了。</p>
+<p>3简单的Spring-task任务：</p>
+<h5 id="实现每秒输出一个时间。"><a href="#实现每秒输出一个时间。" class="headerlink" title="实现每秒输出一个时间。"></a>实现每秒输出一个时间。</h5><p>上代码：</p>
+<pre><code class="java">
+/**
+ * 定时任务在配置类上添加@EnableScheduling开启对定时任务的支持，
+ * 在相应的方法上添加@Scheduled声明需要执行的定时任务,Spring加载时会执行相应的定时任务
+ * @Component 定时任务配置类需交由Spring容器管理
+ */
+@Slf4j
+@Component
+@EnableScheduling
+public class ScheduledTask {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;HH:mm:ss&quot;);
+
+    /**
+     *     @Scheduled(fixedRate = 5000) ：上一次开始执行时间点之后5秒再执行
+     *     @Scheduled(fixedDelay = 5000) ：上一次执行完毕时间点之后5秒再执行
+     *     @Scheduled(initialDelay=1000, fixedRate=5000) ：第一次延迟1秒后执行，之后按fixedRate的规        *       则每5秒执行一次
+     *     @Scheduled(cron=” /5 “) ：通过cron表达式定义规则，什么是cro表达式，自行搜索引擎。
+     *     在线cron表达式生成器：http://cron.qqe2.com/
+     *     此处实现1秒输出一个时间
+     */
+
+    @Scheduled(fixedRate = 1000)
+    public void reportCurrentTime() {
+        log.info(&quot;当前时间是 {}&quot;, dateFormat.format(new Date()));
+    }
+
+
+}
+
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<p>4实际代码中，一般业务服务写在Service层，可定制一个service专门用来做某项定时任务</p>
+<p>代码如下(如业务需要可添加多个scheduled)</p>
+<pre><code class="java">
+@EnableScheduling
+@Service
+public class TestService2 {
+
+    private static final SimpleDateFormat format = new SimpleDateFormat(&quot;HH:mm:ss&quot;);
+
+    //初始延迟1秒，每隔2秒
+    @Scheduled(fixedRateString = &quot;2000&quot;,initialDelay = 1000)
+    public void testFixedRate(){
+        System.out.println(&quot;当前时间：&quot; +format.format(new Date()));
+    }
+
+}
+
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+<p>可在启动类（或者spring配置中）配置注解扫描</p>
+<pre><code class="java">@SpringBootApplication
+@ComponentScan(&quot;cn.hybin.task&quot;)
+public class SpringbootTaskApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootTaskApplication.class, args);
+    }
+
+}
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+<p>5相关效果如下图</p>
+<p><img src="http://blog.mibook.top/springtask_time.png" alt="效果图"></p>
+<p>6 Spring-task缺陷</p>
+<p>（顺便了解下-此处引用相关博主的内容，具体链接在文章尾.此处的任务池自行查看）</p>
+<p>默认的 ConcurrentTaskScheduler 计划执行器采用Executors.newSingleThreadScheduledExecutor() 实现单线程的执行器。因此，对同一个调度任务的执行总是同一个线程。如果任务的执行时间超过该任务的下一次执行时间，则会出现任务丢失，跳过该段时间的任务。上述问题有以下解决办法：</p>
+<p>采用异步的方式执行调度任务，配置 Spring 的 @EnableAsync，在执行定时任务的方法上标注 @Async配置任务执行池，线程池大小 n 的数量为 单个任务执行所需时间 / 任务执行的间隔时间。如下：</p>
+<pre><code class="java">//每30秒执行一次
+   @Async(&quot;taskExecutor&quot;)
+   @Scheduled(fixedRate = 1000 * 3)
+   public void reportCurrentTime(){
+       System.out.println (&quot;线程&quot; + Thread.currentThread().getName() + &quot;开始执行定时任务&quot;
+               + new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(new Date()));
+       long start = System.currentTimeMillis();
+       Future&lt;Boolean&gt; isOk1;
+       Future&lt;Boolean&gt; isOk2;
+  。 。。。。。。。。。省略。。。。。。。
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>参考博客</p>
+<p><a href="https://blog.csdn.net/FlyingSnails/article/details/90167434" target="_blank" rel="noopener">https://blog.csdn.net/FlyingSnails/article/details/90167434</a> </p>
 
 					
 				</div>
@@ -214,14 +284,14 @@
 		<ul class="am-pagination">
     
     	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2019/05/23/MySqL数据库优化----基础介绍/" title="MySqL数据库结构及优化介绍">
+   		<a class="pull-left" href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" title="Springboot-Quartz实现任务定时多功能化">
       		&laquo; 上一篇
 		</a>
 		</li>
 	
 	
 		<li class="am-pagination-next">
-		<a class="pull-right" href="/2018/10/17/程序员修炼之路/" title="程序员修炼之路">
+		<a class="pull-right" href="/2019/06/19/Generator_Mybatis插件实现代码自动生成/" title="Generator_Mybatis插件实现代码自动生成">
 			下一篇 &raquo;
 		</a>
 		</li>
@@ -261,7 +331,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Quick-Start"><span class="post-toc-text">Quick Start</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Springboot-Task实现简单定时任务"><span class="post-toc-text">Springboot-Task实现简单定时任务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#实现每秒输出一个时间。"><span class="post-toc-text">实现每秒输出一个时间。</span></a></li></ol></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
