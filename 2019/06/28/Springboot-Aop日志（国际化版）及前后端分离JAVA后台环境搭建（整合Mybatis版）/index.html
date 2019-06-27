@@ -1,0 +1,1312 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		6/28/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">		
+			Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">
+	<time datetime="2019-06-27T16:07:51.448Z" itemprop="datePublished">
+  		2019-06-28
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="3">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）"><a href="#Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）" class="headerlink" title="Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）"></a>Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）</h1><p>在项目开发中，常常要对日志进行一个输出保存，今天我们简单搭建一个基于SpringAop的日志环境。</p>
+<p>1.首先声明相关Pom,日志需要的包为Aop包，我常用Lombook,根据需求自行导入Mybatis,和数据库驱动。</p>
+<p>pom.xml</p>
+<pre><code class="xml">    &lt;dependencies&gt;
+        &lt;!-- Springboot-web插件 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- Springboot-aop插件 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- lombok插件 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- mybatis --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- mysql驱动 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.21&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--分页插件--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;
+            &lt;artifactId&gt;pagehelper-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.2.5&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--数据库连接池 alibaba--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.1.10&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--quartz任务调度框架--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--jsonobject 转json--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;
+            &lt;artifactId&gt;json-lib&lt;/artifactId&gt;
+            &lt;version&gt;2.4&lt;/version&gt;
+            &lt;classifier&gt;jdk15&lt;/classifier&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--测试部署插件--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--pdf生成插件--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.itextpdf.tool&lt;/groupId&gt;
+            &lt;artifactId&gt;xmlworker&lt;/artifactId&gt;
+            &lt;version&gt;5.5.9&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.itextpdf&lt;/groupId&gt;
+            &lt;artifactId&gt;itextpdf&lt;/artifactId&gt;
+            &lt;version&gt;5.5.10&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.itextpdf&lt;/groupId&gt;
+            &lt;artifactId&gt;itext-asian&lt;/artifactId&gt;
+            &lt;version&gt;5.2.0&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--Excel生成插件--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+            &lt;version&gt;3.14&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--ftp文件上传下载--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.camel&lt;/groupId&gt;
+            &lt;artifactId&gt;camel-ftp&lt;/artifactId&gt;
+            &lt;version&gt;2.13.2&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--Xml文件解析--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;dom4j&lt;/groupId&gt;
+            &lt;artifactId&gt;dom4j&lt;/artifactId&gt;
+            &lt;version&gt;1.6.1&lt;/version&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;xml-apis&lt;/groupId&gt;
+                    &lt;artifactId&gt;xml-apis&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--zip打包工具--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.ant&lt;/groupId&gt;
+            &lt;artifactId&gt;ant&lt;/artifactId&gt;
+            &lt;version&gt;1.9.4&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--file操作工具--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--bcprov-jdk1.5--&gt;
+        &lt;!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.bouncycastle&lt;/groupId&gt;
+            &lt;artifactId&gt;bcprov-jdk15on&lt;/artifactId&gt;
+            &lt;version&gt;1.60&lt;/version&gt;
+        &lt;/dependency&gt;
+
+
+        &lt;!--DNS--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;dnsjava&lt;/groupId&gt;
+            &lt;artifactId&gt;dnsjava&lt;/artifactId&gt;
+            &lt;version&gt;2.1.8&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!--其他包--&gt;
+        &lt;!--谷歌guava--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.google.guava&lt;/groupId&gt;
+            &lt;artifactId&gt;guava&lt;/artifactId&gt;
+            &lt;version&gt;18.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!--common--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-beanutils&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-beanutils&lt;/artifactId&gt;
+            &lt;version&gt;1.8.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+            &lt;version&gt;1.3.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-lang&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+            &lt;!--genarator 自动生成代码 打包时需要注释--&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+                &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.3.5&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;!--Generator配置文件路径--&gt;
+                    &lt;configurationFile&gt;src/test/resources/generatorConfig.xml&lt;/configurationFile&gt;
+                    &lt;verbose&gt;true&lt;/verbose&gt;
+                    &lt;overwrite&gt;true&lt;/overwrite&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;generate&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;dependencies&gt;
+                    &lt;!--插件依赖--&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+                        &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;
+                        &lt;version&gt;1.3.5&lt;/version&gt;
+                    &lt;/dependency&gt;
+                &lt;/dependencies&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+</code></pre>
+<h5 id="2-配置application-yml"><a href="#2-配置application-yml" class="headerlink" title="2.配置application.yml"></a>2.配置application.yml</h5><pre><code class="yml">#Tomcat服务配置
+server:
+  port: 8080
+#https安全配置
+#  ssl:
+#    key-store: classpath:ssl.jks
+#    enabled: true
+#    key-password: 123456
+#    key-store-type: JKS
+
+spring:
+
+  #时间戳格式设置 统一13位事件戳
+#  jackson:
+#      serialization:
+#          write-dates-as-timestamps: true
+  #国际化配置
+  messages:
+    basename: i18n/message
+  #数据库数据源配置
+  datasource:
+      name: studytext
+      url: jdbc:mysql://localhost:3306/studytext?userUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyIntlisBit=false
+      username: root
+      password: root
+      #使用数据库Druid连接池
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      #数据库连接池配置
+      druid:
+          #初始化大小
+          initial-size: 5
+          min-idle: 5
+          max-active: 20
+          #配置获取连接等待超时时间
+          max-wait: 2000
+          time-between-eviction-runs-millis: 60000
+          # 配置最小生存时间
+          min-evictable-idle-time-millis: 300000
+          validation-query: select 1 from dual
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          #打开pscache
+          pool-prepared-statements: true
+          max-pool-prepared-statement-per-connection-size: 20
+          #间隔多久检测，检测需关闭空闲连接，单位ms
+      dbcp2:
+          num-tests-per-eviction-run:
+
+      #Spring2.0之后用servlet,单个文件和总文件的大小
+#     servlet:
+#          multipart:
+#              enabled: true
+#              file-size-threshold: 0
+#              max-file-size: 1024MB
+#              max-request-size: 1024MB
+##mybatis节点配置 不在spring下注意
+mybatis:
+  mapper-locations: classpath:mapper/*.xml #mapper_xml文件的路径 必须对应
+  type-aliases-package: com.hyhua.valideta.bean #配置xml配置文件中引用的实体对象路径
+#  config-location: classpath:mybatis-config.xml #若有其他业务需求 也可单独配置Mybatis配置文件
+#PageHelper分页插件
+pagehelper:
+  params: count=countSql
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
+#项目其他公共属性键值对 相当于平常的property文件
+#通常可存放一些简单变量,路径配置等信息
+#名字自己取 不作限定
+#线程数
+threadnum: 128
+
+constant:
+  ak: -----
+  appid: -----
+  appsecret: -----
+
+
+</code></pre>
+<h4 id="3-整理国际化资源"><a href="#3-整理国际化资源" class="headerlink" title="3.整理国际化资源"></a>3.整理国际化资源</h4><p>在Resource目录下new一个Resource Bundle，添加国际化资源 zh_CN,en_US其他国际语言自行百度</p>
+<p><img src="http://blog.mibook.top/i18n.png" alt="i18n"></p>
+<p>在这里我就只用中文的了 （message_zh_CN.propertis文件）需要英文的自行添加修改</p>
+<p>在这里可以定义操作日志 即用户访问了你后台的哪些接口 做了什么操作</p>
+<h5 id="message-zh-CN-propertis："><a href="#message-zh-CN-propertis：" class="headerlink" title="message_zh_CN.propertis："></a>message_zh_CN.propertis：</h5><pre><code class="properties">#########操作声明--国际化声明##########
+insert.user=插入用户
+update.user=更新用户
+delete.user=删除用户
+select.user=查询用户
+#########实体类属性描述声明，用于操作日志描述-国际化声明##########
+User.id=用户ID
+User.username=用户名
+User.password=用户密码
+</code></pre>
+<h4 id="4-根据需求自行添加项目运行日志"><a href="#4-根据需求自行添加项目运行日志" class="headerlink" title="4.根据需求自行添加项目运行日志"></a>4.根据需求自行添加项目运行日志</h4><h3 id="我这里用的是Slf4j-在需要日志记录的地方声明-Slf4j即可用log-info-error，warn-来进行日志输出"><a href="#我这里用的是Slf4j-在需要日志记录的地方声明-Slf4j即可用log-info-error，warn-来进行日志输出" class="headerlink" title="我这里用的是Slf4j,在需要日志记录的地方声明@Slf4j即可用log.info(error，warn)来进行日志输出"></a>我这里用的是Slf4j,在需要日志记录的地方声明@Slf4j即可用log.info(error，warn)来进行日志输出</h3><p>在Resource目录下新建logback-spring.xml文件名不可以修改,可以参考网上其他教程修改，这里使用默认名，当然也可以整合Mybatis，下期在做这个的整合。这里暂时跳过</p>
+<h5 id="logback-spring-xm："><a href="#logback-spring-xm：" class="headerlink" title="logback-spring.xm："></a>logback-spring.xm：</h5><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration info=&quot;true&quot;&gt;
+    &lt;!--定义日志文件存储地址 切勿使用相对路径--&gt;
+    &lt;property name=&quot;LOG_HOME&quot; value=&quot;F://validetalog&quot;/&gt;
+    &lt;!--控制台输出控制--&gt;
+    &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;encoder class=&quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&quot;&gt;
+            &lt;!--格式化输出 %d时间  %thread线程名 %-5level:级别从左显示5个字符宽度 %msg 日志信息 %n 换行--&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %green([%thread]) %highlight(%-5level) %cyan(%logger[50]) - %msg%n
+            &lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;!--按照每天生产日志文件--&gt;
+    &lt;appender name=&quot;FILE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;!--日志文件--&gt;
+        &lt;file&gt;${LOG_HOME}/valideta.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;!--日志文件输出的文件名--&gt;
+            &lt;FileNamePattern&gt;${LOG_HOME}/valideta_%d{yyyyMMdd}.%i.log.zip&lt;/FileNamePattern&gt;
+            &lt;!--日志文件存放天数 之前的会删除--&gt;
+            &lt;MaxHistory&gt;60&lt;/MaxHistory&gt;
+            &lt;!--指定目录最大文件数  超过删除旧的--&gt;
+            &lt;totalSizeCap&gt;50GB&lt;/totalSizeCap&gt;
+            &lt;!--指定单个文件的大小 超过时会被分割或者压缩--&gt;
+            &lt;maxFileSize&gt;500MB&lt;/maxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;charset&gt;UTF-8&lt;/charset&gt;
+            &lt;!--格式化输出--&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %green([%thread]) %highlight(%-5level) %cyan(%logger[50]) - %msg%n
+            &lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;!--日志输出级别控制--&gt;
+    &lt;root level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;
+        &lt;appender-ref ref=&quot;FILE&quot;/&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h3 id="5-构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表"><a href="#5-构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表" class="headerlink" title="5.构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表"></a>5.构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表</h3><p>建表此处就忽略了 ，可以参考我的Bean文件来建表，然后用Generator生成bean ,mapper, xml。相关数据库连接自行解决，generater请参考我的另一篇博文</p>
+<h5 id="基础bean-BaseModel分页用-有其他公共属性也可以加"><a href="#基础bean-BaseModel分页用-有其他公共属性也可以加" class="headerlink" title="基础bean_BaseModel分页用 有其他公共属性也可以加"></a>基础bean_BaseModel分页用 有其他公共属性也可以加</h5><pre><code class="java">
+/**
+ * 通用
+ * 实体分页以及前后端分离数据处理
+ * 基础类
+ */
+@Getter
+@Setter
+public class BaseModel implements Serializable {
+    /*
+    每页显示大小 默认10条 只允许写  不允许转json   分页参数
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer size = 10;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer page = 1;
+    @JsonIgnore
+    private Integer start;
+    @JsonIgnore
+    private Long startTime;
+    @JsonIgnore
+    private Long endTime;
+
+    /*
+    start设置时考虑无顺序的情况
+   */
+    public void setSize(Integer size) {
+        this.size = size;
+        setStartByPageSize();
+    }
+
+
+    public void setPage(Integer page) {
+        this.page = page;
+        setStartByPageSize();
+    }
+
+    public void setStartByPageSize() {
+        if ((page != null) &amp;&amp; (size != null)) {
+            this.start = (page - 1) * size;
+        }
+    }
+
+    /*
+    前后端分离-返回前端数据处理  list为前端传递的分页参数
+   */
+    public void formatData(Map&lt;String, Object&gt; data, List list) {
+        //默认第一页 条数0条
+        long total = 0;
+        int realPage = 1;
+        //判空处理-
+        if ((list == null || list.isEmpty())) {
+            data.put(&quot;list&quot;, new ArrayList&lt;&gt;());
+            data.put(&quot;total&quot;, total);
+            data.put(&quot;page&quot;, realPage);
+            return;
+        }
+        //通过分页插件获取总数与真实的页数
+        if (list instanceof Page) {
+            total = ((Page) list).getTotal();
+            realPage = ((Page) list).getPageNum();
+        } else {
+            total = list.size();
+        }
+        //填充数据
+        data.put(&quot;list&quot;, list);
+        data.put(&quot;total&quot;, total);
+        data.put(&quot;page&quot;, realPage);
+    }
+
+</code></pre>
+<h5 id="用户bean"><a href="#用户bean" class="headerlink" title="用户bean"></a>用户bean</h5><pre><code class="java">/**
+ * @EqualsAndHashCode(callSuper=true)//此注解用来解决异常相等问题
+ * @Data
+ */
+@EqualsAndHashCode(callSuper=true)
+@Data
+public class User extends BaseModel {
+
+    private Integer id;
+
+    private String username;
+
+    private String password;
+
+  }
+</code></pre>
+<h5 id="操作日志bean"><a href="#操作日志bean" class="headerlink" title="操作日志bean"></a>操作日志bean</h5><pre><code class="java">@EqualsAndHashCode(callSuper=true)
+@Data
+public class OperLog extends BaseModel {
+    private Integer id;
+
+    private Date logtime;
+
+    private String logoper;
+
+    private Integer logstatus;
+
+    private String username;
+
+    private String userip;
+
+    private String logdesc;
+
+}
+</code></pre>
+<h3 id="6-创建UserService，OperLogService接口及实现类"><a href="#6-创建UserService，OperLogService接口及实现类" class="headerlink" title="6.创建UserService，OperLogService接口及实现类"></a>6.创建UserService，OperLogService接口及实现类</h3><h5 id="UserService接口"><a href="#UserService接口" class="headerlink" title="UserService接口"></a>UserService接口</h5><pre><code class="java">public interface UserService {
+    int getalluser(Map&lt;String,Object&gt; data,User user);
+    int getuserbyusername(Map&lt;String,Object&gt; data);
+}
+</code></pre>
+<h5 id="UserServiceImpl实现"><a href="#UserServiceImpl实现" class="headerlink" title="UserServiceImpl实现"></a>UserServiceImpl实现</h5><p>通常前后端分离，我们一般把需要接受的数据放到方法参数中，如getuserbyusername的方法参数data,在方法内部进行存值，然后返回的状态码。</p>
+<pre><code class="java">//如果不想每次都写private  final Logger logger = LoggerFactory.getLogger(XXX.class); 可以用注解@Slf4j 需要lombok
+@Service(&quot;UserService&quot;)
+@Slf4j
+public class UserServiceImpl implements UserService {
+    @Resource
+    UserMapper userMapper;
+
+    //测试application.yml里面的常量使用-和日志没啥关系
+    @Value(&quot;${threadnum}&quot;)
+    private  int threadnum;
+
+    @Override
+    public int getuserbyusername(Map&lt;String,Object&gt; data) {
+        User user = userMapper.selectByPrimaryKey(1);
+        data.put(&quot;user&quot;,user);
+        data.put(&quot;threadnum&quot;,threadnum);
+        if (user!=null){
+            return 0;
+        }else {
+            return 1;
+        }
+    }
+     @Override
+    public int getalluser(Map&lt;String, Object&gt; data,User user) {
+        //分页处理 非常方便
+        PageHelper.startPage(user.getPage(),user.getSize());
+        List&lt;User&gt; users = userMapper.selectAll();
+        if (users!=null){
+            data.put(&quot;users&quot;,users);
+            return Constants.THE_RESPOND_IS_SUCCESSED;
+        }else {
+            return Constants.THE_RESPOND_IS_FIELD;
+        }
+    }
+}
+</code></pre>
+<h5 id="OperLogService接口"><a href="#OperLogService接口" class="headerlink" title="OperLogService接口:"></a>OperLogService接口:</h5><pre><code class="java">public interface OperLogService {
+    //一个插入日志到数据库的方法
+    public int insertOperlog(OperLog operLog);
+}
+</code></pre>
+<h5 id="OperLogServiceImpl实现："><a href="#OperLogServiceImpl实现：" class="headerlink" title="OperLogServiceImpl实现："></a>OperLogServiceImpl实现：</h5><pre><code class="java">@Service(&quot;OperLogService&quot;)
+public class OperLogServiceImpl implements OperLogService {
+    @Resource
+    OperLogMapper operLogMapper;
+    @Override
+    public int insertOperlog(OperLog operLog) {
+        int insert = operLogMapper.insert(operLog);
+        return insert;
+    }
+}
+</code></pre>
+<p>到此服务层就结束了，接下来写一个简单的控制层用来测试</p>
+<h3 id="7-UserController控制器实现"><a href="#7-UserController控制器实现" class="headerlink" title="7.UserController控制器实现"></a>7.UserController控制器实现</h3><h5 id="baseController-基础控制器，控制器需要的通用功能可写在这-笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究"><a href="#baseController-基础控制器，控制器需要的通用功能可写在这-笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究" class="headerlink" title="baseController_基础控制器，控制器需要的通用功能可写在这, 笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究"></a>baseController_基础控制器，控制器需要的通用功能可写在这, 笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究</h5><pre><code class="java">
+/**
+ * 基础控制类
+ * 1：用于封装前端WebResult的Data和状态码
+ * 2：实现操作日志的实现
+ */
+
+//实现跨域注解
+//origin=&quot;*&quot;代表所有域名都可访问
+//maxAge飞行前响应的缓存持续时间的最大年龄，简单来说就是Cookie的有效期 单位为秒
+//若maxAge是负数,则代表为临时Cookie,不会被持久化,Cookie信息保存在浏览器内存中,浏览器关闭Cookie就消失
+@CrossOrigin
+@Getter
+@Setter
+@Slf4j
+public class BaseController {
+    // 操作描述信息
+    private String operDescInfo;
+
+    /**
+     * 操作日志封装
+     * object：操作的对象，有两种形态，一种是对象类型，一种是map类型，
+     * 对象类型使用在国际化里面的properties配置文件的属性值作为操作内容
+     * man类型的key存储的是对象的类的名称加.再加属性名称
+     */
+    private void setOperDescInfo(Object o) {
+        operDescInfo = null;
+
+        if (o == null) {
+            return;
+        }
+        if ((o instanceof String)) {
+            this.operDescInfo = (String) o;
+            return;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        if (o instanceof Map) {
+            dealLogsByMaps(o, stringBuilder);
+        } else if (o instanceof List) {
+            List&lt;Object&gt; objects = (List&lt;Object&gt;) o;
+            objects.forEach(obj -&gt; dealLogsByObject(o, stringBuilder));
+        } else if ((o instanceof String) &amp;&amp; SpringUtil.hasLength(String.valueOf(o))) {
+            stringBuilder.append(o);
+        } else {
+            dealLogsByObject(o, stringBuilder);
+        }
+        this.operDescInfo = stringBuilder.toString();
+    }
+
+    private void dealLogsByObject(Object o, StringBuilder stringBuilder) {
+        if (o instanceof Map) {
+            dealLogsByMaps(o, stringBuilder);
+            return;
+        }
+        Field[] fields = o.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            Object value = findValueOfField(o, field);
+            if (value == null || (value instanceof String &amp;&amp; SpringUtil.hasLength(String.valueOf(o)))) {
+                continue;
+            }
+            String fieldKey = o.getClass().getSimpleName() + &quot;.&quot; + field.getName();
+            logsStringBufers(stringBuilder, value, fieldKey);
+        }
+    }
+
+    private void dealLogsByMaps(Object o, StringBuilder stringBuilder) {
+        Map&lt;String, String&gt; keys = (Map&lt;String, String&gt;) o;
+        keys.forEach((key, value) -&gt; logsStringBufers(stringBuilder, value, key));
+    }
+
+    private void logsStringBufers(StringBuilder stringBuilder, Object value, String fieldKey) {
+        String fieldName = null;
+        try {
+            fieldName = SpringUtil.getMessage(fieldKey);
+        } catch (Exception e) {
+            log.info(&quot;获取国际化信息异常&quot;, e);
+        }
+        if (SpringUtil.hasLength(fieldName)){
+            if (value==null){
+                return;
+            }
+            String valueString=String.valueOf(value);
+            if (value instanceof  Integer){
+                valueString=intToString(fieldKey,(Integer) value);
+            }
+            if (value instanceof  Byte){
+                valueString=intToString(fieldKey,(Byte) value);
+            }
+            if (SpringUtil.hasLength(valueString)){
+                stringBuilder.append(fieldName).append(&quot;=&quot;).append(valueString).append(&quot;;&quot;);
+            }
+        }
+    }
+    private Object findValueOfField(Object object, Field field) {
+        Object value=null;
+        field.setAccessible(true);
+        try {
+            value=field.get(object);
+            if (value==null){
+                return null;
+            }
+        }catch (IllegalAccessException e){
+            log.warn(&quot;&quot;,e);
+        }
+        return  value;
+    }
+    private String intToString(String fieldKey, int intvalue) {
+        String value=&quot;具体操作类别&quot;;
+        String type=&quot;Task.Type&quot;;
+        if (fieldKey.equals(type)){
+            /**
+             * swich判断类别
+             */
+        }
+        return  value;
+    }
+
+    /**
+     * 前端数据封装函数
+     * @param o
+     * @param webResult
+     * @param data
+     */
+    protected void encapsulationResult(Object o,WebResult webResult,Object data){
+        setOperDescInfo(o);
+        webResult.setData(data);
+        webResult.setCode(Constants.THE_RESPOND_IS_SUCCESSED);
+        webResult.setLogs(this.getOperDescInfo());
+    }
+    protected void encapsulationResult(Object o,WebResult webResult,Object data,Integer code){
+        if (code==null){
+            encapsulationResult(o,webResult,data);
+        }else {
+            setOperDescInfo(o);
+            webResult.setData(data);
+            webResult.setCode(code);
+            webResult.setLogs(this.getOperDescInfo());
+        }
+    }    
+
+}
+
+</code></pre>
+<h5 id="UserController"><a href="#UserController" class="headerlink" title="UserController:"></a>UserController:</h5><pre><code class="java">
+//返回json形式的
+@RestController
+@RequestMapping(&quot;/text&quot;)
+@Slf4j
+public class UserController extends BaseController {
+    @Resource
+    UserService userService;
+    /**
+     *控制类规范格式
+     * 1.日志记录 包括请求反应时间
+     * 2.新建前端结果集webResult，和需要放入的数据集data
+     * 3.将结果集用于service处理在service内部存入数据返回
+     * 4.返回code用于构建前端结果集WebResult
+     */
+    @OperationLogs(description=&quot;select.user&quot;)
+    @GetMapping(&quot;/getuser&quot;)
+    public WebResult getuser(User user) {
+        log.info(&quot;查询用户开始&quot;);
+        long starttime=System.currentTimeMillis();
+        //构建返回结果WebResult
+        WebResult webResult=new WebResult();
+        //构建返回结果WebResult的数据集
+        Map&lt;String,Object&gt; data=new HashMap&lt;&gt;(16);
+        //通过service获取服务结果
+        int code = userService.getuserbyusername(data);
+        //包装WebResult用户返回-此方法在其父类BaseController中
+        encapsulationResult(user,webResult,data,code);
+        long endtime=System.currentTimeMillis();
+        log.info(&quot;查询用户结束-耗时&quot;+(endtime-starttime)+&quot;ms&quot;);
+        return  webResult;
+    }
+    /**
+     * 测试分页的控制器
+     * @param user
+     * @return
+     */
+    @OperationLogs(description=&quot;select.user&quot;)
+    @GetMapping(&quot;/getalluser&quot;)
+    @ResponseBody
+    public WebResult getalluser(User user) {
+        log.info(&quot;查询所有用户开始 User&quot;+user);
+        long starttime=System.currentTimeMillis();
+        WebResult webResult=new WebResult();
+        Map&lt;String,Object&gt; data=new HashMap&lt;&gt;(16);
+        int code = userService.getalluser(data,user);
+        encapsulationResult(user,webResult,data,code);
+        long endtime=System.currentTimeMillis();
+        System.out.println(webResult);
+        log.info(&quot;查询用户结束-耗时&quot;+(endtime-starttime)+&quot;ms&quot;);
+        return  webResult;
+    }
+
+}
+
+
+</code></pre>
+<h3 id="8。常量类如下，一般用来设置状态码和相关路径"><a href="#8。常量类如下，一般用来设置状态码和相关路径" class="headerlink" title="8。常量类如下，一般用来设置状态码和相关路径"></a>8。常量类如下，一般用来设置状态码和相关路径</h3><h5 id="Constans"><a href="#Constans" class="headerlink" title="Constans:"></a>Constans:</h5><pre><code class="java">
+/**
+ * 状态码类
+ */
+public final class Constants {
+    /**
+     *  禁用构造方法
+     */
+    private Constants(){throw  new IllegalStateException(&quot;Uyiliyty.Class&quot;);}
+
+    /**
+     * 状态码列表
+     */
+    public  static  final Integer THE_RESPOND_IS_SUCCESSED=1;
+    public  static  final Integer THE_RESPOND_IS_FIELD=0;
+}
+
+</code></pre>
+<h3 id="9-控制器上的-OperationLogs注解-用注解的形式作为Aop切点"><a href="#9-控制器上的-OperationLogs注解-用注解的形式作为Aop切点" class="headerlink" title="9.控制器上的@OperationLogs注解,用注解的形式作为Aop切点"></a>9.控制器上的@OperationLogs注解,用注解的形式作为Aop切点</h3><h5 id="OperationLogs-java"><a href="#OperationLogs-java" class="headerlink" title="OperationLogs.java:"></a>OperationLogs.java:</h5><pre><code class="java">@Target({ElementType.PARAMETER,ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface OperationLogs {
+    String description() default  &quot;&quot;;
+}
+
+</code></pre>
+<h3 id="10-声明Aop切面以及实现"><a href="#10-声明Aop切面以及实现" class="headerlink" title="10.声明Aop切面以及实现"></a>10.声明Aop切面以及实现</h3><h5 id="OperLogAspect"><a href="#OperLogAspect" class="headerlink" title="OperLogAspect:"></a>OperLogAspect:</h5><pre><code class="java">/**
+ * 日志切面
+ *
+ *
+ */
+@Component
+@Aspect
+@Slf4j
+public class OperLogAspect {
+    /**
+     * 声明切点-环绕事件，前置事件，后置事件自行百度  这就用环绕了
+     */
+    @Pointcut(&quot;@annotation(com.hyhua.valideta.util.OperationLogs)&quot;)
+    public  void controllerAspect(){
+    log.info(&quot;@annotation(com.hyhua.valideta.util.OperationLogs)&quot;);
+    }
+
+    @Around(&quot;controllerAspect()&quot;)
+    public Object doAroundJob(ProceedingJoinPoint proceedingJoinPoint){
+        Object retval;
+        Signature signature=proceedingJoinPoint.getSignature();
+        MethodSignature methodSignature=(MethodSignature) signature;
+        Method method=methodSignature.getMethod();
+
+        try{
+            retval=proceedingJoinPoint.proceed();
+        }catch (Throwable e){
+            retval=new WebResult();
+            log.info(&quot;发生了未捕获的异常&quot;,e);
+        }
+        ServletRequestAttributes requestAttributes=(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request=requestAttributes.getRequest();
+
+        if (retval instanceof  WebResult){
+            WebResult webResult=(WebResult) retval;
+            saveOperationLog(webResult,request,method);
+        }
+        return  retval;
+    }
+    /**
+    *存入操作日志
+    *
+    */
+
+    private void saveOperationLog(WebResult webResult, HttpServletRequest request, Method method) {
+        OperationLogs logs=method.getAnnotation(OperationLogs.class);
+        OperLogService operLogService= SpringUtil.getBean(OperLogServiceImpl.class);
+        OperLog operLog=new OperLog();
+        operLog.setUsername(&quot;admin&quot;);
+        //Nginx中有反向代理 可通过头信息x-forwarded-for获取真实ip
+        String logigip=request.getHeader(&quot;x-forwarded-for&quot;);
+        //正常获取IP
+        if (!SpringUtil.hasLength(logigip)){
+            logigip=request.getRemoteAddr();
+        }
+        operLog.setUserip(logigip);
+        operLog.setLogtime(new Date());
+        log.info(&quot;---获取注解中的描述信息---logs---&quot;+logs.description());
+        String action=SpringUtil.getMessage(logs.description());
+        log.info(action);
+        operLog.setLogoper(action);
+        int result= Constants.THE_RESPOND_IS_FIELD;
+        if (webResult.getCode()==Constants.THE_RESPOND_IS_SUCCESSED){
+            result=Constants.THE_RESPOND_IS_SUCCESSED;
+        }
+        operLog.setLogstatus(result);
+        operLog.setLogdesc(webResult.getLogs());
+        operLogService.insertOperlog(operLog);
+    }
+
+}
+
+</code></pre>
+<h3 id="11-SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加"><a href="#11-SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加" class="headerlink" title="11.SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加"></a>11.SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加</h3><h5 id="springutil"><a href="#springutil" class="headerlink" title="springutil:"></a>springutil:</h5><pre><code class="java">
+@Component
+@Slf4j
+public class SpringUtil implements ApplicationContextAware{
+    private static ApplicationContext applicationContext;
+    private static MessageSource messageSource;
+
+
+
+    public static String getMessage(String key, String params) {
+       Object [] param={params};
+       return getMessage(key,param);
+    }
+
+    /**
+     * 获取国际化资源
+     */
+    public static String getMessage(String key, Object[] params) {
+        checkApplicationContext();
+        String value=&quot;&quot;;
+        try {
+            System.out.println(params);
+            value=messageSource.getMessage(key,params, Locale.CHINA);
+        }catch (Exception e){
+            log.error(&quot;获取国际化参数时异常&quot;,e);
+        }
+        return value;
+    }
+
+    public static String getMessage(String key) {
+        return getMessage(key,&quot;&quot;);
+    }
+    /**
+     * 从静态变量Applicationcontext中取得bean 自动转型为所赋值对象的类型
+     */
+    public static &lt;T&gt; T getBean(Class&lt;T&gt; tClass) {
+        checkApplicationContext();
+        return applicationContext.getBean(tClass);
+    }
+
+    /**
+     * 检测applicationcontext注入
+     */
+    private static void checkApplicationContext() {
+        if (applicationContext == null) {
+            throw new IllegalStateException(&quot;applicationcontext未注入，请在springcontextholder创建后再初始化次工具&quot;);
+        }
+        if (messageSource == null) {
+            messageSource = applicationContext.getBean(MessageSource.class);
+        }
+
+    }
+
+    private static synchronized void setApplication(ApplicationContext application) {
+        applicationContext = application;
+    }
+
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+
+
+    /**
+     * 实现ApplicationContextAware接口的Context注入函数 将其存入静态变量
+     */
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        if (applicationContext != null) {
+            setApplication(applicationContext);
+        }
+    }
+
+    /**
+     * springutil判空处理
+     */
+    public static boolean hasLength(String token) {
+        if (token == null || token.length() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean hasLength(List&lt;?&gt; token) {
+        if (token == null || token.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+}
+
+</code></pre>
+<h3 id="11-WebResult前端返回结果集"><a href="#11-WebResult前端返回结果集" class="headerlink" title="11.WebResult前端返回结果集"></a>11.WebResult前端返回结果集</h3><h5 id="WebResult"><a href="#WebResult" class="headerlink" title="WebResult:"></a>WebResult:</h5><pre><code class="java">
+/**
+ *  返回前端的web模型类
+ */
+@Data
+public class WebResult {
+    //状态吗
+    private int code;
+    //返回给前端的数据
+    private Object data;
+    //日志描述
+    @JsonIgnore
+    private String logs;
+}
+
+</code></pre>
+<h3 id="12-结果展示："><a href="#12-结果展示：" class="headerlink" title="12.结果展示："></a>12.结果展示：</h3><h5 id="（1）日志测试-getuser"><a href="#（1）日志测试-getuser" class="headerlink" title="（1）日志测试  /getuser"></a>（1）日志测试  /getuser</h5><p><img src="http://blog.mibook.top/logtext.png" alt></p>
+<h5 id="（2）分页默认测试-getalluser"><a href="#（2）分页默认测试-getalluser" class="headerlink" title="（2）分页默认测试 /getalluser"></a>（2）分页默认测试 /getalluser</h5><p><img src="http://blog.mibook.top/defaultpage.png" alt></p>
+<h5 id="（3）分页带参数测试-getalluser-page-3-amp-size-5"><a href="#（3）分页带参数测试-getalluser-page-3-amp-size-5" class="headerlink" title="（3）分页带参数测试 /getalluser?page=3&amp;size=5"></a>（3）分页带参数测试 /getalluser?page=3&amp;size=5</h5><p><img src="http://blog.mibook.top/page.jpg" alt></p>
+<h5 id="（4）日志位置查看"><a href="#（4）日志位置查看" class="headerlink" title="（4）日志位置查看"></a>（4）日志位置查看</h5><p><img src="http://blog.mibook.top/logs.png" alt></p>
+<h5 id="（5）项目结构展示"><a href="#（5）项目结构展示" class="headerlink" title="（5）项目结构展示"></a>（5）项目结构展示</h5><p><img src="http://blog.mibook.top/aopproject.png" alt></p>
+<h3 id="13感谢各位看客，有兴趣的请留言"><a href="#13感谢各位看客，有兴趣的请留言" class="headerlink" title="13感谢各位看客，有兴趣的请留言"></a>13感谢各位看客，有兴趣的请留言</h3>
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" title="Springboot-Quartz实现任务定时多功能化">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）"><span class="post-toc-text">Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-配置application-yml"><span class="post-toc-text">2.配置application.yml</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-整理国际化资源"><span class="post-toc-text">3.整理国际化资源</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#message-zh-CN-propertis："><span class="post-toc-text">message_zh_CN.propertis：</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-根据需求自行添加项目运行日志"><span class="post-toc-text">4.根据需求自行添加项目运行日志</span></a></li></ol><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#我这里用的是Slf4j-在需要日志记录的地方声明-Slf4j即可用log-info-error，warn-来进行日志输出"><span class="post-toc-text">我这里用的是Slf4j,在需要日志记录的地方声明@Slf4j即可用log.info(error，warn)来进行日志输出</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#logback-spring-xm："><span class="post-toc-text">logback-spring.xm：</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表"><span class="post-toc-text">5.构建简单的两个表用来测试，一个是用户表，一个是操作日志存储表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#基础bean-BaseModel分页用-有其他公共属性也可以加"><span class="post-toc-text">基础bean_BaseModel分页用 有其他公共属性也可以加</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#用户bean"><span class="post-toc-text">用户bean</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#操作日志bean"><span class="post-toc-text">操作日志bean</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-创建UserService，OperLogService接口及实现类"><span class="post-toc-text">6.创建UserService，OperLogService接口及实现类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#UserService接口"><span class="post-toc-text">UserService接口</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#UserServiceImpl实现"><span class="post-toc-text">UserServiceImpl实现</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#OperLogService接口"><span class="post-toc-text">OperLogService接口:</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#OperLogServiceImpl实现："><span class="post-toc-text">OperLogServiceImpl实现：</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-UserController控制器实现"><span class="post-toc-text">7.UserController控制器实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#baseController-基础控制器，控制器需要的通用功能可写在这-笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究"><span class="post-toc-text">baseController_基础控制器，控制器需要的通用功能可写在这, 笔者这块引用的别人的。主要是一些操作日志封装和前端返回集合处理，后续会继续研究</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#UserController"><span class="post-toc-text">UserController:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8。常量类如下，一般用来设置状态码和相关路径"><span class="post-toc-text">8。常量类如下，一般用来设置状态码和相关路径</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Constans"><span class="post-toc-text">Constans:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-控制器上的-OperationLogs注解-用注解的形式作为Aop切点"><span class="post-toc-text">9.控制器上的@OperationLogs注解,用注解的形式作为Aop切点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#OperationLogs-java"><span class="post-toc-text">OperationLogs.java:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-声明Aop切面以及实现"><span class="post-toc-text">10.声明Aop切面以及实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#OperLogAspect"><span class="post-toc-text">OperLogAspect:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加"><span class="post-toc-text">11.SpringUtil工具类，自行保存，以后有啥常用的工具方法都可以往里面加</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#springutil"><span class="post-toc-text">springutil:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-WebResult前端返回结果集"><span class="post-toc-text">11.WebResult前端返回结果集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#WebResult"><span class="post-toc-text">WebResult:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-结果展示："><span class="post-toc-text">12.结果展示：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（1）日志测试-getuser"><span class="post-toc-text">（1）日志测试  /getuser</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（2）分页默认测试-getalluser"><span class="post-toc-text">（2）分页默认测试 /getalluser</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（3）分页带参数测试-getalluser-page-3-amp-size-5"><span class="post-toc-text">（3）分页带参数测试 /getalluser?page=3&amp;size=5</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（4）日志位置查看"><span class="post-toc-text">（4）日志位置查看</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（5）项目结构展示"><span class="post-toc-text">（5）项目结构展示</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13感谢各位看客，有兴趣的请留言"><span class="post-toc-text">13感谢各位看客，有兴趣的请留言</span></a></li>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
