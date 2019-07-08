@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		7/3/2019 
+		7/8/2019 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -198,7 +198,6 @@
 <p>　　b:在实际使用中，服务器在创建和销毁线程上花费的时间和消耗的系统资源都相当大，甚至可能要比在处理实际的用户请求的时间和资源要多的多。除了创建和销毁线程的开销之外，活动的线程也需要消耗系统资源。如果在一个jvm里创建太多的线程，可能会使系统由于过度消耗内存或“切换过度”而导致系统资源不足。为了防止资源不足，服务器应用程序需要采取一些办法来限制任何给定时刻处理的请求数目，尽可能减少创建和销毁线程的次数，特别是一些资源耗费比较大的线程的创建和销毁，尽量利用已有对象来进行服务，这就是“池化资源”技术产生的原因。 线程池主要用来解决线程生命周期开销问题和资源不足问题（这段是摘自网络）</p>
 <p>下面我们就对ThreadPoolExecutor的使用方法进行一个详细的概述。</p>
 <p>首先看下ThreadPoolExecutor的构造函数</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>    public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
                               long keepAliveTime,
@@ -223,8 +222,7 @@
         this.threadFactory = threadFactory;
         this.handler = handler;
     }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>构造函数的参数含义如下：</p>
+</code></pre><p>构造函数的参数含义如下：</p>
 <p><strong>corePoolSize:指定了线程池中的线程数量，它的数量决定了添加的任务是开辟新的线程去执行，还是放到workQueue任务队列中去；</strong></p>
 <p><strong>maximumPoolSize:指定了线程池中的最大线程数量，这个参数会根据你使用的workQueue任务队列的类型，决定线程池会开辟的最大线程数量；</strong></p>
 <p><strong>keepAliveTime:当线程池中空闲线程数量超过corePoolSize时，多余的线程会在多长时间内被销毁；</strong></p>
@@ -290,7 +288,6 @@
 <p>一、<strong>workQueue任务队列</strong></p>
 <p>上面我们已经介绍过了，<strong>它一般分为直接提交队列、有界任务队列、无界任务队列、优先任务队列；</strong></p>
 <p>1、<strong>直接提交队列</strong>：设置为SynchronousQueue队列，SynchronousQueue是一个特殊的BlockingQueue，它没有容量，没执行一个插入操作就会阻塞，需要再执行一个删除操作才会被唤醒，反之每一个删除操作也都要等待对应的插入操作。</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>public class ThreadPool {
     private static ExecutorService pool;
     public static void main( String[] args )
@@ -313,9 +310,7 @@ public class ThreadTask implements Runnable{
         System.out.println(Thread.currentThread().getName());
     }
 }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>输出结果为</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+</code></pre><p>输出结果为</p>
 <pre><code>pool-1-thread-1
 pool-1-thread-2
 Exception in thread &quot;main&quot; java.util.concurrent.RejectedExecutionException: Task com.hhxx.test.ThreadTask@55f96302 rejected from java.util.concurrent.ThreadPoolExecutor@3d4eac69[Running, pool size = 2, active threads = 0, queued tasks = 0, completed tasks = 2]
@@ -323,8 +318,7 @@ Exception in thread &quot;main&quot; java.util.concurrent.RejectedExecutionExcep
     at java.util.concurrent.ThreadPoolExecutor.reject(Unknown Source)
     at java.util.concurrent.ThreadPoolExecutor.execute(Unknown Source)
     at com.hhxx.test.ThreadPool.main(ThreadPool.java:17)
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>可以看到，当任务队列为SynchronousQueue，创建的线程数大于maximumPoolSize时，直接执行了拒绝策略抛出异常。</p>
+</code></pre><p>可以看到，当任务队列为SynchronousQueue，创建的线程数大于maximumPoolSize时，直接执行了拒绝策略抛出异常。</p>
 <p>使用SynchronousQueue队列，提交的任务不会被保存，总是会马上提交执行。如果用于执行任务的线程数量小于maximumPoolSize，则尝试创建新的进程，如果达到maximumPoolSize设置的最大值，则根据你设置的handler执行拒绝策略。因此这种方式你提交的任务不会被缓存起来，而是会被马上执行，在这种情况下，你需要对你程序的并发量有个准确的评估，才能设置合适的maximumPoolSize数量，否则很容易就会执行拒绝策略；</p>
 <p>2、<strong>有界的任务队列</strong>：有界的任务队列可以使用ArrayBlockingQueue实现，如下所示</p>
 <pre><code>pool = new ThreadPoolExecutor(1, 2, 1000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue&lt;Runnable&gt;(10),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
@@ -333,7 +327,6 @@ Exception in thread &quot;main&quot; java.util.concurrent.RejectedExecutionExcep
 <pre><code>pool = new ThreadPoolExecutor(1, 2, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
 </code></pre><p>使用无界任务队列，线程池的任务队列可以无限制的添加新的任务，而线程池创建的最大线程数量就是你corePoolSize设置的数量，也就是说在这种情况下maximumPoolSize这个参数是无效的，哪怕你的任务队列中缓存了很多未执行的任务，当线程池的线程数达到corePoolSize后，就不会再增加了；若后续有新的任务加入，则直接进入队列等待，当使用这种任务队列模式时，一定要注意你任务提交与处理之间的协调与控制，不然会出现队列中的任务由于无法及时处理导致一直增长，直到最后资源耗尽的问题。</p>
 <p>4<strong>、优先任务队列：</strong>优先任务队列通过PriorityBlockingQueue实现，下面我们通过一个例子演示下</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>public class ThreadPool {
     private static ExecutorService pool;
     public static void main( String[] args )
@@ -384,9 +377,7 @@ public class ThreadTask implements Runnable,Comparable&lt;ThreadTask&gt;{
 
     }
 }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>我们来看下执行的结果情况</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+</code></pre><p>我们来看下执行的结果情况</p>
 <pre><code>priority:0,ThreadName:pool-1-thread-1
 priority:9,ThreadName:pool-1-thread-1
 priority:8,ThreadName:pool-1-thread-1
@@ -397,8 +388,7 @@ priority:4,ThreadName:pool-1-thread-1
 priority:3,ThreadName:pool-1-thread-1
 priority:2,ThreadName:pool-1-thread-1
 priority:1,ThreadName:pool-1-thread-1
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>大家可以看到除了第一个任务直接创建线程执行外，其他的任务都被放入了优先任务队列，按优先级进行了重新排列执行，且线程池的线程数一直为corePoolSize，也就是只有一个。</p>
+</code></pre><p>大家可以看到除了第一个任务直接创建线程执行外，其他的任务都被放入了优先任务队列，按优先级进行了重新排列执行，且线程池的线程数一直为corePoolSize，也就是只有一个。</p>
 <p>通过运行的代码我们可以看出PriorityBlockingQueue它其实是一个特殊的无界队列，它其中无论添加了多少个任务，线程池创建的线程数也不会超过corePoolSize的数量，只不过其他队列一般是按照先进先出的规则处理任务，而PriorityBlockingQueue队列可以自定义规则根据任务的优先级顺序先后执行。</p>
 <p><strong>二、拒绝策略</strong></p>
 <p>一般我们创建线程池时，为防止资源被耗尽，任务队列都会选择创建有界任务队列，但种模式下如果出现任务队列已满且线程池创建的线程数达到你设置的最大线程数时，这时就需要你指定ThreadPoolExecutor的RejectedExecutionHandler参数即合理的拒绝策略，来处理线程池”超载”的情况。ThreadPoolExecutor自带的拒绝策略如下：</p>
@@ -407,7 +397,6 @@ priority:1,ThreadName:pool-1-thread-1
 <p><strong>3、DiscardOledestPolicy策略：该策略会丢弃任务队列中最老的一个任务，也就是当前任务队列中最先被添加进去的，马上要被执行的那个任务，并尝试再次提交；</strong></p>
 <p><strong>4、DiscardPolicy策略：该策略会默默丢弃无法处理的任务，不予任何处理。当然使用此策略，业务场景中需允许任务的丢失；</strong></p>
 <p><strong>以上内置的策略均实现了RejectedExecutionHandler接口，当然你也可以自己扩展RejectedExecutionHandler接口，定义自己的拒绝策略，我们看下示例代码：</strong></p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>public class ThreadPool {
     private static ExecutorService pool;
     public static void main( String[] args )
@@ -440,9 +429,7 @@ public class ThreadTask implements Runnable{
 
     }
 }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>输出结果：</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+</code></pre><p>输出结果：</p>
 <pre><code>com.hhxx.test.ThreadTask@33909752执行了拒绝策略
 com.hhxx.test.ThreadTask@55f96302执行了拒绝策略
 com.hhxx.test.ThreadTask@3d4eac69执行了拒绝策略
@@ -453,11 +440,9 @@ ThreadName:pool-1-thread-2
 ThreadName:pool-1-thread-1
 ThreadName:pool-1-thread-2
 ThreadName:pool-1-thread-1
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>可以看到由于任务加了休眠阻塞，执行需要花费一定时间，导致会有一定的任务被丢弃，从而执行自定义的拒绝策略；</p>
+</code></pre><p>可以看到由于任务加了休眠阻塞，执行需要花费一定时间，导致会有一定的任务被丢弃，从而执行自定义的拒绝策略；</p>
 <p><strong>三、ThreadFactory自定义线程创建</strong></p>
 <p> 线程池中线程就是通过ThreadPoolExecutor中的ThreadFactory，线程工厂创建的。那么通过自定义ThreadFactory，可以按需要对线程池中创建的线程进行一些特殊的设置，如命名、优先级等，下面代码我们通过ThreadFactory对线程池中创建的线程进行记录与命名</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>public class ThreadPool {
     private static ExecutorService pool;
     public static void main( String[] args )
@@ -485,9 +470,7 @@ public class ThreadTask implements Runnable{
         System.out.println(&quot;ThreadName:&quot;+Thread.currentThread().getName());
     }
 }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>我们看下输出结果</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+</code></pre><p>我们看下输出结果</p>
 <pre><code>线程118352462创建
 线程1550089733创建
 线程865113938创建
@@ -502,15 +485,13 @@ ThreadName:threadPool865113938
 ThreadName:threadPool118352462
 ThreadName:threadPool1550089733
 ThreadName:threadPool1442407170
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>可以看到线程池中，每个线程的创建我们都进行了记录输出与命名。</p>
+</code></pre><p>可以看到线程池中，每个线程的创建我们都进行了记录输出与命名。</p>
 <p><strong>四、ThreadPoolExecutor扩展</strong></p>
 <p>ThreadPoolExecutor扩展主要是围绕beforeExecute()、afterExecute()和terminated()三个接口实现的，</p>
 <p><strong>1、beforeExecute：线程池中任务运行前执行</strong></p>
 <p><strong>2、afterExecute：线程池中任务运行完毕后执行</strong></p>
 <p><strong>3、terminated：线程池退出后执行</strong></p>
 <p>通过这三个接口我们可以监控每个任务的开始和结束时间，或者其他一些功能。下面我们可以通过代码实现一下</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>public class ThreadPool {
     private static ExecutorService pool;
     public static void main( String[] args ) throws InterruptedException
@@ -562,9 +543,7 @@ public class ThreadTask implements Runnable{
         System.out.println(&quot;TaskName&quot;+this.getTaskName()+&quot;---ThreadName:&quot;+Thread.currentThread().getName());
     }
 }
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>我看下输出结果</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+</code></pre><p>我看下输出结果</p>
 <pre><code>线程118352462创建
 线程1550089733创建
 准备执行：Task0
@@ -599,19 +578,16 @@ TaskNameTask7---ThreadName:threadPool865113938
 执行完毕：Task7
 执行完毕：Task2
 线程池退出
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>可以看到通过对beforeExecute()、afterExecute()和terminated()的实现，我们对线程池中线程的运行状态进行了监控，在其执行前后输出了相关打印信息。另外使用shutdown方法可以比较安全的关闭线程池， 当线程池调用该方法后，线程池中不再接受后续添加的任务。但是，此时线程池不会立刻退出，直到添加到线程池中的任务都已经处理完成，才会退出。</p>
+</code></pre><p>可以看到通过对beforeExecute()、afterExecute()和terminated()的实现，我们对线程池中线程的运行状态进行了监控，在其执行前后输出了相关打印信息。另外使用shutdown方法可以比较安全的关闭线程池， 当线程池调用该方法后，线程池中不再接受后续添加的任务。但是，此时线程池不会立刻退出，直到添加到线程池中的任务都已经处理完成，才会退出。</p>
 <p><strong>五、线程池线程数量</strong></p>
 <p>线程吃线程数量的设置没有一个明确的指标，根据实际情况，只要不是设置的偏大和偏小都问题不大，结合下面这个公式即可</p>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <pre><code>            /**
              * Nthreads=CPU数量
              * Ucpu=目标CPU的使用率，0&lt;=Ucpu&lt;=1
              * W/C=任务等待时间与任务计算时间的比率
              */
             Nthreads = Ncpu*Ucpu*(1+W/C)
-</code></pre><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<p>以上就是对ThreadPoolExecutor类从构造函数、拒绝策略、自定义线程创建等方面介绍了其详细的使用方法，从而我们可以根据自己的需要，灵活配置和使用线程池创建线程，其中如有不足与不正确的地方还望指出与海涵。</p>
+</code></pre><p>以上就是对ThreadPoolExecutor类从构造函数、拒绝策略、自定义线程创建等方面介绍了其详细的使用方法，从而我们可以根据自己的需要，灵活配置和使用线程池创建线程，其中如有不足与不正确的地方还望指出与海涵。</p>
 <p>此文仅转载收藏 </p>
 <p>原文地址：</p>
 <p><a href="https://www.cnblogs.com/dafanjoy/p/9729358.html" target="_blank" rel="noopener">https://www.cnblogs.com/dafanjoy/p/9729358.html</a> </p>
