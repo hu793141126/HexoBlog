@@ -1,0 +1,677 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>SpringBoot集成Spring Security——自定义表单登录</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《SpringBoot集成Spring Security——自定义表单登录》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		7/14/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/07/14/Springboot集成SpringSecurity-自定义表单登录/" itemprop="url">		
+			SpringBoot集成Spring Security——自定义表单登录		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/07/14/Springboot集成SpringSecurity-自定义表单登录/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="8">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<p><strong>SpringBoot集成Spring Security——自定义表单登录</strong></p>
+<p>通过前面三篇文章，你应该大致了解了 Spring Security 的流程。你应该发现了，真正的 login 请求是由 Spring Security 帮我们处理的，那么我们如何实现自定义表单登录呢，比如添加一个验证码…</p>
+<p>首先在上一篇文章的基础上，添加验证码功能。</p>
+<h5 id="一、添加验证码"><a href="#一、添加验证码" class="headerlink" title="一、添加验证码"></a>一、添加验证码</h5><p>验证码的 Servlet 代码，大家无需关心其内部实现，我也是百度直接捞了一个，直接复制即可</p>
+<pre><code class="java">/**
+ * @author jitwxs
+ * @date 2018/3/29 20:35
+ */
+public class VerifyServlet extends HttpServlet {
+
+    private static final long serialVersionUID = -5051097528828603895L;
+
+    /**
+     * 验证码图片的宽度。
+     */
+    private int width = 100;
+
+    /**
+     *  验证码图片的高度。
+     */
+    private int height = 30;
+
+    /**
+     * 验证码字符个数
+     */
+    private int codeCount = 4;
+
+    /**
+     * 字体高度
+     */
+    private int fontHeight;
+
+    /**
+     * 干扰线数量
+     */
+    private int interLine = 16;
+
+    /**
+     * 第一个字符的x轴值，因为后面的字符坐标依次递增，所以它们的x轴值是codeX的倍数
+     */
+    private int codeX;
+
+    /**
+     * codeY ,验证字符的y轴值，因为并行所以值一样
+     */
+    private int codeY;
+
+    /**
+     * codeSequence 表示字符允许出现的序列值
+     */
+    char[] codeSequence = { &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;J&#39;,
+            &#39;K&#39;, &#39;L&#39;, &#39;M&#39;, &#39;N&#39;, &#39;O&#39;, &#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;T&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;,
+            &#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;, &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39; };
+
+    /**
+     * 初始化验证图片属性
+     */
+    @Override
+    public void init() throws ServletException {
+        // 从web.xml中获取初始信息
+        // 宽度
+        String strWidth = this.getInitParameter(&quot;width&quot;);
+        // 高度
+        String strHeight = this.getInitParameter(&quot;height&quot;);
+        // 字符个数
+        String strCodeCount = this.getInitParameter(&quot;codeCount&quot;);
+        // 将配置的信息转换成数值
+        try {
+            if (strWidth != null &amp;&amp; strWidth.length() != 0) {
+                width = Integer.parseInt(strWidth);
+            }
+            if (strHeight != null &amp;&amp; strHeight.length() != 0) {
+                height = Integer.parseInt(strHeight);
+            }
+            if (strCodeCount != null &amp;&amp; strCodeCount.length() != 0) {
+                codeCount = Integer.parseInt(strCodeCount);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        //width-4 除去左右多余的位置，使验证码更加集中显示，减得越多越集中。
+        //codeCount+1     //等比分配显示的宽度，包括左右两边的空格
+        codeX = (width-4) / (codeCount+1);
+        //height - 10 集中显示验证码
+        fontHeight = height - 10;
+        codeY = height - 7;
+    }
+
+    /**
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws java.io.IOException
+     */
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
+        // 定义图像buffer
+        BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D gd = buffImg.createGraphics();
+        // 创建一个随机数生成器类
+        Random random = new Random();
+        // 将图像填充为白色
+        gd.setColor(Color.LIGHT_GRAY);
+        gd.fillRect(0, 0, width, height);
+        // 创建字体，字体的大小应该根据图片的高度来定。
+        Font font = new Font(&quot;Times New Roman&quot;, Font.PLAIN, fontHeight);
+        // 设置字体。
+        gd.setFont(font);
+        // 画边框。
+        gd.setColor(Color.BLACK);
+        gd.drawRect(0, 0, width - 1, height - 1);
+        // 随机产生16条干扰线，使图象中的认证码不易被其它程序探测到。
+        gd.setColor(Color.gray);
+        for (int i = 0; i &lt; interLine; i++) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            int xl = random.nextInt(12);
+            int yl = random.nextInt(12);
+            gd.drawLine(x, y, x + xl, y + yl);
+        }
+        // randomCode用于保存随机产生的验证码，以便用户登录后进行验证。
+        StringBuffer randomCode = new StringBuffer();
+        int red = 0, green = 0, blue = 0;
+        // 随机产生codeCount数字的验证码。
+        for (int i = 0; i &lt; codeCount; i++) {
+            // 得到随机产生的验证码数字。
+            String strRand = String.valueOf(codeSequence[random.nextInt(36)]);
+            // 产生随机的颜色分量来构造颜色值，这样输出的每位数字的颜色值都将不同。
+            red = random.nextInt(255);
+            green = random.nextInt(255);
+            blue = random.nextInt(255);
+            // 用随机产生的颜色将验证码绘制到图像中。
+            gd.setColor(new Color(red,green,blue));
+            gd.drawString(strRand, (i + 1) * codeX, codeY);
+            // 将产生的四个随机数组合在一起。
+            randomCode.append(strRand);
+        }
+        // 将四位数字的验证码保存到Session中。
+        HttpSession session = request.getSession();
+        session.setAttribute(&quot;validateCode&quot;, randomCode.toString());
+        // 禁止图像缓存。
+        response.setHeader(&quot;Pragma&quot;, &quot;no-cache&quot;);
+        response.setHeader(&quot;Cache-Control&quot;, &quot;no-cache&quot;);
+        response.setDateHeader(&quot;Expires&quot;, 0);
+
+        response.setContentType(&quot;image/jpeg&quot;);
+        // 将图像输出到Servlet输出流中。
+        ServletOutputStream sos = response.getOutputStream();
+        ImageIO.write(buffImg, &quot;jpeg&quot;, sos);
+        sos.close();
+    }
+}
+</code></pre>
+<p>然后在 Application 中注入该 Servlet：(学到咋写Servlet注入到Controller了不QAQ—)</p>
+<pre><code class="java">@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * 注入验证码servlet
+     */
+    @Bean
+    public ServletRegistrationBean indexServletRegistration() {
+        ServletRegistrationBean registration = new ServletRegistrationBean(new VerifyServlet());
+        registration.addUrlMappings(&quot;/getVerifyCode&quot;);
+        return registration;
+    }
+}
+</code></pre>
+<h5 id="二-修改-login-html"><a href="#二-修改-login-html" class="headerlink" title="二:修改 login.html"></a>二:修改 login.html</h5><p>在原本的 Login 页面基础上加上验证码字段：</p>
+<pre><code class="java">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;登陆&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;登陆&lt;/h1&gt;
+&lt;form method=&quot;post&quot; action=&quot;/login&quot;&gt;
+    &lt;div&gt;
+        用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;verifyCode&quot; required=&quot;required&quot; placeholder=&quot;验证码&quot;&gt;
+        &lt;img src=&quot;getVerifyCode&quot; title=&quot;看不清，请点我&quot; onclick=&quot;refresh(this)&quot; onmouseover=&quot;mouseover(this)&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;remember-me&quot;/&gt;自动登录&lt;/label&gt;
+        &lt;button type=&quot;submit&quot;&gt;立即登陆&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;script&gt;
+    function refresh(obj) { obj.src = &quot;getVerifyCode?&quot; + Math.random(); }
+    function mouseover(obj) { obj.style.cursor = &quot;pointer&quot;; }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h5 id="三：添加匿名访问-Url"><a href="#三：添加匿名访问-Url" class="headerlink" title="三：添加匿名访问 Url"></a>三：添加匿名访问 Url</h5><p>不要忘记在 WebSecurityConfig 中允许该 Url 的匿名访问，不然没有登录是没有办法访问的：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            // 如果有允许匿名的url，填在下面.antMatchers(&quot;/匿名地址&quot;).permitAll()
+            .antMatchers(&quot;/getVerifyCode&quot;).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            // 设置登陆页
+            .formLogin().loginPage(&quot;/login&quot;)
+            // 设置登陆成功页
+            .defaultSuccessUrl(&quot;/&quot;).permitAll()
+            // 登录失败Url
+            .failureUrl(&quot;/login/error&quot;)
+            // 自定义登陆用户名和密码参数，默认为username和password
+//                .usernameParameter(&quot;username&quot;)
+//                .passwordParameter(&quot;password&quot;)
+            .and()
+            .logout().permitAll()
+            // 自动登录
+            .and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                // 有效时间：单位s
+                .tokenValiditySeconds(60)
+                .userDetailsService(userDetailsService);
+
+    // 关闭CSRF跨域
+    http.csrf().disable();
+}
+</code></pre>
+<p>这样验证码就加好了，运行下程序：</p>
+<p><img src="http://blog.mibook.top/securityoper12.png" alt></p>
+<p>四：下面才算是这篇文章真正的部分。我们如何才能实现验证码验证呢，思考一下，应该有以下几种实现方式：</p>
+<p>1.登录表单提交前发送 AJAX 验证验证码</p>
+<p>2.使用自定义过滤器(Filter)，在 Spring security 校验前验证验证码合法性</p>
+<p>3.和用户名、密码一起发送到后台，在 Spring security 中进行验证</p>
+<p>1.1 AJAX 验证</p>
+<p>使用 AJAX 方式验证和我们 Spring Security 框架就没有任何关系了，其实就是表单提交前先发个 HTTP 请求验证验证码，本篇不再赘述。</p>
+<p>2.1过滤器验证<br>使用过滤器的思路是：在 Spring Security 处理登录验证请求前，验证验证码，如果正确，放行；如果不正确，调到异常。</p>
+<p>3.1 编写验证码过滤器<br>自定义一个过滤器，实现 OncePerRequestFilter （该 Filter 保证每次请求一定会过滤），在 isProtectedUrl() 方法中拦截了 POST 方式的 /login 请求。在逻辑处理中从 request 中取出验证码，并进行验证，如果验证成功，放行；验证失败，手动生成异常。</p>
+<pre><code class="java">public class VerifyFilter extends OncePerRequestFilter {
+    private static final PathMatcher pathMatcher = new AntPathMatcher();
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        if(isProtectedUrl(request)) {
+            String verifyCode = request.getParameter(&quot;verifyCode&quot;);
+            if(!validateVerify(verifyCode)) {
+                //手动设置异常
+                request.getSession().setAttribute(&quot;SPRING_SECURITY_LAST_EXCEPTION&quot;,new DisabledException(&quot;验证码输入错误&quot;));
+                // 转发到错误Url
+                request.getRequestDispatcher(&quot;/login/error&quot;).forward(request,response);
+            } else {
+                filterChain.doFilter(request,response);
+            }
+        } else {
+            filterChain.doFilter(request,response);
+        }
+
+    }
+
+    private boolean validateVerify(String inputVerify) {
+        //获取当前线程绑定的request对象
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        // 不分区大小写
+        // 这个validateCode是在servlet中存入session的名字
+        String validateCode = ((String) request.getSession().getAttribute(&quot;validateCode&quot;)).toLowerCase();
+        inputVerify = inputVerify.toLowerCase();
+
+        System.out.println(&quot;验证码：&quot; + validateCode + &quot;用户输入：&quot; + inputVerify);
+        return validateCode.equals(inputVerify);
+    }
+
+    // 拦截 /login的POST请求
+    private boolean isProtectedUrl(HttpServletRequest request) {
+        return &quot;POST&quot;.equals(request.getMethod()) &amp;&amp; pathMatcher.match(&quot;/login&quot;, request.getServletPath());
+    }
+}
+</code></pre>
+<p>3.2注入过滤器<br>修改 WebSecurityConfig 的 configure 方法，添加一个 addFilterBefore() ，具有两个参数，作用是在参数二之前执行参数一设置的过滤器。</p>
+<p>Spring Security 对于用户名/密码登录方式是通过 UsernamePasswordAuthenticationFilter 处理的，我们在它之前执行验证码过滤器即可。</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/07/14/Kafka基本介绍-熟悉基础/" title="Kafka简单介绍">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/07/14/Springboot集成SpringSecurity-简单介绍及使用/" title="Spring security框架简介">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#一、添加验证码"><span class="post-toc-text">一、添加验证码</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#二-修改-login-html"><span class="post-toc-text">二:修改 login.html</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#三：添加匿名访问-Url"><span class="post-toc-text">三：添加匿名访问 Url</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

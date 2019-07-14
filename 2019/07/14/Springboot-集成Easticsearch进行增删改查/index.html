@@ -1,0 +1,853 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Springboot-集成Easticsearch进行增删改查</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Springboot-集成Easticsearch进行增删改查》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		7/14/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/07/14/Springboot-集成Easticsearch进行增删改查/" itemprop="url">		
+			Springboot-集成Easticsearch进行增删改查		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/07/14/Springboot-集成Easticsearch进行增删改查/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="8">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="Springboot-集成Easticsearch进行增删改查"><a href="#Springboot-集成Easticsearch进行增删改查" class="headerlink" title="Springboot-集成Easticsearch进行增删改查"></a>Springboot-集成Easticsearch进行增删改查</h1><h3 id="1-首先大概了解ES的一些概念类比："><a href="#1-首先大概了解ES的一些概念类比：" class="headerlink" title="1.首先大概了解ES的一些概念类比："></a>1.首先大概了解ES的一些概念类比：</h3><p>如果把Es类比成传统的关系型数据库，那么</p>
+<p>Index对应的就是传统数据库的数据库名</p>
+<p>type对应的是传统数据库的表</p>
+<p>Document对应的是传统数据库的一行数据</p>
+<h5 id="概念对比表如图："><a href="#概念对比表如图：" class="headerlink" title="概念对比表如图："></a>概念对比表如图：</h5><p><img src="http://blog.mibook.top/es1.png" alt></p>
+<h3 id="2-Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）"><a href="#2-Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）" class="headerlink" title="2.Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）"></a>2.Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）</h3><p>本测试使用的环境为ES—6.4.2   Springboot父以来版本为2.1.5.RELEASE</p>
+<h5 id="Pom详情"><a href="#Pom详情" class="headerlink" title="Pom详情"></a>Pom详情</h5><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.1.5.RELEASE&lt;/version&gt;
+        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+    &lt;/parent&gt;
+    &lt;groupId&gt;cn.text&lt;/groupId&gt;
+    &lt;artifactId&gt;springboot-elasticsearch&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;springboot-elasticsearch&lt;/name&gt;
+    &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+
+    &lt;properties&gt;
+        &lt;java.version&gt;1.8&lt;/java.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-data-elasticsearch&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+
+</code></pre>
+<h3 id="3编写Es索引类（有点类似于创建数据库）"><a href="#3编写Es索引类（有点类似于创建数据库）" class="headerlink" title="3编写Es索引类（有点类似于创建数据库）"></a>3编写Es索引类（有点类似于创建数据库）</h3><h5 id="Item类："><a href="#Item类：" class="headerlink" title="Item类："></a>Item类：</h5><p>通过@Document标记作用类实现索引的创建，当然需要调用的，继续往下看</p>
+<pre><code class="java">
+/**
+ * lombok：
+ *  -@NoArgsConstructor: 自动生成无参数构造函数。
+ *  -@AllArgsConstructor: 自动生成全参数构造函数。
+ * Spring Data通过注解来声明字段的映射属性，有下面的三个注解：
+
+ * - `@Document` 作用在类，标记实体类为文档对象----类比数据库表里的一行数据，一般有两个属性 默认情况下这个实体中所有的属性都会被建立索引、并且分词
+ *      - indexName：对应索引库名称----类比数据库名
+ *      - type：对应在索引库中的类型-----类比数据库表名
+ *      - shards：分片数量，默认5
+ *      - replicas：副本数量，默认1
+ * */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(indexName = &quot;item&quot;, type = &quot;docs&quot;, shards = 5, replicas = 1)
+public class Item {
+    /**
+     * @ Id 作用在成员变量，标记一个字段作为id主键
+     * 通过字段可以进行修改
+     */
+    @Id
+    private Long id;
+    /**
+     * - @Field 作用在成员变量，标记为文档的字段，并指定字段映射属性：
+     * - type：字段类型，枚举选择：FieldType
+     * - index：是否索引，布尔类型，默认是true
+     * - store：是否存储，布尔类型，默认是false
+     * - analyzer：分词器名称
+     */
+    @Field(type = FieldType.Text)
+    private String title; //标题
+
+    @Field(type = FieldType.Keyword)
+    private String category;// 分类
+
+    @Field(type = FieldType.Keyword)
+    private String brand; // 品牌
+
+    @Field(type = FieldType.Double)
+    private Double price; // 价格
+
+    @Field(index = false, type = FieldType.Keyword)
+    private String images; // 图片地址
+}
+
+</code></pre>
+<h3 id="4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）"><a href="#4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）" class="headerlink" title="4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）"></a>4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）</h3><h5 id="方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）："><a href="#方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）：" class="headerlink" title="方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）："></a>方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）：</h5><p><img src="http://blog.mibook.top/nameToMethod.png" alt></p>
+<h5 id="ItemRepository接口："><a href="#ItemRepository接口：" class="headerlink" title="ItemRepository接口："></a>ItemRepository接口：</h5><pre><code class="java">
+/**
+ * ElasticsearchRepository&lt;需要创建的Document, ID类型（唯一标识数据用,同上面的类ID类型）&gt;
+ */
+public interface ItemRepository extends ElasticsearchRepository&lt;Item, Long&gt; {
+
+    /**
+    *根据标题查找数据
+    */
+    List&lt;Item&gt; findByTitle(String title);
+    /**
+     * 根据价格区间查询
+     *
+     * @param price1
+     * @param price2
+     * @return
+     */
+    List&lt;Item&gt; findByPriceBetween(double price1, double price2);
+}
+
+</code></pre>
+<h3 id="5配置Es设备的相关信息"><a href="#5配置Es设备的相关信息" class="headerlink" title="5配置Es设备的相关信息"></a>5配置Es设备的相关信息</h3><h5 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml:"></a>application.yml:</h5><pre><code class="yml">spring:
+  data:
+    elasticsearch:
+      cluster-name: hyhua-es
+      cluster-nodes: 172.19.1.20:9300
+      repositories:
+        enable: true
+
+</code></pre>
+<h3 id="6-编写测试类进行增删改查："><a href="#6-编写测试类进行增删改查：" class="headerlink" title="6.编写测试类进行增删改查："></a>6.编写测试类进行增删改查：</h3><h5 id="SpringbootElasticsearchApplicationTests："><a href="#SpringbootElasticsearchApplicationTests：" class="headerlink" title="SpringbootElasticsearchApplicationTests："></a>SpringbootElasticsearchApplicationTests：</h5><pre><code class="java">
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SpringbootElasticsearchApplicationTests {
+
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    /**
+     * 创建索引
+     */
+    @Test
+    public void createIndex() {
+        // 创建索引，会根据Item类的@Document注解信息来创建
+        elasticsearchTemplate.createIndex(Item.class);
+        // 配置映射，会根据Item类中的id、Field等字段来自动完成映射
+        elasticsearchTemplate.putMapping(Item.class);
+    }
+
+    /**
+     * 删除索引
+     */
+    @Test
+    public void deleteIndex() {
+        elasticsearchTemplate.deleteIndex(&quot;item&quot;);
+    }
+
+    /**
+     * 新增
+     */
+
+    @Test
+    public void insert() {
+        Item item = new Item(1L, &quot;小米手机7&quot;, &quot;手机&quot;, &quot;小米&quot;, 2999.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;);
+        itemRepository.save(item);
+    }
+
+    /**
+     * 修改
+     *
+     * ：修改和新增是同一个接口，区分的依据就是id，这一点跟我们在页面发起PUT请求是类似的。
+     */
+    @Test
+    public void insert2() {
+        Item item = new Item(6L, &quot;红米手机9&quot;, &quot;手机&quot;, &quot;小米&quot;, 2999.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;);
+        itemRepository.save(item);
+    }
+
+    /**
+     * 批量新增
+     */
+    @Test
+    public void insertList() {
+        List&lt;Item&gt; list = new ArrayList&lt;&gt;();
+        list.add(new Item(2L, &quot;坚果手机R1&quot;, &quot;手机&quot;, &quot;锤子&quot;, 3999.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+        list.add(new Item(3L, &quot;华为META20&quot;, &quot;手机&quot;, &quot;华为&quot;, 4999.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+        list.add(new Item(4L, &quot;iPhone X&quot;, &quot;手机&quot;, &quot;iPhone&quot;, 5100.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+        list.add(new Item(5L, &quot;iPhone XS&quot;, &quot;手机&quot;, &quot;iPhone&quot;, 5999.00, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+        // 接收对象集合，实现批量新增
+        itemRepository.saveAll(list);
+    }
+
+
+
+    /**
+     * 删除所有
+     */
+    @Test
+    public void delete() {
+        itemRepository.deleteAll();
+    }
+
+    /**
+     * 基本查询
+     */
+    @Test
+    public void query() {
+        // 查询全部，并按照价格降序排序
+        Iterable&lt;Item&gt; items = itemRepository.findAll(Sort.by(&quot;price&quot;).descending());
+        items.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+    /**
+     * 单条件查询
+     */
+    @Test
+    public void queryByTitle() {
+        // 根据价格区间查询
+        List&lt;Item&gt; list = itemRepository.findByTitle(&quot;小米手机7&quot;);
+        list.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+
+    /**
+     * 自定义方法2
+     */
+    @Test
+    public void queryByPriceBetween() {
+        // 根据价格区间查询
+        List&lt;Item&gt; list = itemRepository.findByPriceBetween(5000.00, 6000.00);
+        list.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+
+
+    /**
+     * 自定义全文分词查询--此处还未研究明白termQuery和MatchQuery的区别，以及他们查询时的结果的不同 网上说的比较泛，后续发现会补充上来
+     */
+    @Test
+    public void search() {
+        // 构建查询条件
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        // 添加基本分词查询--注意是分词查询 小米手机 可能会被分成 小米 手机
+        //matchquery搜索的时候，首先会解析查询字符串，进行分词，然后查询，
+        //termquery,输入的查询内容是什么，就会按照什么去查询，并不会解析  但实际使用可能存在Bug 查不出数据-暂未找到具体原因
+        // 可以查询的条件
+        //queryBuilder.withQuery(QueryBuilders.matchQuery(&quot;title&quot;,&quot;坚果&quot;));
+        //queryBuilder.withQuery(QueryBuilders.matchQuery(&quot;category&quot;,&quot;手机&quot;));
+        //queryBuilder.withQuery(QueryBuilders.matchQuery(&quot;price&quot;,2999.0));
+
+        //可查询但无结果
+        //queryBuilder.withQuery(QueryBuilders.termQuery(&quot;title&quot;,&quot;坚果&quot;));
+        //queryBuilder.withQuery(QueryBuilders.termQuery(&quot;title&quot;,&quot;坚果手机R1&quot;));
+
+        //可查询但有结果
+        queryBuilder.withQuery(QueryBuilders.termQuery(&quot;category&quot;,&quot;手机&quot;));
+
+
+
+        //images无索引，无法查询
+        //queryBuilder.withQuery(QueryBuilders.matchQuery(&quot;images&quot;, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+        //queryBuilder.withQuery(QueryBuilders.termQuery(&quot;images&quot;, &quot;https://img12.360buyimg.com/n1/s450x450_jfs/t1/14081/40/4987/124705/5c371b20E53786645/c1f49cd69e6c7e6a.jpg&quot;));
+
+        // 搜索，获取结果
+        Page&lt;Item&gt; items = itemRepository.search(queryBuilder.build());
+        // 总条数
+        long total = items.getTotalElements();
+        System.out.println(&quot;total = &quot; + total);
+        items.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+    /**
+     * 分页查询
+     */
+    @Test
+    public void searchByPage() {
+        // 构建查询条件
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        // 添加基本分词查询
+        queryBuilder.withQuery(QueryBuilders.termQuery(&quot;category&quot;, &quot;手机&quot;));
+        // 分页---page从o开始作为第一页：
+        int page = 1;
+        int size = 2;
+        queryBuilder.withPageable(PageRequest.of(page, size));
+        // 搜索，获取结果
+        Page&lt;Item&gt; items = itemRepository.search(queryBuilder.build());
+        long total = items.getTotalElements();
+        System.out.println(&quot;总条数 = &quot; + total);
+        System.out.println(&quot;总页数 = &quot; + items.getTotalPages());
+        System.out.println(&quot;当前页：&quot; + items.getNumber());
+        System.out.println(&quot;每页大小：&quot; + items.getSize());
+        items.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+    /**
+     * 排序
+     */
+    @Test
+    public void searchAndSort() {
+        // 构建查询条件
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        // 添加基本分词查询
+        queryBuilder.withQuery(QueryBuilders.termQuery(&quot;category&quot;, &quot;手机&quot;));
+        // 排序
+        queryBuilder.withSort(SortBuilders.fieldSort(&quot;price&quot;).order(SortOrder.ASC));
+        // 搜索，获取结果
+        Page&lt;Item&gt; items = this.itemRepository.search(queryBuilder.build());
+        // 总条数
+        long total = items.getTotalElements();
+        System.out.println(&quot;总条数 = &quot; + total);
+        items.forEach(item -&gt; System.out.println(&quot;item = &quot; + item));
+    }
+
+    /**
+     * 聚合为桶---查询种类和种类包含的条数
+     */
+    @Test
+    public void testAgg() {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        // 不查询任何结果
+        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{&quot;&quot;}, null));
+        // 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand
+        queryBuilder.addAggregation(AggregationBuilders.terms(&quot;brands&quot;).field(&quot;brand&quot;));
+        // 2、查询,需要把结果强转为AggregatedPage类型
+        AggregatedPage&lt;Item&gt; aggPage = (AggregatedPage&lt;Item&gt;) itemRepository.search(queryBuilder.build());
+        // 3、解析
+        // 3.1、从结果中取出名为brands的那个聚合，
+        // 因为是利用String类型字段来进行的term聚合，所以结果要强转为StringTerm类型
+        StringTerms agg = (StringTerms) aggPage.getAggregation(&quot;brands&quot;);
+        // 3.2、获取桶
+        List&lt;StringTerms.Bucket&gt; buckets = agg.getBuckets();
+        // 3.3、遍历
+        for (StringTerms.Bucket bucket : buckets) {
+            // 3.4、获取桶中的key，即品牌名称
+            System.out.println(bucket.getKeyAsString());
+            // 3.5、获取桶中的文档数量
+            System.out.println(bucket.getDocCount());
+        }
+    }
+
+    /**
+     * 嵌套聚合，求平均值
+     */
+    @Test
+    public void testSubAgg() {
+        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+        // 不查询任何结果
+        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{&quot;&quot;}, null));
+        // 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand
+        queryBuilder.addAggregation(
+                AggregationBuilders.terms(&quot;brands&quot;).field(&quot;brand&quot;)
+                        .subAggregation(AggregationBuilders.avg(&quot;priceAvg&quot;).field(&quot;price&quot;)) // 在品牌聚合桶内进行嵌套聚合，求平均值
+        );
+        // 2、查询,需要把结果强转为AggregatedPage类型
+        AggregatedPage&lt;Item&gt; aggPage = (AggregatedPage&lt;Item&gt;) this.itemRepository.search(queryBuilder.build());
+        // 3、解析
+        // 3.1、从结果中取出名为brands的那个聚合，
+        // 因为是利用String类型字段来进行的term聚合，所以结果要强转为StringTerm类型
+        StringTerms agg = (StringTerms) aggPage.getAggregation(&quot;brands&quot;);
+        // 3.2、获取桶
+        List&lt;StringTerms.Bucket&gt; buckets = agg.getBuckets();
+        // 3.3、遍历
+        for (StringTerms.Bucket bucket : buckets) {
+            // 3.4、获取桶中的key，即品牌名称  3.5、获取桶中的文档数量
+            System.out.println(bucket.getKeyAsString() + &quot;，共&quot; + bucket.getDocCount() + &quot;台&quot;);
+
+            // 3.6.获取子聚合结果：
+            InternalAvg avg = (InternalAvg) bucket.getAggregations().asMap().get(&quot;priceAvg&quot;);
+            System.out.println(&quot;平均售价：&quot; + avg.getValue());
+        }
+    }
+}
+
+</code></pre>
+<p>至此对Es的操作基本就完成了</p>
+<h3 id="7-补充一些查询"><a href="#7-补充一些查询" class="headerlink" title="7.补充一些查询"></a>7.补充一些查询</h3><h6 id="（未经测试引用自：https-blog-csdn-net-weixin-41133233-article-details-82927408-）"><a href="#（未经测试引用自：https-blog-csdn-net-weixin-41133233-article-details-82927408-）" class="headerlink" title="（未经测试引用自：https://blog.csdn.net/weixin_41133233/article/details/82927408 ）"></a>（未经测试引用自：<a href="https://blog.csdn.net/weixin_41133233/article/details/82927408" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41133233/article/details/82927408</a> ）</h6><p>//根据指定的字段词条查询  (调用文档对象的dao类中的方法，根据名称去抒写功能已经完成，自定义方法)</p>
+<h5 id="词条查询"><a href="#词条查询" class="headerlink" title="词条查询"></a>词条查询</h5><p>@Test<br>    public void termSearch(){<br>        List<item> list = itemRepository.findByTitle(“高尔夫”);<br>        for (Item t:list) {<br>        System.out.println(t);<br>    }<br>}</item></p>
+<h5 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h5><p>//根据指定字段大小范围查询<br>    @Test<br>    public void numberSearch(){<br>        List<item> list = itemRepository.findByPriceBetween(8000.0, 15000.0);</item></p>
+<p>​    for (Item b:list<br>​         ) {<br>​        System.out.println(b);<br>​    }<br>}</p>
+<h5 id="自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）"><a href="#自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）" class="headerlink" title="自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）"></a>自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）</h5><p>term查询</p>
+<p>@Test<br>    public void termSearch1(){<br>        //创建查询条件生成器 （相当于Lucene中的查询文档对象）<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.termQuery(“category”,”运动品a”));</p>
+<pre><code>    //查询到的结果，自动分页，默认第一页，每页条目数是10条（itemRepository相当于文档读取器，参数中的文档查询对象需要构建下）
+    //在查询条件生成器中生成查询对象所以去build构建
+    Page&lt;Item&gt; search = itemRepository.search(nativeSearchQueryBuilder.build());
+
+    for (Item i:search
+            ) {
+        System.out.println(i);
+    }
+
+}
+</code></pre><h5 id="match匹配查询（相当于词条匹配查询，自定义查询）"><a href="#match匹配查询（相当于词条匹配查询，自定义查询）" class="headerlink" title="match匹配查询（相当于词条匹配查询，自定义查询）"></a>match匹配查询（相当于词条匹配查询，自定义查询）</h5><p> @Test<br>    public void matchSearch(){<br>        //创建查询条件生成器 （相当于Lucene中的查询文档对象）<br>       NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>       nativeSearchQueryBuilder.withQuery(QueryBuilders.matchQuery(“title”,”足球”));</p>
+<pre><code>   //查询到的结果，自动分页，默认第一页，每页条目数是10条（itemRepository相当于文档读取器，参数中的文档查询对象需要构建下）
+   //在查询条件生成器中生成查询对象所以去build构建
+   Page&lt;Item&gt; search = itemRepository.search(nativeSearchQueryBuilder.build());
+
+   for (Item i:search
+        ) {
+       System.out.println(i);
+   }
+</code></pre><p>   }</p>
+<h5 id="布尔查询（综合查询）"><a href="#布尔查询（综合查询）" class="headerlink" title="布尔查询（综合查询）"></a>布尔查询（综合查询）</h5><p> @Test<br>   public void booleanSearch(){<br>        //创建查询条件生成器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(“title”,”篮球”)).must(QueryBuilders.matchQuery(“category”,”运动品a”)));</p>
+<pre><code>    //查询
+   Page&lt;Item&gt; search = itemRepository.search(nativeSearchQueryBuilder.build());
+
+   for (Item i:search
+        ) {
+       System.out.println(i);
+   }
+</code></pre><p>   }</p>
+<h5 id="容错查询（最多错两个）"><a href="#容错查询（最多错两个）" class="headerlink" title="容错查询（最多错两个）"></a>容错查询（最多错两个）</h5><p>@Test<br>    public void fuzzSearch(){<br>        //创建查询条件生成器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.fuzzyQuery(“title”,”球”));</p>
+<p>​    //查询<br>​    Page<item> search = itemRepository.search(nativeSearchQueryBuilder.build());</item></p>
+<p>​    for (Item i:search<br>​         ) {<br>​        System.out.println(i);<br>​    }<br>}</p>
+<h5 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h5><p>注意： ? 表示询问一个未知的占位符，* 表示询问0到n个任意占位符</p>
+<p>@Test<br>public void wildCardSearch(){<br>    //创建查询条件生成器<br>    NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>    nativeSearchQueryBuilder.withQuery(QueryBuilders.wildcardQuery(“title”,”<em>球</em>“));</p>
+<p>​    //查询<br>​    Page<item> search = itemRepository.search(nativeSearchQueryBuilder.build());</item></p>
+<p>​    for (Item i:search<br>​         ) {<br>​        System.out.println(i);<br>​    }<br>}</p>
+<h5 id="分页查询-只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页"><a href="#分页查询-只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页" class="headerlink" title="分页查询(只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页)"></a>分页查询(只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页)</h5><p>@Test<br>    public void feYeSearch(){<br>        //创建查询条件生成器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.wildcardQuery(“title”,”*球”));</p>
+<p>​    //构建分页<br>​    nativeSearchQueryBuilder.withPageable(PageRequest.of(0,3));</p>
+<p>​    //查询<br>​    Page<item> search = itemRepository.search(nativeSearchQueryBuilder.build());</item></p>
+<p>​    for (Item i:search<br>​         ) {<br>​        System.out.println(i);<br>​    }<br>}</p>
+<h5 id="排序查询（使查询结果按指定字段排序，基于模糊查询）"><a href="#排序查询（使查询结果按指定字段排序，基于模糊查询）" class="headerlink" title="排序查询（使查询结果按指定字段排序，基于模糊查询）"></a>排序查询（使查询结果按指定字段排序，基于模糊查询）</h5><p>@Test<br>    public void sortSearch(){<br>        //构建查询条件生成器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.wildcardQuery(“title”,”*球”));</p>
+<p>​    //构建排序<br>​    nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort(“price”).order(SortOrder.DESC));</p>
+<p>​    //查询<br>​    Page<item> search = itemRepository.search(nativeSearchQueryBuilder.build());</item></p>
+<p>​    for (Item i:search<br>​         ) {<br>​        System.out.println(i);</p>
+<p>​    }</p>
+<p>}</p>
+<h5 id="组合模糊查询，分页，排序"><a href="#组合模糊查询，分页，排序" class="headerlink" title="组合模糊查询，分页，排序"></a>组合模糊查询，分页，排序</h5><p>@Test<br>    public void mfpSearch(){<br>        //创建查询条件构造器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.withQuery(QueryBuilders.wildcardQuery(“title”,”*球”));</p>
+<p>​    //构建分页<br>​    nativeSearchQueryBuilder.withPageable(PageRequest.of(0,5));</p>
+<p>​    //构建排序<br>​    nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort(“price”).order(SortOrder.DESC));</p>
+<p>​    //查询<br>​    Page<item> search = itemRepository.search(nativeSearchQueryBuilder.build());</item></p>
+<p>​    for (Item i:search<br>​         ) {<br>​        System.out.println(i);<br>​    }</p>
+<p>}<br>由此可见，查询条件只要不违反规则是可以累加的<br>下面小熙来介绍elasticsearch最厉害的聚合查询吧，其查询广度、分组处理、度量计算、子聚合（类似于mysql的子查询）是小熙所膜拜的。</p>
+<h5 id="单一聚合查询"><a href="#单一聚合查询" class="headerlink" title="单一聚合查询"></a>单一聚合查询</h5><p> @Test<br>    public void jhSearch(){<br>        //创建查询条件构造器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        // 不查询任何结果<br>//        nativeSearchQueryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{“”}, null));<br>        //添加聚合 (此聚合类型为terms，聚合名称是：categorys,聚合字段是category)<br>        nativeSearchQueryBuilder.addAggregation(AggregationBuilders.terms(“categorys”).field(“category”));<br>        //查询（结果修改为聚合类分页结果）<br>        AggregatedPage<item> search = (AggregatedPage<item> )itemRepository.search(nativeSearchQueryBuilder.build());</item></item></p>
+<pre><code>    //结果中找到对应的聚合（根据聚合名称）
+    StringTerms category = (StringTerms)search.getAggregation(&quot;categorys&quot;);
+    //获取查询到的桶
+    List&lt;StringTerms.Bucket&gt; buckets = category.getBuckets();
+
+    for (StringTerms.Bucket s:buckets
+         ) {
+        //获取桶中的key（就是字段下的名称）
+        String keyAsString = s.getKeyAsString();
+        System.out.println( keyAsString);
+        //获取桶中的数量（即为查询到的文档数量）
+        long docCount = s.getDocCount();
+        System.out.println(docCount);
+    }
+
+}
+</code></pre><h5 id="包含子聚合的聚合查询"><a href="#包含子聚合的聚合查询" class="headerlink" title="包含子聚合的聚合查询"></a>包含子聚合的聚合查询</h5><p>@Test<br>    public void jh2Search(){<br>        //创建查询条件构造器<br>        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();<br>        nativeSearchQueryBuilder.addAggregation(AggregationBuilders.terms(“brands”).field(“brand”)<br>                                         //创建子聚合工程（对父聚合工程的结果进行求取平均值）<br>                                    .subAggregation(AggregationBuilders.avg(“avg”).field(“price”))<br>        );</p>
+<p>​    //查询<br>​    AggregatedPage<item> search = (AggregatedPage<item>)itemRepository.search(nativeSearchQueryBuilder.build());<br>​    //根据聚合名称获取对应聚合<br>​    StringTerms brands = (StringTerms)search.getAggregation(“brands”);<br>​    //获取查询到的桶<br>​    List&lt;StringTerms.Bucket&gt; buckets = brands.getBuckets();</item></item></p>
+<p>​    for (StringTerms.Bucket b:buckets<br>​         ) {<br>​        //获取父聚合的字段名<br>​        System.out.print(“品牌名称：”+b.getKeyAsString() + “查到的文档数：”+b.getDocCount());<br>​        //获取父聚合中桶中数量<br>​        System.out.println();<br>​        //获取子聚合，转为Map集合，获取构建子聚合时价格平均值的key，这里指定的是avg（强转为平均值）。<br>​        InternalAvg avg = (InternalAvg)b.getAggregations().asMap().get(“avg”);<br>​        System.out.println(“\t\t平均价格是：”+avg.getValue());<br>​    }</p>
+<p>}</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/07/14/Java-反射初识/" title="反射是框架设计的灵魂">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Springboot-集成Easticsearch进行增删改查"><span class="post-toc-text">Springboot-集成Easticsearch进行增删改查</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-首先大概了解ES的一些概念类比："><span class="post-toc-text">1.首先大概了解ES的一些概念类比：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#概念对比表如图："><span class="post-toc-text">概念对比表如图：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）"><span class="post-toc-text">2.Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Pom详情"><span class="post-toc-text">Pom详情</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3编写Es索引类（有点类似于创建数据库）"><span class="post-toc-text">3编写Es索引类（有点类似于创建数据库）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Item类："><span class="post-toc-text">Item类：</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）"><span class="post-toc-text">4编写Es的Repository（类似于我们的Dao层，用了操作索引信息进行查询的）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）："><span class="post-toc-text">方法名命名规范（见意思用处，笔者这里没学过Hibernate，估计是那一块的，有兴趣可以理解一下JPA）：</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#ItemRepository接口："><span class="post-toc-text">ItemRepository接口：</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5配置Es设备的相关信息"><span class="post-toc-text">5配置Es设备的相关信息</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#application-yml"><span class="post-toc-text">application.yml:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-编写测试类进行增删改查："><span class="post-toc-text">6.编写测试类进行增删改查：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#SpringbootElasticsearchApplicationTests："><span class="post-toc-text">SpringbootElasticsearchApplicationTests：</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-补充一些查询"><span class="post-toc-text">7.补充一些查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#（未经测试引用自：https-blog-csdn-net-weixin-41133233-article-details-82927408-）"><span class="post-toc-text">（未经测试引用自：https://blog.csdn.net/weixin_41133233/article/details/82927408 ）</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#词条查询"><span class="post-toc-text">词条查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#范围查询"><span class="post-toc-text">范围查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）"><span class="post-toc-text">自定义查询（自己构造查询条件，对比基础查询，搜索内容有了条件）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#match匹配查询（相当于词条匹配查询，自定义查询）"><span class="post-toc-text">match匹配查询（相当于词条匹配查询，自定义查询）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#布尔查询（综合查询）"><span class="post-toc-text">布尔查询（综合查询）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#容错查询（最多错两个）"><span class="post-toc-text">容错查询（最多错两个）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#模糊查询"><span class="post-toc-text">模糊查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#分页查询-只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页"><span class="post-toc-text">分页查询(只是在查询条件生成器中多构建了一个分页而已，基于模糊查询的分页)</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#排序查询（使查询结果按指定字段排序，基于模糊查询）"><span class="post-toc-text">排序查询（使查询结果按指定字段排序，基于模糊查询）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#组合模糊查询，分页，排序"><span class="post-toc-text">组合模糊查询，分页，排序</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#单一聚合查询"><span class="post-toc-text">单一聚合查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#包含子聚合的聚合查询"><span class="post-toc-text">包含子聚合的聚合查询</span></a></li>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

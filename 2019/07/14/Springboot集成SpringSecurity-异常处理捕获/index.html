@@ -1,0 +1,460 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>SpringSecurity-异常处理捕获</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《SpringSecurity-异常处理捕获》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		7/14/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">		
+			SpringSecurity-异常处理捕获		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="8">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="SpringSecurity-异常处理捕获"><a href="#SpringSecurity-异常处理捕获" class="headerlink" title="SpringSecurity-异常处理捕获"></a>SpringSecurity-异常处理捕获</h1><h3 id="1-简单引入"><a href="#1-简单引入" class="headerlink" title="1.简单引入"></a>1.简单引入</h3><p>上一节讲述了SpringSecurity实现自动登录，但两节过程中登录失败都会跳转至/login/error链接，这是为什么呢？我们跟着博主一起来看下</p>
+<p>其实这是默认的错误处理链接，你也可以设置相应的路径来控制错误的输出页面，当然我们一般是根据异常情况来区分错误界面的</p>
+<p>首先看下原来登录错误的界面</p>
+<p><img src="http://blog.mibook.top/securityoper6.png" alt></p>
+<p> <code>/login?error</code> 是 Spring security 默认的失败 Url，其次<strong>如果你不手动处理这个异常，这个异常是不会被处理的</strong>。</p>
+<h3 id="2、常见异常"><a href="#2、常见异常" class="headerlink" title="2、常见异常"></a>2、常见异常</h3><p>我们先来列举下一些 Spring Security 中常见的异常：</p>
+<p>UsernameNotFoundException（用户不存在）<br>DisabledException（用户已被禁用）<br>BadCredentialsException（坏的凭据）<br>LockedException（账户锁定）<br>AccountExpiredException （账户过期）<br>CredentialsExpiredException（证书过期）<br>…<br>以上列出的这些异常都是 AuthenticationException 的子类，然后我们来看看 Spring security 如何处理 AuthenticationException 异常的。</p>
+<h4 id="一、源码分析"><a href="#一、源码分析" class="headerlink" title="一、源码分析"></a>一、源码分析</h4><p>我们知道异常处理一般在过滤器中处理，我们在 AbstractAuthenticationProcessingFilter 中找到了对 AuthenticationException 的处理：</p>
+<h5 id="（1）在-doFilter-中，捕捉了-AuthenticationException-异常，并交给了-unsuccessfulAuthentication-处理。"><a href="#（1）在-doFilter-中，捕捉了-AuthenticationException-异常，并交给了-unsuccessfulAuthentication-处理。" class="headerlink" title="（1）在 doFilter() 中，捕捉了 AuthenticationException 异常，并交给了 unsuccessfulAuthentication() 处理。"></a>（1）在 doFilter() 中，捕捉了 AuthenticationException 异常，并交给了 unsuccessfulAuthentication() 处理。</h5><p><img src="http://blog.mibook.top/securityoper7.png" alt></p>
+<h5 id="（2）在-unsuccessfulAuthentication-中，转交给了-SimpleUrlAuthenticationFailureHandler-类的-onAuthenticationFailure-处理。"><a href="#（2）在-unsuccessfulAuthentication-中，转交给了-SimpleUrlAuthenticationFailureHandler-类的-onAuthenticationFailure-处理。" class="headerlink" title="（2）在 unsuccessfulAuthentication() 中，转交给了 SimpleUrlAuthenticationFailureHandler 类的 onAuthenticationFailure() 处理。"></a>（2）在 <code>unsuccessfulAuthentication()</code> 中，转交给了 <code>SimpleUrlAuthenticationFailureHandler</code> 类的 <code>onAuthenticationFailure()</code> 处理。</h5><p><img src="http://blog.mibook.top/securityoper8.png" alt></p>
+<h5 id="3）在onAuthenticationFailure-中，首先判断有没有设置defaultFailureUrl。"><a href="#3）在onAuthenticationFailure-中，首先判断有没有设置defaultFailureUrl。" class="headerlink" title="3）在onAuthenticationFailure()中，首先判断有没有设置defaultFailureUrl。"></a>3）在onAuthenticationFailure()中，首先判断有没有设置defaultFailureUrl。</h5><p>如果没有设置，直接返回 401 错误，即 HttpStatus.UNAUTHORIZED 的值。</p>
+<p>如果设置了，首先执行 saveException() 方法。然后判断 forwardToDestination ，即是否是服务器跳转，默认使用重定向即客户端跳转。</p>
+<p><img src="http://blog.mibook.top/securityoper9.png" alt></p>
+<h5 id="（4）在-saveException-方法中，首先判断forwardToDestination，如果使用服务器跳转则写入-Request，客户端跳转则写入-Session。写入名为-SPRING-SECURITY-LAST-EXCEPTION-，值为-AuthenticationException。"><a href="#（4）在-saveException-方法中，首先判断forwardToDestination，如果使用服务器跳转则写入-Request，客户端跳转则写入-Session。写入名为-SPRING-SECURITY-LAST-EXCEPTION-，值为-AuthenticationException。" class="headerlink" title="（4）在 saveException() 方法中，首先判断forwardToDestination，如果使用服务器跳转则写入 Request，客户端跳转则写入 Session。写入名为 SPRING_SECURITY_LAST_EXCEPTION ，值为 AuthenticationException。"></a>（4）在 saveException() 方法中，首先判断forwardToDestination，如果使用服务器跳转则写入 Request，客户端跳转则写入 Session。写入名为 SPRING_SECURITY_LAST_EXCEPTION ，值为 AuthenticationException。</h5><p><img src="http://blog.mibook.top/securityoper10.png" alt></p>
+<p>至此 Spring security 完成了异常处理，总结一下流程：</p>
+<p>–&gt; AbstractAuthenticationProcessingFilter.doFilter()</p>
+<p>–&gt; AbstractAuthenticationProcessingFilter.unsuccessfulAuthentication()</p>
+<p>–&gt; SimpleUrlAuthenticationFailureHandler.onAuthenticationFailure()</p>
+<p>–&gt; SimpleUrlAuthenticationFailureHandler.saveException()</p>
+<h4 id="二、处理异常"><a href="#二、处理异常" class="headerlink" title="二、处理异常"></a>二、处理异常</h4><p>上面源码说了那么多，真正处理起来很简单，我们只需要指定错误的url，然后再该方法中对异常进行处理即可。</p>
+<h5 id="（1）指定错误Url，WebSecurityConfig中添加-failureUrl-quot-login-error-quot"><a href="#（1）指定错误Url，WebSecurityConfig中添加-failureUrl-quot-login-error-quot" class="headerlink" title="（1）指定错误Url，WebSecurityConfig中添加.failureUrl(&quot;/login/error&quot;)"></a>（1）指定错误Url，<code>WebSecurityConfig</code>中添加<code>.failureUrl(&quot;/login/error&quot;)</code></h5><pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            // 如果有允许匿名的url，填在下面
+//                .antMatchers().permitAll()
+            .anyRequest().authenticated()
+            .and()
+            // 设置登陆页
+            .formLogin().loginPage(&quot;/login&quot;)
+            // 设置登陆成功页
+            .defaultSuccessUrl(&quot;/&quot;).permitAll()
+            // 登录失败Url
+            .failureUrl(&quot;/login/error&quot;)
+            // 自定义登陆用户名和密码参数，默认为username和password
+//                .usernameParameter(&quot;username&quot;)
+//                .passwordParameter(&quot;password&quot;)
+            .and()
+            .logout().permitAll()
+            // 自动登录
+            .and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                // 有效时间：单位s
+                .tokenValiditySeconds(60)
+                .userDetailsService(userDetailsService);
+
+    // 关闭CSRF跨域
+    http.csrf().disable();
+}
+
+</code></pre>
+<h5 id="（2）在Controller中处理异常"><a href="#（2）在Controller中处理异常" class="headerlink" title="（2）在Controller中处理异常"></a>（2）在Controller中处理异常</h5><pre><code class="java">@RequestMapping(&quot;/login/error&quot;)
+public void loginError(HttpServletRequest request, HttpServletResponse response) {
+    response.setContentType(&quot;text/html;charset=utf-8&quot;);
+    AuthenticationException exception =
+            (AuthenticationException)request.getSession().getAttribute(&quot;SPRING_SECURITY_LAST_EXCEPTION&quot;);
+    try {
+        response.getWriter().write(exception.toString());
+    }catch (IOException e) {
+        e.printStackTrace();
+    }
+
+}
+
+</code></pre>
+<h5 id="（3）我们首先获取了-session-中的-SPRING-SECURITY-LAST-EXCEPTION-。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时："><a href="#（3）我们首先获取了-session-中的-SPRING-SECURITY-LAST-EXCEPTION-。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时：" class="headerlink" title="（3）我们首先获取了 session 中的 SPRING_SECURITY_LAST_EXCEPTION 。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时："></a>（3）我们首先获取了 session 中的 <code>SPRING_SECURITY_LAST_EXCEPTION</code> 。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时：</h5><p><img src="http://blog.mibook.top/securityoper11.png" alt></p>
+<p>当然我们一般是根据不同异常出现不同的提示界面的。</p>
+<p>那么今天就到此为止，有相关的问题可以留言一起讨论</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/07/14/Springboot集成SpringSecurity-自动登录实现/" title="SpringSecurity-自动登录实现">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/07/08/Mall学习计划/" title="2019下半年学习计划">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SpringSecurity-异常处理捕获"><span class="post-toc-text">SpringSecurity-异常处理捕获</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-简单引入"><span class="post-toc-text">1.简单引入</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、常见异常"><span class="post-toc-text">2、常见异常</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#一、源码分析"><span class="post-toc-text">一、源码分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（1）在-doFilter-中，捕捉了-AuthenticationException-异常，并交给了-unsuccessfulAuthentication-处理。"><span class="post-toc-text">（1）在 doFilter() 中，捕捉了 AuthenticationException 异常，并交给了 unsuccessfulAuthentication() 处理。</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（2）在-unsuccessfulAuthentication-中，转交给了-SimpleUrlAuthenticationFailureHandler-类的-onAuthenticationFailure-处理。"><span class="post-toc-text">（2）在 unsuccessfulAuthentication() 中，转交给了 SimpleUrlAuthenticationFailureHandler 类的 onAuthenticationFailure() 处理。</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3）在onAuthenticationFailure-中，首先判断有没有设置defaultFailureUrl。"><span class="post-toc-text">3）在onAuthenticationFailure()中，首先判断有没有设置defaultFailureUrl。</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（4）在-saveException-方法中，首先判断forwardToDestination，如果使用服务器跳转则写入-Request，客户端跳转则写入-Session。写入名为-SPRING-SECURITY-LAST-EXCEPTION-，值为-AuthenticationException。"><span class="post-toc-text">（4）在 saveException() 方法中，首先判断forwardToDestination，如果使用服务器跳转则写入 Request，客户端跳转则写入 Session。写入名为 SPRING_SECURITY_LAST_EXCEPTION ，值为 AuthenticationException。</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#二、处理异常"><span class="post-toc-text">二、处理异常</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（1）指定错误Url，WebSecurityConfig中添加-failureUrl-quot-login-error-quot"><span class="post-toc-text">（1）指定错误Url，WebSecurityConfig中添加.failureUrl(&quot;/login/error&quot;)</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（2）在Controller中处理异常"><span class="post-toc-text">（2）在Controller中处理异常</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#（3）我们首先获取了-session-中的-SPRING-SECURITY-LAST-EXCEPTION-。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时："><span class="post-toc-text">（3）我们首先获取了 session 中的 SPRING_SECURITY_LAST_EXCEPTION 。为了演示，我只是简单的将错误信息返回给了页面。运行程序，当我们输入错误密码时：</span></a></li></ol></li></ol></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
