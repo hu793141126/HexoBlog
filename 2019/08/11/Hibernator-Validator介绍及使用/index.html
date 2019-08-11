@@ -1,0 +1,902 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Hibernator-Validator介绍及使用</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Hibernator-Validator介绍及使用》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		8/11/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/08/11/Hibernator-Validator介绍及使用/" itemprop="url">		
+			Hibernator-Validator介绍及使用		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/11/Hibernator-Validator介绍及使用/" itemprop="url">
+	<time datetime="2019-08-11T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-11
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#springboot" title="springboot" rel="10">springboot</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<p>1 - Validator框架的下载和安装<br>我们经常可以看到类似登录、注册、修改信息这种网页，<br>这种页面我们在平常的开发中需要对用户提交的表单数据进行验证并错误提醒，同时为了减轻服务器压力和安全性，都需要在前端和后端写两次验证，工作量不可谓不大</p>
+<h4 id="前言-0-0"><a href="#前言-0-0" class="headerlink" title="前言-0.0"></a>前言-0.0</h4><p>科技的进步是靠懒人推动的，但是这里说的懒人不是说纯懒的那种！开发过程我想最痛苦的事情就是做那种不懂脑子的体力活，即苦逼，又无趣，那么这样的体力活，我们就得想办法偷懒去做，既能完成相关的工作，又能快速达到效果，他好我也好！这种体力活参数校验就是其中的一个；</p>
+<p>首先看个示例：</p>
+<pre><code class="java"> /**
+     * 注册
+     *
+     * @param name     用户昵称
+     * @param phoneNum 用户号码
+     * @param code     用户验证码
+     * @param age      年龄
+     * @param sex      性别
+     * @param email    邮箱
+     * @param pwd      密码
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = &quot;/register&quot;, method = RequestMethod.POST)
+    public BaseRespObj register(
+            @RequestParam(name = &quot;name&quot;) String name,
+            @RequestParam(name = &quot;phoneNum&quot;) String phoneNum,
+            @RequestParam(name = &quot;phoneCode&quot;) Integer code,
+            @RequestParam(name = &quot;age&quot;) Integer age,
+            @RequestParam(name = &quot;sex&quot;) String sex,
+            @RequestParam(name = &quot;email&quot;) String email,
+            @RequestParam(name = &quot;pwd&quot;) String pwd) throws Exception {
+
+    }
+</code></pre>
+<p>为了代码的健壮性，那么这里传上来的每一个参数往往都得做判空的校验，又不能不做，那么可能就会出现下面这样的校验</p>
+<pre><code class="java">if(null==name || name.length()&lt;=0 || null==phoneNum || phoneNum.length()&lt;=0 || .....){
+        throw new BusiException(&quot;参数数有误&quot;)
+    }
+</code></pre>
+<p>这种操作能写到人高潮迭起，全身乏力，可能这一系列的参数校验，就占用了几十行代码，导致代码的可读性极差；那有没有更好的方式呢，当然是有的；<a href="https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator" target="_blank" rel="noopener">hibernate-validator</a></p>
+<h4 id="优点及注解说明"><a href="#优点及注解说明" class="headerlink" title="优点及注解说明"></a>优点及注解说明</h4><p>validator的优点</p>
+<ul>
+<li>解耦，数据的校验与业务逻辑进行分离，降低耦合度</li>
+<li>规范的校验方式，减少参数校验所带来的繁琐体力活</li>
+<li>简洁代码，提高代码的可读性</li>
+</ul>
+<p>Validation constraint</p>
+<p>Validation constraint</p>
+<p>注解                     作用<br>@AssertFalse    被注释的元素必须为 false<br>@AssertTrue    被注释的元素必须为 true<br>@DecimalMin(value)    被注释的元素必须是一个数字，其值必须大于等于指定的最小值<br>@DecimalMax(value)    被注释的元素必须是一个数字，其值必须小于等于指定的最大值<br>@Digits (integer, fraction)    被注释的元素必须是一个数字，其值必须在可接受的范围内<br>@Email    被注释的元素必须是电子邮箱地址<br>@Future    被注释的元素必须是一个将来的日期<br>@Length(min=,max=)    被注释的字符串的大小必须在指定的范围内<br>@Min(value)    被注释的元素必须是一个数字，其值必须大于等于指定的最小值<br>@Max(value)    被注释的元素必须是一个数字，其值必须小于等于指定的最大值<br>@Negative    该值必须小于0<br>@NegativeOrZero    该值必须小于等于0<br>@Null    被注释的元素必须为 null<br>@NotNull    被注释的元素必须不为 null<br>@NotBlank(message =)    验证字符串非null，且长度必须大于0<br>@NotEmpty    被注释的字符串的必须非空<br>@Past    被注释的元素必须是一个过去的日期<br>@Pattern(regex=,flag=)    被注释的元素必须符合指定的正则表达式<br>@Positive    该值必须大于0<br>@PositiveOrZero    该值必须大于等于0<br>@Range(min=,max=,message=)    被注释的元素必须在合适的范围内<br>@Size(max=, min=)    数组大小必须在[min,max]这个区间<br>@URL(protocol=,host,port)    检查是否是一个有效的URL，如果提供了protocol，host等，则该URL还需满足提供的条件</p>
+<p>@Valid    该注解主要用于字段为一个包含其他对象的集合或map或数组的字段，或该字段直接为一个其他对象的引用，这样在检查当前对象的同时也会检查该字段所引用的对象</p>
+<p>下面我开始介绍Validator框架的使用,本文有多种方式，请读者自行探索。。。我就是试出来的</p>
+<p>第一步： 导入pom</p>
+<p>1.本部分为普通项目（包括springboot）</p>
+<pre><code class="xml">&lt;!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.hibernate.validator&lt;/groupId&gt;
+            &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
+            &lt;version&gt;6.0.13.Final&lt;/version&gt;
+        &lt;/dependency&gt;
+
+</code></pre>
+<p>2.本部分在springboot应用的基础上，首先加上web模块：</p>
+<pre><code class="xml">
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+</code></pre>
+<p>可以查看其子依赖，发现web模块默认使用了hibernate-validator：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h1 id="对实体类添加校验"><a href="#对实体类添加校验" class="headerlink" title="对实体类添加校验"></a>对实体类添加校验</h1><p>1.代码实现</p>
+<ul>
+<li><p>校验响应对象</p>
+<pre><code class="java">package com.lupf.springboottest.utils.validator;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 验证的响应对象
+ */
+public class ValidationResult {
+    /**
+     * 是否存在错误
+     */
+    private Boolean hasError = false;
+
+    /**
+     * 错误的信息的map
+     */
+    private Map&lt;String, String&gt; errMsgMap = new HashMap&lt;&gt;();
+
+    public Boolean getHasError() {
+        return hasError;
+    }
+
+    public void setHasError(Boolean hasError) {
+        this.hasError = hasError;
+    }
+
+    public Map&lt;String, String&gt; getErrMsgMap() {
+        return errMsgMap;
+    }
+
+    public void setErrMsgMap(Map&lt;String, String&gt; errMsgMap) {
+        this.errMsgMap = errMsgMap;
+    }
+
+    /**
+     * 用于获取校验之后错误描述的信息
+     *
+     * @return
+     */
+    public String getErrMsg() {
+        if (null != this.errMsgMap &amp;&amp; this.errMsgMap.size() &gt; 0)
+            return StringUtils.join(this.errMsgMap.values().toArray(), &quot;,&quot;);
+        return null;
+    }
+}
+
+</code></pre>
+<p><code>`</code>java<br>//把这个工具类交由Spring管理<br>@Component<br>public class ValidatorUtil implements InitializingBean {</p>
+<pre><code>private Validator validator;
+
+/**
+ * 通过Validator校验对象
+ *
+ * @param object
+ * @param groups
+ * @return
+ */
+public ValidationResult validata(Object object, Class&lt;?&gt;... groups) {
+    ValidationResult validationResult = new ValidationResult();
+    Set&lt;ConstraintViolation&lt;Object&gt;&gt; constraintViolationSet = validator.validate(object, groups);
+    if (constraintViolationSet.size() &gt; 0) {
+        constraintViolationSet.forEach(constraintViolation -&gt; {
+            validationResult.setHasError(true);
+            String msg = constraintViolation.getMessage();
+            String propertyName = constraintViolation.getPropertyPath().toString();
+            validationResult.getErrMsgMap().put(propertyName, msg);
+        });
+    }
+    return validationResult;
+}
+
+/**
+ * 校验请求参数对象，如果出现未校验通过的，直接抛出异常
+ *
+ * @param object 待处理的对象
+ * @param groups 校验分组
+ * @throws BusiException
+ */
+public void reqValidata(Object object, Class&lt;?&gt;... groups) throws BusiException {
+    ValidationResult validationResult = this.validata(object, groups);
+    if (null != validationResult &amp;&amp; validationResult.getHasError()) {
+        //请求参数存在不合法的数据，这里直接抛出异常
+        throw new BusiException(BusiErrCodeEm.REQ_PARAM_10001, validationResult.getErrMsg());
+    }
+}
+
+@Override
+public void afterPropertiesSet() {
+    //failFast(true) true:快速校验，遇到不合法的就直接返回  false:全量校验，找出所有不合法的数据
+    validator = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory().getValidator();
+}
+</code></pre><p>}</p>
+</li>
+</ul>
+<pre><code>
+- 上面是两个类，校验帮助类需要交给Spring管理
+
+  测试对象：
+
+  ```java
+  /**
+   * 用户的业务对象
+   */
+  public class UserModel {
+      private Integer id;
+
+      @NotBlank(message = &quot;用户昵称不能为空&quot;)
+      private String name;
+
+      @NotNull(message = &quot;性别选择不能为空&quot;)
+      private Byte sex;
+
+      @Max(value = 200, message = &quot;年龄不能大于200岁&quot;)
+      @Min(value = 0, message = &quot;年龄不能小于0岁&quot;)
+      private Integer age;
+
+      @NotBlank(message = &quot;手机号码不能为空&quot;)
+      @Pattern(regexp = &quot;^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$&quot;, message = &quot;号码格式不正确!&quot;)
+      private String telphone;
+
+      @Email(message = &quot;邮箱格式错误&quot;)
+      private String email;
+
+      private String registerMode;
+      private String thirdPartyId;
+
+      @URL(message = &quot;头像必须是链接地址&quot;)
+      private String avatar;
+
+      //这里是定义的用户加密后密码
+      //由于DAO层
+      //由于DO层用户信息和用户密码是分开的 但是从业务层面来看，这个密码确实是用户一部分，因此在这里的业务对象将用户信息和密码信息合并
+      @Length(min = 6, max = 18, message = &quot;密码长度为6-18个字符&quot;)//这个规则是校验明文的
+      private String encrptPassword;
+
+       //为了减少不必要的代码量 这里自行添加get set方法
+  }
+
+</code></pre><p>2..实体类的校验方式可以多样化</p>
+<pre><code class="java">
+public class AgentTrustor implements Serializable,UniqueVerifiableVO {
+
+    private static final long serialVersionUID = 4095871718305603749L;
+
+    /**
+     * 主键ID
+     */
+    @Id
+    @ApiModelProperty(value=&quot;主键ID&quot;, required = true)
+    private Integer fid;
+
+    /**
+     * 代理人代码
+     */
+    @Length(min = 3,message = &quot;代理人代码位数至少三位&quot;)
+    @Column(name = &quot;ftrustor_id&quot;)
+    @ApiModelProperty(value=&quot;代理人代码&quot;, required = true)
+    private String ftrustorId;
+    /**
+     * 联系人邮箱
+     */
+    @Email(message = &quot;邮箱格式错误&quot;)
+    @Column(name = &quot;femail&quot;)
+    @ApiModelProperty(value=&quot;联系人邮箱&quot;, required = true)
+    private String femail;
+}
+
+</code></pre>
+<p>类似Bean</p>
+<pre><code class="java">public class UserParam {
+
+    private Integer id;
+
+    @NotBlank(message = &quot;用户名不能为空&quot;)
+    @Length(min = 1, max = 20, message = &quot;用户名长度&quot;)
+    private String username;
+
+    @NotBlank(message = &quot;电话不可以为空&quot;)
+    @Length(min = 1, max = 13, message = &quot;电话长度需要在13个字符以内&quot;)
+    private String telephone;
+
+    @Email
+    @NotBlank(message = &quot;邮箱不能为空&quot;)
+    private String mail;
+
+    @NotNull(message = &quot;必须指定用户状态&quot;)
+    @Min(value = 0, message = &quot;用户状态不合法&quot;)
+    @Max(value = 1, message = &quot;用户状态不合法&quot;)
+    private Integer status;
+}
+
+</code></pre>
+<p>通过注释名即可推断出校验的内容，message用作校验失败时的提示信息。</p>
+<h1 id="对Rest层添加校验"><a href="#对Rest层添加校验" class="headerlink" title="对Rest层添加校验"></a>对Rest层添加校验</h1><p>1.测试使用</p>
+<ul>
+<li><p>BaseController对象中注入工具类</p>
+</li>
+<li><pre><code class="java"> @Autowired
+    public ValidatorUtil validatorUtil;
+</code></pre>
+<p><code>`</code></p>
+</li>
+<li><p>测试示例</p>
+</li>
+<li><p><code>`</code>java</p>
+<pre><code>validatorUtil.reqValidata(userModel);
+</code></pre></li>
+</ul>
+<pre><code>
+![](http://blog.mibook.top/hibernate.png)
+
+2.测试使用
+
+```java
+ @ApiOperation(value=&quot;新增&quot;, notes=&quot;&quot;)
+    @PostMapping(value = &quot;&quot;)
+    //@Transactional(rollbackFor=Exception.class)
+    public ObjectRestResponse&lt;AgentTrustor&gt; add(@RequestBody @Validated AgentTrustor agentTrustor) throws BaseException{
+        agentTrustorBiz.bizInsertSelective(agentTrustor);
+        return new ObjectRestResponse&lt;AgentTrustor&gt;().rel(true);
+    }
+</code></pre><h1 id="统一异常的处理-此处的异常处理-引用自网上-部分包不确定"><a href="#统一异常的处理-此处的异常处理-引用自网上-部分包不确定" class="headerlink" title="统一异常的处理(此处的异常处理 引用自网上 部分包不确定)"></a>统一异常的处理(此处的异常处理 引用自网上 部分包不确定)</h1><p>经过对校验异常的debug发现，该异常为<code>MethodArgumentNotValidException</code>：</p>
+<p>可以看到该异常对象的结构，同样我们可以根据其结构解析出想要的结果：</p>
+<pre><code class="java">@ExceptionHandler(MethodArgumentNotValidException.class)
+    public BaseResponse validExceptionHandler(HttpServletResponse response,                     MethodArgumentNotValidException ex) {
+        BindingResult bindingResult = ex.getBindingResult();
+        StringBuffer stringBuffer = new StringBuffer();
+        if(bindingResult.hasErrors()){
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                //该格式仅仅作为response展示和log作用，前端应自己做校验
+                stringBuffer.append(fieldError.getObjectName() + &quot;--&quot; +                                                                      fieldError.getDefaultMessage() + &quot; &quot;);
+            }
+        }
+        logger.error(stringBuffer.toString());
+        return new BaseResponse(HttpStatus.BAD_REQUEST.value(),stringBuffer.toString());
+    }
+</code></pre>
+<p>上面代码是统一异常处理中的一部分，主要是用来处理参数校验产生的<code>MethodArgumentNotValidException</code>异常。</p>
+<h1 id="异常处理（已实验的版本）"><a href="#异常处理（已实验的版本）" class="headerlink" title="异常处理（已实验的版本）"></a>异常处理（已实验的版本）</h1><pre><code class="java">@RestControllerAdvice
+public class BindExceptionHanlder {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(BindException.class)
+    public Result handleBindException(BindException ex) {
+        // ex.getFieldError():随机返回一个对象属性的异常信息。如果要一次性返回所有对象属性异常信息，则调用ex.getAllErrors()
+        FieldError fieldError = ex.getFieldError();
+                    StringBuilder sb = new StringBuilder();
+            sb.append(fieldError.getField()).append(&quot;=[&quot;).append(fieldError.getRejectedValue()).append(&quot;]&quot;)
+                    .append(fieldError.getDefaultMessage());
+        // 生成返回结果
+        Result errorResult = new Result();
+        errorResult.setCode(400);
+        errorResult.setMessage(sb.toString());
+        return errorResult;
+    }
+}
+</code></pre>
+<p>这里的Result就是前端的webResult返回结果。对于单个点异常的实现暂未发现。有待改进，有处理方式的小伙伴可以留言</p>
+<p>此处留下原博主的博文：有兴趣的朋友可自行参考</p>
+<p><a href="https://blog.csdn.net/hry2015/article/details/79572713" target="_blank" rel="noopener">https://blog.csdn.net/hry2015/article/details/79572713</a></p>
+<h1 id="自定义校验器-字母大小写"><a href="#自定义校验器-字母大小写" class="headerlink" title="自定义校验器(字母大小写)"></a>自定义校验器(字母大小写)</h1><ul>
+<li><p>需求<br>校验某个参数自允许存在全大写或者全小写的字母</p>
+</li>
+<li><p>定义大小写的枚举  </p>
+</li>
+<li><pre><code class="java">package com.lupf.springboottest.utils.validator.myvalidator;
+
+/**
+ * 字母大小写枚举
+ */
+public enum CaseMode {
+    //大写
+    UPPER,
+    //小写
+    LOWER;
+}
+
+</code></pre>
+<p>定义校验的注解</p>
+<pre><code class="java">import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Documented
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
+@Retention(RetentionPolicy.RUNTIME)
+//指定校验器
+@Constraint(validatedBy = CaseCheckValidator.class)
+public @interface CaseCheck {
+    String message() default &quot;&quot;;
+
+    Class&lt;?&gt;[] groups() default {};
+
+    Class&lt;? extends Payload&gt;[] payload() default {};
+
+    CaseMode value();
+}
+
+</code></pre>
+<p>定义校验器</p>
+<pre><code class="java">import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
+
+/**
+ * 字母大小写校验器
+ */
+public class CaseCheckValidator implements ConstraintValidator&lt;CaseCheck, String&gt; {
+    //大小写的枚举
+    private CaseMode caseMode;
+
+    @Override
+    public void initialize(CaseCheck caseCheck) {
+        this.caseMode = caseCheck.value();
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        //如果文本是空,则不进行校验，因为有其他的注解是可以校验空或者空字符串的
+        if (null == value)
+            return true;
+
+        //文本只能是字母的正则
+        String pattern = &quot;[a-zA-Z]&quot;;
+        //校验传进来的是否是只包含了字母的文本
+        boolean isMatch = Pattern.matches(pattern, value);
+        //如果存在其他字符则返回校验失败
+        if (!isMatch)
+            return false;
+
+        //如果没有指定方式，则直接返回false
+        if (null == caseMode)
+            return false;
+
+        //判断是否符合大小写条件
+        if (caseMode == CaseMode.UPPER) {
+            return value.equals(value.toUpperCase());
+        } else {
+            return value.equals(value.toLowerCase());
+        }
+    }
+}
+
+</code></pre>
+<p>自定义校验的使用<br>对应参数加上相关注解即可</p>
+</li>
+</ul>
+<pre><code class="java"> @CaseCheck(value = CaseMode.UPPER, message = &quot;注册方式必须是大写字母&quot;)
+    private String registerMode;
+</code></pre>
+<h1 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h1><p>1.</p>
+<pre><code class="java">validatorUtil.reqValidata(userModel, ValidationGroup.Login.class);
+</code></pre>
+<p>2.当我们遇到不同场景需要有不同的校验规则时候，我们可以使用分组校验。如：一个请求只校验id,一个请求只校验email：</p>
+<pre><code class="java">public class AgentTrustor implements Serializable,UniqueVerifiableVO {
+
+    private static final long serialVersionUID = 4095871718305603749L;
+
+    /**
+     * 主键ID
+     */
+    @Id
+    @ApiModelProperty(value=&quot;主键ID&quot;, required = true)
+    private Integer fid;
+
+    /**
+     * 代理人代码
+     */
+    @Length(min = 3,message = &quot;代理人代码位数至少三位&quot;,groups = {ID.class})
+    @Column(name = &quot;ftrustor_id&quot;)
+    @ApiModelProperty(value=&quot;代理人代码&quot;, required = true)
+    private String ftrustorId;
+    /**
+     * 联系人邮箱
+     */
+    @Email(message = &quot;邮箱格式错误&quot;,groups = {EMAIL.class})
+    @Column(name = &quot;femail&quot;)
+    @ApiModelProperty(value=&quot;联系人邮箱&quot;, required = true)
+    private String femail;
+
+    public interface ID{};
+
+    public interface EMAIL{};
+}
+</code></pre>
+<p>根据需要在@Validated属性中指定需要校验的分组名，可以指定1到多个。指定到的分组名会全部进行校验，不指定的不校验</p>
+<pre><code class="java">@ApiOperation(value=&quot;新增&quot;, notes=&quot;&quot;)
+    @PostMapping(value = &quot;&quot;)
+    //@Transactional(rollbackFor=Exception.class)
+    public ObjectRestResponse&lt;AgentTrustor&gt; add(@RequestBody @Validated(AgentTrustor.ID.class) AgentTrustor agentTrustor) throws BaseException{
+        agentTrustorBiz.bizInsertSelective(agentTrustor);
+        return new ObjectRestResponse&lt;AgentTrustor&gt;().rel(true);
+    }
+</code></pre>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p><strong>JSR提供的校验注解</strong></p>
+<pre><code class="java">@Null   被注释的元素必须为 null    
+@NotNull    被注释的元素必须不为 null    
+@AssertTrue     被注释的元素必须为 true    
+@AssertFalse    被注释的元素必须为 false    
+@Min(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
+@Max(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
+@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
+@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
+@Size(max=, min=)   被注释的元素的大小必须在指定的范围内    
+@Digits (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内    
+@Past   被注释的元素必须是一个过去的日期    
+@Future     被注释的元素必须是一个将来的日期    
+@Pattern(regex=,flag=)  被注释的元素必须符合指定的正则表达式
+</code></pre>
+<p><strong>Hibernate Validator提供的校验注解</strong></p>
+<pre><code class="java">@NotBlank(message =)   验证字符串非null，且长度必须大于0    
+@Email  被注释的元素必须是电子邮箱地址    
+@Length(min=,max=)  被注释的字符串的大小必须在指定的范围内    
+@NotEmpty   被注释的字符串的必须非空    
+@Range(min=,max=,message=)  被注释的元素必须在合适的范围内
+</code></pre>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/11/Swagger基础使用及入门/" title="Swagger 基础使用及入门">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#前言-0-0"><span class="post-toc-text">前言-0.0</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#优点及注解说明"><span class="post-toc-text">优点及注解说明</span></a></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对实体类添加校验"><span class="post-toc-text">对实体类添加校验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对Rest层添加校验"><span class="post-toc-text">对Rest层添加校验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#统一异常的处理-此处的异常处理-引用自网上-部分包不确定"><span class="post-toc-text">统一异常的处理(此处的异常处理 引用自网上 部分包不确定)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#异常处理（已实验的版本）"><span class="post-toc-text">异常处理（已实验的版本）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自定义校验器-字母大小写"><span class="post-toc-text">自定义校验器(字母大小写)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分组校验"><span class="post-toc-text">分组校验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#API"><span class="post-toc-text">API</span></a>
+			</li></nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
