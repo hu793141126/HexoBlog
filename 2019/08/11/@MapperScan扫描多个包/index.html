@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档: 2019/6</title>
+	<title>MapperScan扫描多个包下的mapper</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《MapperScan扫描多个包下的mapper》</p>
+			
 		
 	
 	
@@ -150,110 +149,147 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计27篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
+					
+	
+		<a href="/2019/08/11/@MapperScan扫描多个包/" itemprop="url">		
+			MapperScan扫描多个包下的mapper		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/11/@MapperScan扫描多个包/" itemprop="url">
+	<time datetime="2019-08-11T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-11
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#简单随记" title="简单随记" rel="1">简单随记</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="MapperScan扫描多个包下的mapper"><a href="#MapperScan扫描多个包下的mapper" class="headerlink" title="@MapperScan扫描多个包下的mapper"></a>@MapperScan扫描多个包下的mapper</h1><p>之前是，直接在Mapper类上面添加注解@Mapper，这种方式要求每一个mapper类都需要添加此注解，麻烦。</p>
+<p>通过使用@MapperScan可以指定要扫描的Mapper类的包的路径,比如:</p>
+<pre><code class="java">@SpringBootApplication
+@MapperScan(&quot;com.lz.water.monitor.mapper&quot;)
+// 添加对mapper包扫描
+public class Application {
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}
+</code></pre>
+<p>同时,使用@MapperScan注解多个包</p>
+<pre><code class="java">@SpringBootApplication  
+@MapperScan({&quot;com.kfit.demo&quot;,&quot;com.kfit.user&quot;})  
+public class App {  
+    public static void main(String[] args) {  
+       SpringApplication.run(App.class, args);  
+    }  
+} 
+
+</code></pre>
+<p>如果如果mapper类没有在Spring Boot主程序可以扫描的包或者子包下面，可以使用如下方式进行配置</p>
+<pre><code class="java">@SpringBootApplication  
+@MapperScan({&quot;com.kfit.*.mapper&quot;,&quot;org.kfit.*.mapper&quot;})  
+public class App {  
+    public static void main(String[] args) {  
+       SpringApplication.run(App.class, args);  
+    }  
+} 
+
+</code></pre>
 
 					
-					<!--<a href="/archives/2019" class="archive-year">2019</a>-->
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/08/26/LogBack日志处理-异步优化策略/" title="LogBack日志处理-异步优化策略">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/11/Hibernator-Validator介绍及使用/" title="Hibernator-Validator介绍及使用">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
 				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2019/06">
-							2019-06
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">06-28</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" itemprop="url">Springboot-Quartz实现任务定时多功能化</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/06/24/Springboot-Quartz定时任务多功能实现/" itemprop="url">06-24</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/06/24/Springboot-task定时任务/" itemprop="url">Springboot-Task实现简单定时任务</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/06/24/Springboot-task定时任务/" itemprop="url">06-24</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/06/19/Generator_Mybatis插件实现代码自动生成/" itemprop="url">Generator_Mybatis插件实现代码自动生成</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/06/19/Generator_Mybatis插件实现代码自动生成/" itemprop="url">06-19</a>
-					</div>
-				</div>		        							
-							
+					<strong>文章目录</strong>
 				
 				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2019/06/17/java线程池ThreadPoolExecutor类使用详解/" itemprop="url">java线程池ThreadPoolExecutor类使用详解</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2019/06/17/java线程池ThreadPoolExecutor类使用详解/" itemprop="url">06-17</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MapperScan扫描多个包下的mapper"><span class="post-toc-text">@MapperScan扫描多个包下的mapper</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
 	</div>
 </div>
-
 		</div>
 		</main>
 		
@@ -327,6 +363,11 @@
 </style>
 
 
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
 
 
 
@@ -334,6 +375,8 @@
 	<script type="text/javascript" src="/js/love.js"></script>
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
