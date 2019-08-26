@@ -1,0 +1,806 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>RabbitMq入门及使用</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《RabbitMq入门及使用》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		8/26/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/08/26/RabbitMq入门及使用/" itemprop="url">		
+			RabbitMq入门及使用		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/26/RabbitMq入门及使用/" itemprop="url">
+	<time datetime="2019-08-26T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-26
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#RabbitMq" title="RabbitMq" rel="4">RabbitMq</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="1-什么是MQ"><a href="#1-什么是MQ" class="headerlink" title="1.什么是MQ"></a>1.什么是MQ</h3><p>消息队列（Message Queue，简称MQ），从字面意思上看，本质是个队列，FIFO先入先出，只不过队列中存放的内容是message而已。<br>其主要用途：不同进程Process/线程Thread之间通信。<br>为什么会产生消息队列？有几个原因：</p>
+<p>不同进程（process）之间传递消息时，两个进程之间耦合程度过高，改动一个进程，引发必须修改另一个进程，为了隔离这两个进程，在两进程间抽离出一层（一个模块），所有两进程之间传递的消息，都必须通过消息队列来传递，单独修改某一个进程，不会影响另一个；</p>
+<p>不同进程（process）之间传递消息时，为了实现标准化，将消息的格式规范化了，并且，某一个进程接受的消息太多，一下子无法处理完，并且也有先后顺序，必须对收到的消息进行排队，因此诞生了事实上的消息队列；</p>
+<p>关于消息队列的详细介绍请参阅：<br>《Java帝国之消息队列》<br>《一个故事告诉你什么是消息队列》<br>《到底什么时候该使用MQ》</p>
+<p>MQ框架非常之多，比较流行的有RabbitMq、ActiveMq、ZeroMq、kafka，以及阿里开源的RocketMQ。本文主要介绍RabbitMq。</p>
+<h3 id="2-RabbitMQ"><a href="#2-RabbitMQ" class="headerlink" title="2.RabbitMQ"></a>2.RabbitMQ</h3><h4 id="2-1-RabbitMQ的简介"><a href="#2-1-RabbitMQ的简介" class="headerlink" title="2.1.RabbitMQ的简介"></a>2.1.RabbitMQ的简介</h4><p><img src="http://blog.mibook.top/rabbit1.png" alt></p>
+<p>开发语言：Erlang – 面向并发的编程语言。</p>
+<p><img src="http://blog.mibook.top/rabbit2.png" alt></p>
+<p>2.1.1.AMQP<br>AMQP是消息队列的一个协议。</p>
+<p><img src="http://blog.mibook.top/rabbit3.png" alt></p>
+<h4 id="2-2-官网"><a href="#2-2-官网" class="headerlink" title="2.2.官网"></a>2.2.官网</h4><p><img src="http://blog.mibook.top/rabbit4.png" alt></p>
+<h4 id="2-3-MQ的其他产品"><a href="#2-3-MQ的其他产品" class="headerlink" title="2.3.MQ的其他产品"></a>2.3.MQ的其他产品</h4><p>Kafka也是一种消息系统</p>
+<p><img src="http://blog.mibook.top/rabbit5.png" alt></p>
+<h4 id="2-4-学习5种队列"><a href="#2-4-学习5种队列" class="headerlink" title="2.4.学习5种队列"></a>2.4.学习5种队列</h4><p><img src="http://blog.mibook.top/rabbit6.png" alt></p>
+<h3 id="3-搭建RabbitMQ环境"><a href="#3-搭建RabbitMQ环境" class="headerlink" title="3.搭建RabbitMQ环境"></a>3.搭建RabbitMQ环境</h3><h4 id="3-1-下载"><a href="#3-1-下载" class="headerlink" title="3.1.下载"></a>3.1.下载</h4><p>下载地址：<a href="http://www.rabbitmq.com/download.html" target="_blank" rel="noopener">http://www.rabbitmq.com/download.html</a></p>
+<h4 id="3-2-windows下安装"><a href="#3-2-windows下安装" class="headerlink" title="3.2.windows下安装"></a>3.2.windows下安装</h4><p>3.2.1.安装Erlang<br>下载：<a href="http://www.erlang.org/download/otp_win64_17.3.exe" target="_blank" rel="noopener">http://www.erlang.org/download/otp_win64_17.3.exe</a><br>安装过程此处省略，有需要的可自行百度：—基本下下来 下一步下一步就行。</p>
+<h3 id="4-安装及配置RabbitMQ"><a href="#4-安装及配置RabbitMQ" class="headerlink" title="4. 安装及配置RabbitMQ"></a>4. 安装及配置RabbitMQ</h3><p><strong>目标</strong>：按照文档在本机安装windows版本RabbitMQ，并配置其用户和Virtual Hosts</p>
+<p><strong>分析</strong>：</p>
+<ol>
+<li>安装erlang；</li>
+<li>安装rabbitMQ；</li>
+<li>安装RabbitMQ的图形管理界面插件；</li>
+<li>创建管理用户；</li>
+<li>创建虚拟主机Virtual Hosts</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<pre><code class="mermaid">graph LR;
+1[安装erlang] --&gt; 2[安装RabbitMQ]
+2 --&gt; 3[安装管理插件]
+3 --&gt; 4[创建用户]
+4 --&gt; 5[创建虚拟主机]
+</code></pre>
+<blockquote>
+<p>安装上述的组件时候都需要使用以管理员身份运行。</p>
+</blockquote>
+<h3 id="5-搭建RabbitMQ入门工程"><a href="#5-搭建RabbitMQ入门工程" class="headerlink" title="5. 搭建RabbitMQ入门工程"></a>5. 搭建RabbitMQ入门工程</h3><p><strong>目标</strong>：搭建RabbitMQ入门工程并配置对应的maven依赖</p>
+<p><strong>分析</strong>：</p>
+<p>创建heima-rabbitmq的工程；用于测试RabbitMQ的消息收发。添加用于操作RabbitMQ的依赖。</p>
+<pre><code class="xml">        &lt;dependency&gt;
+            &lt;groupId&gt;com.rabbitmq&lt;/groupId&gt;
+            &lt;artifactId&gt;amqp-client&lt;/artifactId&gt;
+            &lt;version&gt;5.6.0&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre>
+<p><strong>小结</strong>：</p>
+<p>使用IDEA创建maven工程；使用了jdk1.8。在工程中的pom.xml文件中添加了上述的依赖。</p>
+<ol start="6">
+<li>入门工程-生产者</li>
+</ol>
+<p><strong>目标</strong>：编写消息生产者代码，发送消息到队列</p>
+<p><strong>分析</strong>：</p>
+<p>入门工程：生产者发送消息到RabbitMQ的队列（simple_queue）；消费者可以从队列中获取消息。可以使用RabbitMQ的简单模式（simple）。</p>
+<p>生产者实现发送消息的步骤：</p>
+<ol>
+<li>创建连接工厂（设置RabbitMQ的连接参数）；</li>
+<li>创建连接；</li>
+<li>创建频道；</li>
+<li>声明队列；</li>
+<li>发送消息；</li>
+<li>关闭资源</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<pre><code class="java">package com.itheima.rabbitmq.simple;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+/**
+ * 简单模式：发送消息
+ */
+public class Producer {
+    static final String QUEUE_NAME = &quot;simple_queue&quot;;
+
+    public static void main(String[] args) throws Exception {
+        //1. 创建连接工厂（设置RabbitMQ的连接参数）；
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        //主机；默认localhost
+        connectionFactory.setHost(&quot;localhost&quot;);
+        //连接端口；默认5672
+        connectionFactory.setPort(5672);
+        //虚拟主机；默认/
+        connectionFactory.setVirtualHost(&quot;/itcast&quot;);
+        //用户名；默认guest
+        connectionFactory.setUsername(&quot;heima&quot;);
+        //密码；默认guest
+        connectionFactory.setPassword(&quot;heima&quot;);
+
+        //2. 创建连接；
+        Connection connection = connectionFactory.newConnection();
+        //3. 创建频道；
+        Channel channel = connection.createChannel();
+        //4. 声明队列；
+        /**
+         * 参数1：队列名称
+         * 参数2：是否定义持久化队列（消息会持久化保存在服务器上）
+         * 参数3：是否独占本连接
+         * 参数4：是否在不使用的时候队列自动删除
+         * 参数5：其它参数
+         */
+        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
+        //5. 发送消息；
+        String message = &quot;你好！小兔纸。&quot;;
+
+        /**
+         * 参数1：交换机名称；如果没有则指定空字符串（表示使用默认的交换机）
+         * 参数2：路由key，简单模式中可以使用队列名称
+         * 参数3：消息其它属性
+         * 参数4：消息内容
+         */
+        channel.basicPublish(&quot;&quot;, QUEUE_NAME, null, message.getBytes());
+        System.out.println(&quot;已发送消息：&quot; + message);
+        //6. 关闭资源
+        channel.close();
+        connection.close();
+    }
+}
+</code></pre>
+<blockquote>
+<p>在设置连接工厂的时候；如果没有指定连接的参数则会有默认值；可以去设置虚拟主机。</p>
+</blockquote>
+<h3 id="7-入门工程-消费者"><a href="#7-入门工程-消费者" class="headerlink" title="7. 入门工程-消费者"></a>7. 入门工程-消费者</h3><p><strong>目标</strong>：编写消息消费者代码，从队列中接收消息并消费</p>
+<p><strong>分析</strong>：</p>
+<p>从RabbitMQ中队列（与生产者发送消息时的队列一致；simple_queue）接收消息；</p>
+<p>实现消费者步骤：</p>
+<ol>
+<li>创建连接工厂；</li>
+<li>创建连接；（抽取一个获取连接的工具类）</li>
+<li>创建频道；</li>
+<li>声明队列；</li>
+<li>创建消费者（接收消息并处理消息）；</li>
+<li>监听队列</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<pre><code class="java">package com.itheima.rabbitmq.simple;
+
+import com.itheima.rabbitmq.util.ConnectionUtil;
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+
+/**
+ * 简单模式；消费者接收消息
+ */
+public class Consumer {
+    public static void main(String[] args) throws Exception {
+        //1. 创建连接工厂；
+        //2. 创建连接；（抽取一个获取连接的工具类）
+        Connection connection = ConnectionUtil.getConnection();
+        //3. 创建频道；
+        Channel channel = connection.createChannel();
+        //4. 声明队列；
+        /**
+         * 参数1：队列名称
+         * 参数2：是否定义持久化队列（消息会持久化保存在服务器上）
+         * 参数3：是否独占本连接
+         * 参数4：是否在不使用的时候队列自动删除
+         * 参数5：其它参数
+         */
+        channel.queueDeclare(Producer.QUEUE_NAME, true, false, false, null);
+        //5. 创建消费者（接收消息并处理消息）；
+        DefaultConsumer defaultConsumer = new DefaultConsumer(channel){
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                //路由key
+                System.out.println(&quot;路由key为：&quot; + envelope.getRoutingKey());
+                //交换机
+                System.out.println(&quot;交换机为：&quot; + envelope.getExchange());
+                //消息id
+                System.out.println(&quot;消息id为：&quot; + envelope.getDeliveryTag());
+                //接收到的消息
+                System.out.println(&quot;接收到的消息为：&quot; + new String(body, &quot;utf-8&quot;));
+            }
+        };
+        //6. 监听队列
+        /**
+         * 参数1：队列名
+         * 参数2：是否要自动确认；设置为true表示消息接收到自动向MQ回复接收到了，MQ则会将消息从队列中删除；
+         * 如果设置为false则需要手动确认
+         * 参数3：消费者
+         */
+        channel.basicConsume(Producer.QUEUE_NAME, true, defaultConsumer);
+    }
+}
+
+</code></pre>
+<blockquote>
+<p>需要持续监听队列消息，所以不要关闭资源</p>
+</blockquote>
+<h3 id="8-入门工程测试"><a href="#8-入门工程测试" class="headerlink" title="8 入门工程测试"></a>8 入门工程测试</h3><p><strong>目标</strong>：启动消费者和生产者，到RabbitMQ中查询队列并在消费者端IDEA控制台查看接收到的消息</p>
+<p><strong>分析</strong>：</p>
+<p>生产者：发送消息到RabbitMQ队列（simple_queue）</p>
+<p>消费者：接收RabbitMQ队列消息</p>
+<p><strong>小结</strong>：</p>
+<p>简单模式：生产者发送消息到队列中，一个消费者从队列中接收消息。</p>
+<blockquote>
+<p>在RabbitMQ中消费者只能从队列接收消息。</p>
+<p>如果接收消息的消费者在同一个队列中有两个或多个时；消息是如何分配的？</p>
+</blockquote>
+<h3 id="9-Work-queues工作队列模式"><a href="#9-Work-queues工作队列模式" class="headerlink" title="9. Work queues工作队列模式"></a>9. Work queues工作队列模式</h3><p><strong>目标</strong>：编写生产者、消费者代码并测试了解Work queues工作队列模式的特点</p>
+<p><strong>分析</strong>：</p>
+<p>工作队列模式：在同一个队列中可以有多个消费者，消费者之间对于消息的接收是竞争关系。</p>
+<p>生产者：发送30个消息</p>
+<p>消费者：创建两个消费者监听同一个队列，查看两个消费者的接收消息是否存在重复。</p>
+<p><strong>小结</strong>：</p>
+<p>工作队列模式：一个消息只能被一个消费者接收，其它消费者是不能接收到同一条消息的。</p>
+<p>应用场景：可以在消费者端处理任务比较耗时的时候；添加对同一个队列的消费者来提高任务处理能力。</p>
+<h3 id="10-订阅模式类型说明"><a href="#10-订阅模式类型说明" class="headerlink" title="10. 订阅模式类型说明"></a>10. 订阅模式类型说明</h3><p><strong>目标</strong>：说出订阅模式中的Exchange交换机作用以及交换机的三种类型</p>
+<p><strong>小结</strong>：</p>
+<p>订阅模式与前面的两种模式比较：多了一个角色Exchange交换机，接收生产者发送的消息并决定如何投递消息到其绑定的队列；消息的投递决定于交换机的类型。</p>
+<p>交换机类型：广播（fanout）、定向（direct）、通配符（topic）</p>
+<blockquote>
+<p>交换机只做消息转发，自身不存储数据。</p>
+</blockquote>
+<h3 id="11-Publish-Subscribe发布与订阅模式"><a href="#11-Publish-Subscribe发布与订阅模式" class="headerlink" title="11 Publish/Subscribe发布与订阅模式"></a>11 Publish/Subscribe发布与订阅模式</h3><p><strong>目标</strong>：编写生产者、消费者代码并测试了解Publish/Subscribe发布与订阅模式的特点</p>
+<p><strong>分析</strong>：</p>
+<p>发布与订阅模式特点：一个消息可以被多个消费者接收；其实是使用了订阅模式，交换机类型为：fanout广播</p>
+<ul>
+<li>生产者（发送10个消息）<ol>
+<li>创建连接；</li>
+<li>创建频道；</li>
+<li>声明交换机（fanout）；</li>
+<li>声明队列；</li>
+<li>队列绑定到交换机；</li>
+<li>发送消息；</li>
+<li>关闭资源</li>
+</ol>
+</li>
+<li>消费者（至少两个消费者）<ol>
+<li>创建连接；</li>
+<li>创建频道；</li>
+<li>声明交换机；</li>
+<li>声明队列；</li>
+<li>队列绑定到交换机；</li>
+<li>创建消费者；</li>
+<li>监听队列；</li>
+</ol>
+</li>
+</ul>
+<p><strong>小结</strong>：</p>
+<p>发布与订阅模式：<strong>一个消息可以被多个消费者接收</strong>；一个消费者对于的队列，该队列只能被一个消费者监听。使用了订阅模式中交换机类型为：广播。</p>
+<h3 id="12-Routing路由模式"><a href="#12-Routing路由模式" class="headerlink" title="12. Routing路由模式"></a>12. Routing路由模式</h3><p><strong>目标</strong>：编写生产者、消费者代码并测试了解Routing路由模式的特点</p>
+<p><strong>分析</strong>：</p>
+<p>生产者：发送两条消息（路由key分别为：insert、update）</p>
+<p>消费者：创建两个消费者，监听的队列分别绑定路由key为：insert、update</p>
+<ol>
+<li>消息中路由key为insert的会被绑定路由key为insert的队列接收并被其监听的消费者接收、处理；</li>
+<li>消息中路由key为update的会被绑定路由key为update的队列接收并被其监听的消费者接收、处理；</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<p>Routing 路面模式要求队列绑定到交换机的时候指定路由key；消费发送时候需要携带路由key；只有消息的路由key与队列路由key完全一致才能让该队列接收到消息。</p>
+<h3 id="13-Topics通配符模式"><a href="#13-Topics通配符模式" class="headerlink" title="13. Topics通配符模式"></a>13. Topics通配符模式</h3><p><strong>目标</strong>：编写生产者、消费者代码并测试了解Topics通配符模式的特点</p>
+<p><strong>分析</strong>：</p>
+<ul>
+<li>生产者：发送包含有item.insert、item.update，item.delete的3中路由key消息</li>
+<li>消费者1：监听的队列绑定到交换机的路由key为：item.update，item.delete</li>
+<li>消费者2：监听的队列绑定到交换机的路由key为：item.*</li>
+</ul>
+<p><strong>小结</strong>：</p>
+<p>Topics通配符模式：可以根据路由key将消息传递到对应路由key的队列；队列绑定到交换机的路由key可以有多个；通配符模式中路由key可以使用 <code>*</code> 和 <code>#</code> ；使用了通配符模式之后对于路由Key的配置更加灵活。</p>
+<h3 id="14-RabbitMQ模式总结"><a href="#14-RabbitMQ模式总结" class="headerlink" title="14. RabbitMQ模式总结"></a>14. RabbitMQ模式总结</h3><p><strong>目标</strong>：对比总结RabbitMQ的5种模式特征</p>
+<p><strong>小结</strong>：</p>
+<ul>
+<li>不直接Exchange交换机（默认交换机）<ol>
+<li>simple简单模式：一个生产者生产一个消息到一个队列被一个消费者接收</li>
+<li>work工作队列模式：生产者发送消息到一个队列中，然后可以被多个消费者监听该队列；一个消息只能被一个消费者接收，消费者之间是竞争关系</li>
+</ol>
+</li>
+<li>使用Exchange交换机；订阅模式（交换机：广播fanout、定向direct、通配符topic）<ol>
+<li>发布与订阅模式：使用了fanout广播类型的交换机，可以将一个消息发送到所有绑定了该交换机的队列</li>
+<li>路由模式：使用了direct定向类型的交换机，消费会携带路由key，交换机根据消息的路由key与队列的路由key进行对比，一致的话那么该队列可以接收到消息</li>
+<li>通配符模式：使用了topic通配符类型的交换机，消费会携带路由key（*， #），交换机根据消息的路由key与队列的路由key进行对比，匹配的话那么该队列可以接收到消息</li>
+</ol>
+</li>
+</ul>
+<h2 id="15-创建SpringBoot整合RabbitMQ的两个工程"><a href="#15-创建SpringBoot整合RabbitMQ的两个工程" class="headerlink" title="15. 创建SpringBoot整合RabbitMQ的两个工程"></a>15. 创建SpringBoot整合RabbitMQ的两个工程</h2><p><strong>目标</strong>：创建springboot-rabbitmq-producer工程用于生产消息；创建springboot-rabbitmq-consumer工程用于接收消息</p>
+<p><strong>分析</strong>：</p>
+<p>Spring Boot提供了对于AMQP的整合；可以使用RabbitTemplate发送消息；可以使用@RabbitListener注解接收消息。</p>
+<p><strong>生产者工程springboot-rabbitmq-producer</strong>：发送消息</p>
+<ol>
+<li>创建工程；</li>
+<li>添加依赖（spring-boot-stater-amqp，spring-boot-starter-test）；</li>
+<li>创建启动引导类；</li>
+<li>添加配置文件application.yml</li>
+</ol>
+<p><strong>消费者工程springboot-rabbitmq-consumer</strong>：接收消息</p>
+<ol>
+<li>创建工程；</li>
+<li>添加依赖（spring-boot-stater-amqp）；</li>
+<li>创建启动引导类；</li>
+<li>添加配置文件application.yml</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<blockquote>
+<p>可以使用插件自动生产Spring Boot工程的启动引导类Application.java和配置文件application.yml</p>
+</blockquote>
+<h3 id="16-配置生产者工程"><a href="#16-配置生产者工程" class="headerlink" title="16. 配置生产者工程"></a>16. 配置生产者工程</h3><p><strong>目标</strong>：配置springboot-rabbitmq-producer工程的RabbitMQ，一个交换机、队列并绑定</p>
+<p><strong>分析</strong>：</p>
+<p>使用通配符模式：将队列绑定到交换机（topic）时需要指定路由key（item.#）</p>
+<ol>
+<li>配置RabbitMQ的连接参数：主机、连接端口、虚拟主机、用户名、密码；</li>
+<li>声明交换机、队列并将队列绑定到交换机，指定的路由key（item.#）</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<ul>
+<li>配置application.yml文件</li>
+</ul>
+<pre><code class="yml">spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /itcast
+    username: heima
+    password: heima
+</code></pre>
+<ul>
+<li>配置交换机、队列和绑定，创建一个配置类</li>
+</ul>
+<pre><code class="java">@Configuration
+public class RabbitMQConfig {
+    //交换机名称
+    public static final String ITEM_TOPIC_EXCHANGE = &quot;item_topic_exchange&quot;;
+
+    //队列名称
+    public static final String ITEM_QUEUE = &quot;item_queue&quot;;
+
+    //声明交换机
+    @Bean(&quot;itemTopicExchange&quot;)
+    public Exchange topicExchange(){
+        return ExchangeBuilder.topicExchange(ITEM_TOPIC_EXCHANGE).durable(true).build();
+    }
+
+    //声明队列
+    @Bean(&quot;itemQueue&quot;)
+    public Queue itemQueue(){
+        return QueueBuilder.durable(ITEM_QUEUE).build();
+    }
+
+    //将队列绑定到交换机
+    @Bean
+    public Binding itemQueueExchange(@Qualifier(&quot;itemQueue&quot;) Queue queue,
+                                     @Qualifier(&quot;itemTopicExchange&quot;)Exchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with(&quot;item.#&quot;).noargs();
+    }
+}
+
+</code></pre>
+<h3 id="17-配置消费者工程"><a href="#17-配置消费者工程" class="headerlink" title="17. 配置消费者工程"></a>17. 配置消费者工程</h3><p><strong>目标</strong>：配置springboot-rabbitmq-consumer工程的RabbitMQ，编写消息监听器接收消息</p>
+<p><strong>分析</strong>：</p>
+<ol>
+<li>配置application.yml文件，设置RabbitMQ的连接参数；</li>
+<li>编写消息监听器接收队列（item_queue）消息；可以使用注解@RabbitListener接收队列消息</li>
+</ol>
+<p><strong>小结</strong>：</p>
+<ul>
+<li>配置application.yml文件；与生产者工程一致</li>
+<li>编写监听器类</li>
+</ul>
+<pre><code class="java">@Component
+public class MyListener {
+
+    /**
+     * 接收队列消息
+     * @param message 接收到的消息
+     */
+    @RabbitListener(queues = &quot;item_queue&quot;)
+    public void myListener1(String message){
+        System.out.println(&quot;消费者接收到消息：&quot; + message);
+    }
+}
+
+</code></pre>
+<blockquote>
+<p>接收消息的队列名称要与生产者发送消息时的队列名称一致</p>
+</blockquote>
+<h3 id="18-测试消息发送和接收"><a href="#18-测试消息发送和接收" class="headerlink" title="18. 测试消息发送和接收"></a>18. 测试消息发送和接收</h3><p><strong>目标</strong>：生产者编写测试类RabbitMQTest发送消息到交换机和特定的路由（item.insert，item.update，item.delete）</p>
+<p><strong>分析</strong>：</p>
+<p>生产者：编写测试类RabbitMQTest，利用RabbitTemplate发送3条消息，这3条消息的路由key分别是item.insert，item.update，item.delete</p>
+<p>消费者：在IDEA控制台查看是否能接收到符合路由key的消息</p>
+<p><strong>小结</strong>：</p>
+<p>编写测试类如下：</p>
+<pre><code class="java">package com.itheima.rabbitmq;
+
+import com.itheima.rabbitmq.config.RabbitMQConfig;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class RabbitMQTest {
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Test
+    public void test(){
+        rabbitTemplate.convertAndSend(RabbitMQConfig.ITEM_TOPIC_EXCHANGE,
+                &quot;item.insert&quot;, &quot;商品新增,路由Key为item.insert&quot;);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.ITEM_TOPIC_EXCHANGE,
+                &quot;item.update&quot;, &quot;商品新增,路由Key为item.update&quot;);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.ITEM_TOPIC_EXCHANGE,
+                &quot;item.delete&quot;, &quot;商品新增,路由Key为item.delete&quot;);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.ITEM_TOPIC_EXCHANGE,
+                &quot;a.item.delete&quot;, &quot;商品新增,路由Key为a.item.delete&quot;);
+    }
+}
+
+</code></pre>
+<blockquote>
+<p>先启动测试类进行声明交换机、队列和绑定；之后再启动消费者工程接收消息。</p>
+</blockquote>
+<p>至此项目就搭建完成了，rabbitMq介绍到此结束</p>
+<p>项目接收示例：</p>
+<p><img src="http://blog.mibook.top/rabbit_example.png" alt></p>
+<p>前部分原文链接：<a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/26/RabbitMq五种队列代码解析/" title="RabbitMq五种队列及代码解析">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-什么是MQ"><span class="post-toc-text">1.什么是MQ</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-RabbitMQ"><span class="post-toc-text">2.RabbitMQ</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1-RabbitMQ的简介"><span class="post-toc-text">2.1.RabbitMQ的简介</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2-官网"><span class="post-toc-text">2.2.官网</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3-MQ的其他产品"><span class="post-toc-text">2.3.MQ的其他产品</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-4-学习5种队列"><span class="post-toc-text">2.4.学习5种队列</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-搭建RabbitMQ环境"><span class="post-toc-text">3.搭建RabbitMQ环境</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-1-下载"><span class="post-toc-text">3.1.下载</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2-windows下安装"><span class="post-toc-text">3.2.windows下安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-安装及配置RabbitMQ"><span class="post-toc-text">4. 安装及配置RabbitMQ</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-搭建RabbitMQ入门工程"><span class="post-toc-text">5. 搭建RabbitMQ入门工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-入门工程-消费者"><span class="post-toc-text">7. 入门工程-消费者</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-入门工程测试"><span class="post-toc-text">8 入门工程测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-Work-queues工作队列模式"><span class="post-toc-text">9. Work queues工作队列模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-订阅模式类型说明"><span class="post-toc-text">10. 订阅模式类型说明</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-Publish-Subscribe发布与订阅模式"><span class="post-toc-text">11 Publish/Subscribe发布与订阅模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-Routing路由模式"><span class="post-toc-text">12. Routing路由模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-Topics通配符模式"><span class="post-toc-text">13. Topics通配符模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#14-RabbitMQ模式总结"><span class="post-toc-text">14. RabbitMQ模式总结</span></a></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#15-创建SpringBoot整合RabbitMQ的两个工程"><span class="post-toc-text">15. 创建SpringBoot整合RabbitMQ的两个工程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#16-配置生产者工程"><span class="post-toc-text">16. 配置生产者工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#17-配置消费者工程"><span class="post-toc-text">17. 配置消费者工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#18-测试消息发送和接收"><span class="post-toc-text">18. 测试消息发送和接收</span></a></li></ol>
+			</li></nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

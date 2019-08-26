@@ -1,0 +1,403 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>RabiitMQ交换机（Exchange）的Type介绍</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《RabiitMQ交换机（Exchange）的Type介绍》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		8/26/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/08/26/RabiitMQ交换机（Exchange）的Type介绍/" itemprop="url">		
+			RabiitMQ交换机（Exchange）的Type介绍		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/26/RabiitMQ交换机（Exchange）的Type介绍/" itemprop="url">
+	<time datetime="2019-08-26T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-26
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#RabbitMq" title="RabbitMq" rel="4">RabbitMq</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<p>最近在研究RabbitMq时被交换机的几种类型弄懵逼了，此处单独拿出这块找了些资料简单介绍一下：</p>
+<p>最新版本的RabbitMQ有四种交换机类型，分别是Direct exchange、Fanout exchange、Topic exchange、Headers exchange。</p>
+<p><strong>Direct Exchange</strong> – 处理路由键。需要将一个队列绑定到交换机上，要求该消息与一个特定的路由键完全匹配。这是一个完整的匹配。如果一个队列绑定到该交换机上要求路由键 “dog”，则只有被标记为“dog”的消息才被转发，不会转发dog.puppy，也不会转发dog.guard，只会转发dog。 </p>
+<p><img src="http://blog.mibook.top/exchange-type1.png" alt="img"> </p>
+<p><strong>Fanout Exchange</strong> – 不处理路由键。你只需要简单的将队列绑定到交换机上。一个发送到交换机的消息都会被转发到与该交换机绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。Fanout交换机转发消息是最快的。 </p>
+<p><img src="http://blog.mibook.top/exchange-type2.png" alt="img"> </p>
+<p><strong>Topic Exchange</strong> – 将路由键和某模式进行匹配。此时队列需要绑定要一个模式上。符号“#”匹配一个或多个词，符号“<em>”匹配不多不少一个词。因此“audit.#”能够匹配到“audit.irs.corporate”，但是“audit.</em>” 只会匹配到“audit.irs”。我在RedHat的朋友做了一张不错的图，来表明topic交换机是如何工作的： </p>
+<p><img src="http://blog.mibook.top/exchange-type3.png" alt="img"> </p>
+<p>注：这种情况下队列会收到所有路由器中符合topic规则的消息</p>
+<p><strong>Headers exchange</strong> – 还没有仔细研究过，复制点官方的介绍吧。</p>
+<p>A headers exchange is designed to for routing on multiple attributes that are more easily expressed as message headers than a routing key. Headers exchanges ignore the routing key attribute. Instead, the attributes used for routing are taken from the headers attribute. A message is considered matching if the value of the header equals the value specified upon binding.</p>
+<p>It is possible to bind a queue to a headers exchange using more than one header for matching. In this case, the broker needs one more piece of information from the application developer, namely, should it consider messages with any of the headers matching, or all of them? This is what the “x-match” binding argument is for. When the “x-match” argument is set to “any”, just one matching header value is sufficient. Alternatively, setting “x-match” to “all” mandates that all the values must match.</p>
+<p>Headers exchanges can be looked upon as “direct exchanges on steroids”. Because they route based on header values, they can be used as direct exchanges where the routing key does not have to be a string; it could be an integer or a hash (dictionary) for example.</p>
+<p>百度翻译：</p>
+<p>邮件头交换设计用于在多个属性上进行路由，这些属性比路由键更容易表示为邮件头。头交换忽略路由密钥属性。相反，用于路由的属性来自headers属性。如果头的值等于绑定时指定的值，则认为消息匹配。</p>
+<p>可以使用多个用于匹配的头将队列绑定到头交换。在这种情况下，代理需要来自应用程序开发人员的另外一条信息，也就是说，它应该考虑具有任何头匹配的消息，还是全部匹配的消息？这就是“x-match”绑定参数的作用。当“x-match”参数设置为“any”时，仅一个匹配的头值就足够了。或者，将“x-match”设置为“all”则要求所有值必须匹配。</p>
+<p>头部交换可以被视为“类固醇的直接交换”。因为它们基于头值进行路由，所以可以用作直接交换，其中路由密钥不必是字符串；例如，它可以是整数或哈希（字典）。</p>
+<hr>
+<p>其实除了上面四种以外还有一种<strong>Default Exchange</strong>，它是一种特别的Direct Exchange。</p>
+<p>当你手动创建一个队列时，后台会自动将这个队列绑定到一个名称为空的Direct类型交换机上，绑定路由名称与队列名称相同。有了这个默认的交换机和绑定，我们就可以像其他轻量级的队列，如Redis那样，直接操作队列来处理消息。不过只是看起来是，实际上在RabbitMQ里直接操作是不可能的。消息始终都是先发送到交换机，由交换级经过路由传送给队列，消费者再从队列中获取消息的。不过由于这个默认交换机和路由的关系，使我们只关心队列这一层即可，这个比较适合做一些简单的应用，毕竟没有发挥RabbitMQ的最大功能，如果都用这种方式去使用的话就真是杀鸡用宰牛刀了。</p>
+<p>本文引用自：</p>
+<p><a href="https://blog.csdn.net/rainday0310/article/details/22082503" target="_blank" rel="noopener">https://blog.csdn.net/rainday0310/article/details/22082503</a></p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/08/26/RabbitMq五种队列代码解析/" title="RabbitMq五种队列及代码解析">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/26/LogBack日志处理-异步优化策略/" title="LogBack日志处理-异步优化策略">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

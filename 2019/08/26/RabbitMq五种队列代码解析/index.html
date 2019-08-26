@@ -1,0 +1,659 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>RabbitMq五种队列及代码解析</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《RabbitMq五种队列及代码解析》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		8/26/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/08/26/RabbitMq五种队列代码解析/" itemprop="url">		
+			RabbitMq五种队列及代码解析		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/26/RabbitMq五种队列代码解析/" itemprop="url">
+	<time datetime="2019-08-26T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-26
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#RabbitMq" title="RabbitMq" rel="4">RabbitMq</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h1 id="RabbitMq五种队列及代码解析"><a href="#RabbitMq五种队列及代码解析" class="headerlink" title="RabbitMq五种队列及代码解析"></a>RabbitMq五种队列及代码解析</h1><p>上篇我们谈到了RabbitMq的简单使用及入门，其次也用Springboot搭建了最简单的队列模式，下面我们来看看其他几种队列模式的应用。</p>
+<p>直接上代码吧：</p>
+<p>rabbitMQ-Springboot  application.yml配置</p>
+<pre><code class="yml">#Tomcat服务配置
+server:
+  port: 8081
+  # session 过期时间，单位：秒
+
+spring:
+#rabiitmq配置
+  rabbitmq:
+   host: 127.0.0.1
+   port: 5672
+   username: admin
+   password: admin
+   virtual-host: /testhost
+  #数据库数据源配置
+  datasource:
+    name: studytext
+    url: jdbc:mysql://localhost:3306/studytext?userUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyIntlisBit=false
+    username: root
+    password: root
+    #使用数据库Druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    #数据库连接池配置
+    druid:
+      #初始化大小
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      #配置获取连接等待超时时间
+      max-wait: 2000
+      time-between-eviction-runs-millis: 60000
+      # 配置最小生存时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开pscache
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      #间隔多久检测，检测需关闭空闲连接，单位ms
+    dbcp2:
+      num-tests-per-eviction-run:
+
+</code></pre>
+<p>消费者：</p>
+<pre><code class="java">@Component
+public class MyListener {
+
+    /**
+     * 接收队列消息---简单（工作）模式--1
+     * 简单模块就是一个消费者消费队列
+     * 工作模式就是多个消费者消费队列
+     */
+    @RabbitListener(queues = &quot;item_queue&quot;)
+    public void myListener1(String message){
+        System.out.println(&quot;消费者接收到消息：&quot; + message);
+    }
+
+    /**
+     * 接收队列消息---路由模式--2
+     * 指定key路由 每个消费者只能消费对应key的消息
+     */
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;amq.direct&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;
+            ),
+            key = {&quot;item.insert&quot;}
+    ))
+    public void listendirct(String msg) {
+        System.out.println(&quot;DirectListener listen 接收到消息：&quot; + msg);
+    }
+
+    // 队列2（第二个人），key值不同，接收不到消息
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;amq.direct&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;
+            ),
+            key = {&quot;item.update&quot;}
+    ))
+    public void listen1(String msg) {
+        System.out.println(&quot;DirectListener listen2 接收到消息：&quot; + msg);
+    }
+
+    /**
+     * 接收广播消息---发布订阅模式--2
+     * 每个消费者可以有自己的队列 消费的数据是同样的
+     */
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;fanout_test_exchange&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;,
+                    type = ExchangeTypes.FANOUT
+            )
+    ))
+    public void listen2(String msg) {
+        System.out.println(&quot;FanoutListener listen 接收到消息：&quot; + msg);
+    }
+
+     //队列2（第二个人），同样能接收到消息
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue2&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;fanout_test_exchange&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;,
+                    type = ExchangeTypes.FANOUT
+            )
+    ))
+    public void listen3(String msg) {
+        System.out.println(&quot;FanoutListener listen2 接收到消息：&quot; + msg);
+    }
+
+    /**
+     *通配符模式-在话题类型下进行
+     * @param msg
+     */
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;topic_test_exchange&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;,
+                    type = ExchangeTypes.TOPIC
+            ),
+            key = {&quot;user.#&quot;}
+    ))
+    public void listen4(String msg) {
+        System.out.println(&quot;TopicListener User 接收到消息：&quot; + msg);
+    }
+
+    // 通配规则不同，接收不到消息
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = &quot;item_queue2&quot;, durable = &quot;true&quot;),
+            exchange = @Exchange(
+                    value = &quot;topic_test_exchange&quot;,
+                    ignoreDeclarationExceptions = &quot;true&quot;,
+                    type = ExchangeTypes.TOPIC
+            ),
+            key = {&quot;student.#&quot;}
+    ))
+    public void listen5(String msg) {
+        System.out.println(&quot;TopicListener Student 接收到消息：&quot; + msg);
+    }
+}
+
+</code></pre>
+<p>代码直接融合了五种模式的代码，我测试的时候是一个一个测试的，请看官们自己处理</p>
+<p>生产者：</p>
+<p>第一部配置队列和交换机绑定：</p>
+<pre><code class="java">/**
+ * RabbitMq配置
+ */
+@Configuration
+public class RabbitMqConfig {
+    //交换机名称-三种
+    public static final String ITEM_TOPIC_EXCHANGE = &quot;topic_test_exchange&quot;;
+    public static final String ITEM_DIRECT_EXCHANGE = &quot;direct_test_exchange&quot;;
+    public static final String ITEM_FANOUT_EXCHANGE = &quot;fanout_test_exchange&quot;;
+    //队列名称
+    public static final String ITEM_QUEUE = &quot;item_queue&quot;;
+    //队列名称
+    public static final String ITEM_QUEUE2 = &quot;item_queue2&quot;;
+
+    //声明topic交换机
+    @Bean(&quot;itemTopicExchange&quot;)
+    public Exchange topicExchange(){
+        return ExchangeBuilder.topicExchange(ITEM_TOPIC_EXCHANGE).durable(true).build();
+    }
+    //声明direct交换机
+    /*
+    @Bean(&quot;itemTopicExchange&quot;)
+    public Exchange topicExchange(){
+        return ExchangeBuilder.directExchange(ITEM_DIRECT_EXCHANGE).durable(true).build();
+    }
+    */
+    //声明fanout交换机
+    /*
+    @Bean(&quot;itemTopicExchange&quot;)
+    public Exchange topicExchange(){
+        return ExchangeBuilder.fanoutExchange(ITEM_FANOUT_EXCHANGE).durable(true).build();
+    }
+    */
+    //声明队列
+    @Bean(&quot;itemQueue&quot;)
+    public Queue itemQueue(){
+        return QueueBuilder.durable(ITEM_QUEUE).build();
+    }
+    //声明队列2
+    @Bean(&quot;itemQueue2&quot;)
+    public Queue itemQueue2(){
+        return QueueBuilder.durable(ITEM_QUEUE2).build();
+    }
+    //将队列绑定到交换机
+    @Bean
+    public Binding itemQueueExchange(@Qualifier(&quot;itemQueue&quot;) Queue queue, @Qualifier(&quot;itemTopicExchange&quot;)Exchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with(&quot;user.#&quot;).noargs();
+    }
+    //将队列绑定到交换机
+    @Bean
+    public Binding itemQueueExchange2(@Qualifier(&quot;itemQueue2&quot;) Queue queue, @Qualifier(&quot;itemTopicExchange&quot;)Exchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with(&quot;student.#&quot;).noargs();
+    }
+}
+
+</code></pre>
+<p>第二步发送消息：</p>
+<pre><code class="java"> @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @Test
+    public void contextLoads() {
+        for (int i=0;i&lt;10;i++) {
+            //----------------------------------topic
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+//                    &quot;item.insert&quot;, &quot;商品新增------,路由Key为item.insert&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+//                    &quot;item.update&quot;, &quot;商品新增------,路由Key为item.update&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+//                    &quot;item.delete&quot;, &quot;商品新增------,路由Key为item.delete&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+//                    &quot;item.select&quot;, &quot;商品新增------,路由Key为item.select&quot;);
+//            //---------------------------------direct
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_DIRECT_EXCHANGE,
+//                    &quot;item.insert&quot;, &quot;商品新增------,路由Key为item.insert&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_DIRECT_EXCHANGE,
+//                    &quot;item.update&quot;, &quot;商品新增------,路由Key为item.update&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_DIRECT_EXCHANGE,
+//                    &quot;item.delete&quot;, &quot;商品新增------,路由Key为item.delete&quot;);
+//            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_DIRECT_EXCHANGE,
+//                    &quot;item.select&quot;, &quot;商品新增------,路由Key为item.select&quot;);
+            //---------------------------------fanout
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;user.insert&quot;, &quot;商品新增------,user.insert&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;user.update&quot;, &quot;商品新增------,user.update&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;user.delete&quot;, &quot;商品新增------,user.delete&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;user.select&quot;, &quot;商品新增------,user.select&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;student.insert&quot;, &quot;商品新增------,student.insert&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;student.update&quot;, &quot;商品新增------,student.update&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;student.delete&quot;, &quot;商品新增------,student.delete&quot;);
+            rabbitTemplate.convertAndSend(RabbitMqConfig.ITEM_TOPIC_EXCHANGE,
+                    &quot;student.select&quot;, &quot;商品新增------,student.select&quot;);
+        }
+        System.out.println(&quot;消息发送完成&quot;);
+    }
+
+</code></pre>
+<p>这里交换机有三种类型，分别是direct，topic，fanout三种，direct一般用于路由模式，具有键值匹配，fanout一般用于广播，topic和direct类似，有通配符方式，同时队列绑定更加复杂，注意这里的三种模式是匹配队列的，在队列和交换机直接生效，详情参考我的另一篇文章。</p>
+<p>这里的五种模式已整合spring boot 测试完成</p>
+<p>这里实例就不在展示了，有兴趣的可自行测试：</p>
+<p>这里补充一下个人在运用当中遇到的问题：</p>
+<p>1.RabbitMq管理平台可以很好的看到队列和交换机信息，以及队列当前的消息数及消费时间信息</p>
+<p>2.测试时如果队列绑定了不同的交换机路由key，记得在管理界面清理，或者找代码自行清理，不然容易出现一个队列多个key的情况，导致结果混乱。</p>
+<p>3.交换机和队列的类型需读者自行了解一下，方便后续的测试和使用。</p>
+<p>这里本人的实验过程就到此结束了，笔者也将出一篇引用的教程，有兴趣的朋友可自己在博客寻找。</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/08/26/RabbitMq入门及使用/" title="RabbitMq入门及使用">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/26/RabiitMQ交换机（Exchange）的Type介绍/" title="RabiitMQ交换机（Exchange）的Type介绍">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#RabbitMq五种队列及代码解析"><span class="post-toc-text">RabbitMq五种队列及代码解析</span></a></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

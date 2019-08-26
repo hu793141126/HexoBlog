@@ -1,0 +1,528 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>LogBack日志处理-异步优化策略</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《LogBack日志处理-异步优化策略》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		8/26/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/08/26/LogBack日志处理-异步优化策略/" itemprop="url">		
+			LogBack日志处理-异步优化策略		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/08/26/LogBack日志处理-异步优化策略/" itemprop="url">
+	<time datetime="2019-08-26T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-26
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#日志" title="日志" rel="1">日志</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h3 id="通过阅读本篇文章将了解到："><a href="#通过阅读本篇文章将了解到：" class="headerlink" title="通过阅读本篇文章将了解到："></a><strong>通过阅读本篇文章将了解到：</strong></h3><p>1.日志输出到文件并根据<code>LEVEL</code>级别将日志分类保存到不同文件</p>
+<p>2.通过异步输出日志减少磁盘<code>IO</code>提高性能</p>
+<p>3.异步输出日志的原理</p>
+<h3 id="一：配置文件logback-spring-xml"><a href="#一：配置文件logback-spring-xml" class="headerlink" title="一：配置文件logback-spring.xml"></a>一：配置文件logback-spring.xml</h3><p>.<code>SpringBoot</code>工程自带<code>logback</code>和<code>slf4j</code>的依赖，所以重点放在编写配置文件上，需要引入什么依赖，日志依赖冲突统统都不需要我们管了。<code>logback</code>框架会默认加载<code>classpath</code>下命名为<code>logback-spring</code>或<code>logback</code>的配置文件。</p>
+<p>将所有日志都存储在一个文件中文件大小也随着应用的运行越来越大并且不好排查问题，正确的做法应该是将<code>error</code>日志和其他日志分开，并且不同级别的日志根据时间段进行记录存储。</p>
+<pre><code class="java">![logback](C:\Users\Administrator\Desktop\bolg图片\logback.png)&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;property resource=&quot;logback.properties&quot;/&gt;
+    &lt;appender name=&quot;CONSOLE-LOG&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;layout class=&quot;ch.qos.logback.classic.PatternLayout&quot;&gt;
+            &lt;pattern&gt;[%d{yyyy-MM-dd&#39; &#39;HH:mm:ss.sss}] [%C] [%t] [%L] [%-5p] %m%n&lt;/pattern&gt;
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;!--获取比info级别高(包括info级别)但除error级别的日志--&gt;
+    &lt;appender name=&quot;INFO-LOG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;ERROR&lt;/level&gt;
+            &lt;onMatch&gt;DENY&lt;/onMatch&gt;
+            &lt;onMismatch&gt;ACCEPT&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;[%d{yyyy-MM-dd&#39; &#39;HH:mm:ss.sss}] [%C] [%t] [%L] [%-5p] %m%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+
+        &lt;!--滚动策略--&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;!--路径--&gt;
+            &lt;fileNamePattern&gt;${LOG_INFO_HOME}//%d.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ERROR-LOG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;ERROR&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;[%d{yyyy-MM-dd&#39; &#39;HH:mm:ss.sss}] [%C] [%t] [%L] [%-5p] %m%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+        &lt;!--滚动策略--&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;!--路径--&gt;
+            &lt;fileNamePattern&gt;${LOG_ERROR_HOME}//%d.log&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+    &lt;/appender&gt;
+
+    &lt;root level=&quot;info&quot;&gt;
+        &lt;appender-ref ref=&quot;CONSOLE-LOG&quot; /&gt;
+        &lt;appender-ref ref=&quot;INFO-LOG&quot; /&gt;
+        &lt;appender-ref ref=&quot;ERROR-LOG&quot; /&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>部分标签说明</p>
+<ul>
+<li><p><code>&lt;root&gt;</code>标签，必填标签，用来指定最基础的日志输出级别</p>
+</li>
+<li><ul>
+<li><code>&lt;appender-ref&gt;</code>标签，添加<code>append</code></li>
+</ul>
+</li>
+<li><p><code>&lt;append&gt;</code>标签，通过使用该标签指定日志的收集策略</p>
+</li>
+<li><ul>
+<li><code>name</code>属性指定<code>appender</code>命名</li>
+<li><code>class</code>属性指定输出策略，通常有两种，控制台输出和文件输出，文件输出就是将日志进行一个持久化。<code>ConsoleAppender</code>将日志输出到控制台</li>
+</ul>
+</li>
+<li><p><code>&lt;filter&gt;</code>标签，通过使用该标签指定过滤策略</p>
+</li>
+<li><ul>
+<li><code>&lt;level&gt;</code>标签指定过滤的类型</li>
+</ul>
+</li>
+<li><p><code>&lt;encoder&gt;</code>标签，使用该标签下的<code>&lt;pattern&gt;</code>标签指定日志输出格式</p>
+</li>
+<li><p><code>&lt;rollingPolicy&gt;</code>标签指定收集策略，比如基于时间进行收集</p>
+</li>
+<li><ul>
+<li><code>&lt;fileNamePattern&gt;</code>标签指定生成日志保存地址 通过这样配置已经实现了分类分天收集日志的目标了</li>
+</ul>
+</li>
+</ul>
+<p><img src="C:\Users\Administrator\Desktop\bolg图片\logback.png" alt></p>
+<h3 id="二：logback-高级特性异步输出日志"><a href="#二：logback-高级特性异步输出日志" class="headerlink" title="二：logback 高级特性异步输出日志"></a>二：logback 高级特性异步输出日志</h3><p>之前的日志配置方式是基于同步的，每次日志输出到文件都会进行一次磁盘IO。采用异步写日志的方式而不让此次写日志发生磁盘IO，阻塞线程从而造成不必要的性能损耗。异步输出日志的方式很简单，添加一个基于异步写日志的<code>appender</code>，并指向原先配置的<code>appender</code>即可。</p>
+<pre><code class="java">&lt;!-- 异步输出 --&gt;
+&lt;appender name=&quot;ASYNC-INFO&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+     &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+     &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+     &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+     &lt;queueSize&gt;256&lt;/queueSize&gt;
+     &lt;!-- 添加附加的appender,最多只能添加一个 --&gt;
+     &lt;appender-ref ref=&quot;INFO-LOG&quot;/&gt;
+&lt;/appender&gt;
+
+&lt;appender name=&quot;ASYNC-ERROR&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+     &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+     &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+     &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+     &lt;queueSize&gt;256&lt;/queueSize&gt;
+     &lt;!-- 添加附加的appender,最多只能添加一个 --&gt;
+     &lt;appender-ref ref=&quot;ERROR-LOG&quot;/&gt;
+&lt;/appender&gt;
+</code></pre>
+<h3 id="三：异步输出日志性能测试"><a href="#三：异步输出日志性能测试" class="headerlink" title="三：异步输出日志性能测试"></a>三：异步输出日志性能测试</h3><p>既然能提高性能的话，必须进行一次测试比对，同步和异步输出日志性能到底能提升多少倍？</p>
+<h6 id="服务器硬件"><a href="#服务器硬件" class="headerlink" title="服务器硬件"></a><strong>服务器硬件</strong></h6><ul>
+<li><code>CPU</code> 六核</li>
+<li>内存 8G</li>
+</ul>
+<h6 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a><strong>测试工具</strong></h6><pre><code>Apache Jmeter
+</code></pre><h6 id="同步输出日志"><a href="#同步输出日志" class="headerlink" title="同步输出日志"></a><strong>同步输出日志</strong></h6><ul>
+<li>线程数：100</li>
+<li><code>Ramp-Up Loop</code>(可以理解为启动线程所用时间) ：0 可以理解为100个线程同时启用</li>
+<li>测试结果</li>
+<li><img src="http://blog.mibook.top/logback1.png" alt></li>
+</ul>
+<h3 id="四：异步日志输出原理"><a href="#四：异步日志输出原理" class="headerlink" title="四：异步日志输出原理"></a>四：异步日志输出原理</h3><p>从<code>logback</code>框架下的<code>Logger.info</code>方法开始追踪。一路的方法调用路径如下图所示：</p>
+<p><img src="http://blog.mibook.top/logback3.png" alt></p>
+<p>异步输出日志中最关键的就是配置文件中<code>ch.qos.logback.classic</code>包下<code>AsyncAppenderBase</code>类中的<code>append</code>方法，查看该方法的源码:</p>
+<pre><code class="java">protected void append(E eventObject) {
+    if(!this.isQueueBelowDiscardingThreshold() || !this.isDiscardable(eventObject)) {
+        this.preprocess(eventObject);
+        this.put(eventObject);
+    }
+}
+</code></pre>
+<p>通过队列情况判断是否需要丢弃日志，不丢弃的话将它放到阻塞队列中，通过查看代码，这个阻塞队列为<code>ArrayBlockingQueueu</code>，默认大小为256，可以通过配置文件进行修改。<code>Logger.info(...)</code>到<code>append(...)</code>就结束了，只做了将日志塞入到阻塞队列的事，然后继续执行<code>Logger.info(...)</code>下面的语句了。在<code>AsyncAppenderBase</code>类中定义了一个<code>Worker</code>线程，<code>run</code>方法中的关键部分代码如下:</p>
+<pre><code class="java">E e = parent.blockingQueue.take();
+aai.appendLoopOnAppenders(e);
+</code></pre>
+<p>从阻塞队列中取出一个日志，并调用<code>AppenderAttachableImpl</code>类中的<code>appendLoopOnAppenders</code>方法维护一个<code>Append</code>列表。<code>Worker</code>线程中调用方法过程主要如下图：</p>
+<p><img src="http://blog.mibook.top/logback4.png" alt></p>
+<p>最主要的两个方法就是<code>encode</code>和<code>write</code>方法，前一个法方会根据配置文件中<code>encode</code>指定的方式转化为字节码，后一个方法将转化成的字节码写入到文件中去。所以写文件是通过新起一个线程去完成的，主线程将日志扔到阻塞队列中，然后又去做其他事情了。</p>
+<p><img src="http://blog.mibook.top/logback5.png" alt></p>
+<p>到此-本部分内容就介绍完了。有兴趣的朋友可自行测试</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/08/26/RabiitMQ交换机（Exchange）的Type介绍/" title="RabiitMQ交换机（Exchange）的Type介绍">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/08/11/Hibernator-Validator介绍及使用/" title="Hibernator-Validator介绍及使用">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通过阅读本篇文章将了解到："><span class="post-toc-text">通过阅读本篇文章将了解到：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一：配置文件logback-spring-xml"><span class="post-toc-text">一：配置文件logback-spring.xml</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二：logback-高级特性异步输出日志"><span class="post-toc-text">二：logback 高级特性异步输出日志</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三：异步输出日志性能测试"><span class="post-toc-text">三：异步输出日志性能测试</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#服务器硬件"><span class="post-toc-text">服务器硬件</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#测试工具"><span class="post-toc-text">测试工具</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#同步输出日志"><span class="post-toc-text">同步输出日志</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四：异步日志输出原理"><span class="post-toc-text">四：异步日志输出原理</span></a></li>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+
