@@ -1,0 +1,1095 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Redis入门介绍-Springboot整合</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Redis入门介绍-Springboot整合》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		9/14/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/09/14/Redis入门介绍-Springboot整合/" itemprop="url">		
+			Redis入门介绍-Springboot整合		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/09/14/Redis入门介绍-Springboot整合/" itemprop="url">
+	<time datetime="2019-09-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-09-14
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#Redis" title="Redis" rel="1">Redis</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><h3 id="为什么写这篇文章"><a href="#为什么写这篇文章" class="headerlink" title="为什么写这篇文章?"></a>为什么写这篇文章?</h3><p>最近在了解Redis，看到了这篇文章，学习无边界，感觉写的不错就转载了，以上是文章内容：</p>
+<p>博主的<a href="http://www.cnblogs.com/rjzheng/p/8994962.html" target="_blank" rel="noopener">《分布式之消息队列复习精讲》</a>得到了大家的好评，内心诚惶诚恐，想着再出一篇关于复习精讲的文章。但是还是要说明一下，复习精讲的文章偏面试准备，真正在开发过程中，还是脚踏实地，一步一个脚印，不要投机取巧。<br>考虑到绝大部分写业务的程序员，在实际开发中使用redis的时候，只会setvalue和getvalue两个操作，对redis整体缺乏一个认知。又恰逢博主某个同事下周要去培训redis，所以博主斗胆以redis为题材，对redis常见问题做一个总结，希望能够弥补大家的知识盲点。</p>
+<h3 id="复习要点"><a href="#复习要点" class="headerlink" title="复习要点?"></a>复习要点?</h3><p>本文围绕以下几点进行阐述<br>1、为什么使用redis<br>2、使用redis有什么缺点<br>3、单线程的redis为什么这么快<br>4、redis的数据类型，以及每种数据类型的使用场景<br>5、redis的过期策略以及内存淘汰机制<br>6、redis和数据库双写一致性问题<br>7、如何应对缓存穿透和缓存雪崩问题<br>8、如何解决redis的并发竞争问题</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1、为什么使用redis"><a href="#1、为什么使用redis" class="headerlink" title="1、为什么使用redis"></a>1、为什么使用redis</h3><p><strong>分析</strong>:博主觉得在项目中使用redis，主要是从两个角度去考虑:<strong>性能</strong>和<strong>并发</strong>。当然，redis还具备可以做分布式锁等其他功能，但是如果只是为了分布式锁这些其他功能，完全还有其他中间件(如zookpeer等)代替，并不是非要使用redis。因此，这个问题主要从性能和并发两个角度去答。<br><strong>回答</strong>:如下所示，分为两点<br><strong>（一）性能</strong><br>如下图所示，我们在碰到需要执行耗时特别久，且结果不频繁变动的SQL，就特别适合将运行结果放入缓存。这样，后面的请求就去缓存中读取，使得请求能够<strong>迅速响应</strong>。<br><img src="https://images.cnblogs.com/cnblogs_com/rjzheng/1202350/o_redis1.png" alt="image"><br><strong>题外话：</strong>忽然想聊一下这个<strong>迅速响应</strong>的标准。其实根据交互效果的不同，这个响应时间没有固定标准。不过曾经有人这么告诉我:”在理想状态下，我们的页面跳转需要在<strong>瞬间</strong>解决，对于页内操作则需要在<strong>刹那</strong>间解决。另外，超过<strong>一弹指</strong>的耗时操作要有进度提示，并且可以随时中止或取消，这样才能给用户最好的体验。”<br>那么<strong>瞬间、刹那、一弹指</strong>具体是多少时间呢？<br>根据《摩诃僧祗律》记载</p>
+<pre><code>一刹那者为一念，二十念为一瞬，二十瞬为一弹指，二十弹指为一罗预，二十罗预为一须臾，一日一夜有三十须臾。
+</code></pre><p>那么，经过周密的计算，一<strong>瞬间</strong>为0.36 秒,一<strong>刹那</strong>有 0.018 秒.一<strong>弹指</strong>长达 7.2 秒。<br><strong>（二）并发</strong><br>如下图所示，在大并发的情况下，所有的请求直接访问数据库，数据库会出现连接异常。这个时候，就需要使用redis做一个缓冲操作，让请求先访问到redis，而不是直接访问数据库。<br><img src="https://images.cnblogs.com/cnblogs_com/rjzheng/1202350/o_redis2.png" alt="image"></p>
+<h3 id="2、使用redis有什么缺点"><a href="#2、使用redis有什么缺点" class="headerlink" title="2、使用redis有什么缺点"></a>2、使用redis有什么缺点</h3><p><strong>分析</strong>:大家用redis这么久，这个问题是必须要了解的，基本上使用redis都会碰到一些问题，常见的也就几个。<br><strong>回答</strong>:主要是四个问题<br>(一)缓存和数据库双写一致性问题<br>(二)缓存雪崩问题<br>(三)缓存击穿问题<br>(四)缓存的并发竞争问题<br>这四个问题，我个人是觉得在项目中，比较常遇见的，具体解决方案，后文给出。</p>
+<h3 id="3、单线程的redis为什么这么快"><a href="#3、单线程的redis为什么这么快" class="headerlink" title="3、单线程的redis为什么这么快"></a>3、单线程的redis为什么这么快</h3><p><strong>分析</strong>:这个问题其实是对redis内部机制的一个考察。其实根据博主的面试经验，很多人其实都不知道redis是单线程工作模型。所以，这个问题还是应该要复习一下的。<br><strong>回答</strong>:主要是以下三点<br>(一)纯内存操作<br>(二)单线程操作，避免了频繁的上下文切换<br>(三)采用了非阻塞<strong>I/O多路复用机制</strong></p>
+<p><strong>题外话：</strong>我们现在要仔细的说一说I/O多路复用机制，因为这个说法实在是太通俗了，通俗到一般人都不懂是什么意思。博主打一个比方：小曲在S城开了一家快递店，负责同城快送服务。小曲因为资金限制，雇佣了<strong>一批</strong>快递员，然后小曲发现资金不够了，只够买<strong>一辆</strong>车送快递。<br><strong>经营方式一</strong><br>客户每送来一份快递，小曲就让一个快递员盯着，然后快递员开车去送快递。慢慢的小曲就发现了这种经营方式存在下述问题</p>
+<ul>
+<li>几十个快递员基本上时间都花在了抢车上了，大部分快递员都处在闲置状态，谁抢到了车，谁就能去送快递</li>
+<li>随着快递的增多，快递员也越来越多，小曲发现快递店里越来越挤，没办法雇佣新的快递员了</li>
+<li>快递员之间的协调很花时间</li>
+</ul>
+<p>综合上述缺点，小曲痛定思痛，提出了下面的经营方式<br><strong>经营方式二</strong><br>小曲只雇佣一个快递员。然后呢，客户送来的快递，小曲按<strong>送达地点</strong>标注好，然后<strong>依次</strong>放在一个地方。最后，那个快递员<strong>依次</strong>的去取快递，一次拿一个，然后开着车去送快递，送好了就回来拿下一个快递。</p>
+<p><strong>对比</strong><br>上述两种经营方式对比，是不是明显觉得第二种，效率更高，更好呢。在上述比喻中:</p>
+<ul>
+<li>每个快递员——————&gt;每个线程</li>
+<li>每个快递——————–&gt;每个socket(I/O流)</li>
+<li>快递的送达地点————–&gt;socket的不同状态</li>
+<li>客户送快递请求————–&gt;来自客户端的请求</li>
+<li>小曲的经营方式————–&gt;服务端运行的代码</li>
+<li>一辆车———————-&gt;CPU的核数</li>
+</ul>
+<p>于是我们有如下结论<br>1、经营方式一就是传统的并发模型，每个I/O流(快递)都有一个新的线程(快递员)管理。<br>2、经营方式二就是I/O多路复用。只有单个线程(一个快递员)，通过跟踪每个I/O流的状态(每个快递的送达地点)，来管理多个I/O流。</p>
+<p>下面类比到真实的redis线程模型，如图所示<br><img src="https://images.cnblogs.com/cnblogs_com/rjzheng/1202350/o_redis3.png" alt="image"><br>参照上图，简单来说，就是。我们的redis-client在操作的时候，会产生具有不同事件类型的socket。在服务端，有一段I/0多路复用程序，将其置入队列之中。然后，文件事件分派器，依次去队列中取，转发到不同的事件处理器中。<br>需要说明的是，这个I/O多路复用机制，redis还提供了select、epoll、evport、kqueue等多路复用函数库，大家可以自行去了解。</p>
+<h3 id="4、redis的数据类型，以及每种数据类型的使用场景"><a href="#4、redis的数据类型，以及每种数据类型的使用场景" class="headerlink" title="4、redis的数据类型，以及每种数据类型的使用场景"></a>4、redis的数据类型，以及每种数据类型的使用场景</h3><p><strong>分析</strong>：是不是觉得这个问题很基础，其实我也这么觉得。然而根据面试经验发现，至少百分八十的人答不上这个问题。建议，在项目中用到后，再类比记忆，体会更深，不要硬记。基本上，一个合格的程序员，五种类型都会用到。<br><strong>回答</strong>：一共五种<br>(一)String<br>这个其实没啥好说的，最常规的set/get操作，value可以是String也可以是数字。一般做<strong>一些复杂的计数功能的缓存。</strong><br>(二)hash<br>这里value存放的是结构化的对象，比较方便的就是操作其中的某个字段。博主在做<strong>单点登录</strong>的时候，就是用这种数据结构存储用户信息，以cookieId作为key，设置30分钟为缓存过期时间，能很好的模拟出类似session的效果。<br>(三)list<br>使用List的数据结构，可以<strong>做简单的消息队列的功能</strong>。另外还有一个就是，可以利用lrange命令，<strong>做基于redis的分页功能</strong>，性能极佳，用户体验好。<br>(四)set<br>因为set堆放的是一堆不重复值的集合。所以可以做<strong>全局去重的功能</strong>。为什么不用JVM自带的Set进行去重？因为我们的系统一般都是集群部署，使用JVM自带的Set，比较麻烦，难道为了一个做一个全局去重，再起一个公共服务，太麻烦了。<br>另外，就是利用交集、并集、差集等操作，可以<strong>计算共同喜好，全部的喜好，自己独有的喜好等功能</strong>。<br>(五)sorted set<br>sorted set多了一个权重参数score,集合中的元素能够按score进行排列。可以做<strong>排行榜应用，取TOP N操作</strong>。另外，参照另一篇<a href="https://www.cnblogs.com/rjzheng/p/8972725.html" target="_blank" rel="noopener">《分布式之延时任务方案解析》</a>，该文指出了sorted set可以用来做<strong>延时任务</strong>。最后一个应用就是可以做<strong>范围查找</strong>。</p>
+<h3 id="5、redis的过期策略以及内存淘汰机制"><a href="#5、redis的过期策略以及内存淘汰机制" class="headerlink" title="5、redis的过期策略以及内存淘汰机制"></a>5、redis的过期策略以及内存淘汰机制</h3><p><strong>分析</strong>:这个问题其实相当重要，到底redis有没用到家，这个问题就可以看出来。比如你redis只能存5G数据，可是你写了10G，那会删5G的数据。怎么删的，这个问题思考过么？还有，你的数据已经设置了过期时间，但是时间到了，内存占用率还是比较高，有思考过原因么?<br><strong>回答</strong>:<br>redis采用的是定期删除+惰性删除策略。<br><strong>为什么不用定时删除策略?</strong><br>定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略.<br><strong>定期删除+惰性删除是如何工作的呢?</strong><br>定期删除，redis默认每个100ms检查，是否有过期的key,有过期key则删除。需要说明的是，redis不是每个100ms将所有的key检查一次，而是随机抽取进行检查(如果每隔100ms,全部key进行检查，redis岂不是卡死)。因此，如果只采用定期删除策略，会导致很多key到时间没有删除。<br>于是，惰性删除派上用场。也就是说在你获取某个key的时候，redis会检查一下，这个key如果设置了过期时间那么是否过期了？如果过期了此时就会删除。<br><strong>采用定期删除+惰性删除就没其他问题了么?</strong><br>不是的，如果定期删除没删除key。然后你也没即时去请求key，也就是说惰性删除也没生效。这样，redis的内存会越来越高。那么就应该采用<strong>内存淘汰机制</strong>。<br>在redis.conf中有一行配置</p>
+<pre><code># maxmemory-policy volatile-lru
+</code></pre><p>该配置就是配内存淘汰策略的(什么，你没配过？好好反省一下自己)<br>1）noeviction：当内存不足以容纳新写入数据时，新写入操作会报错。<strong>应该没人用吧。</strong><br>2）allkeys-lru：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的key。<strong>推荐使用，目前项目在用这种。</strong><br>3）allkeys-random：当内存不足以容纳新写入数据时，在键空间中，随机移除某个key。<strong>应该也没人用吧，你不删最少使用Key,去随机删。</strong><br>4）volatile-lru：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，移除最近最少使用的key。<strong>这种情况一般是把redis既当缓存，又做持久化存储的时候才用。不推荐</strong><br>5）volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。<strong>依然不推荐</strong><br>6）volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。<strong>不推荐</strong><br>ps：如果没有设置 expire 的key, 不满足先决条件(prerequisites); 那么 volatile-lru, volatile-random 和 volatile-ttl 策略的行为, 和 noeviction(不删除) 基本上一致。</p>
+<h3 id="6、redis和数据库双写一致性问题"><a href="#6、redis和数据库双写一致性问题" class="headerlink" title="6、redis和数据库双写一致性问题"></a>6、redis和数据库双写一致性问题</h3><p><strong>分析</strong>:一致性问题是分布式常见问题，还可以再分为最终一致性和强一致性。数据库和缓存双写，就必然会存在不一致的问题。答这个问题，先明白一个前提。就是<strong>如果对数据有强一致性要求，不能放缓存。</strong>我们所做的一切，只能保证最终一致性。另外，我们所做的方案其实从根本上来说，只能说<strong>降低不一致发生的概率</strong>，无法完全避免。因此，有强一致性要求的数据，不能放缓存。<br><strong>回答</strong>:<a href="https://www.cnblogs.com/rjzheng/p/9041659.html" target="_blank" rel="noopener">《分布式之数据库和缓存双写一致性方案解析》</a>给出了详细的分析，在这里简单的说一说。首先，采取正确更新策略，先更新数据库，再删缓存。其次，因为可能存在删除缓存失败的问题，提供一个补偿措施即可，例如利用消息队列。</p>
+<h3 id="7、如何应对缓存穿透和缓存雪崩问题"><a href="#7、如何应对缓存穿透和缓存雪崩问题" class="headerlink" title="7、如何应对缓存穿透和缓存雪崩问题"></a>7、如何应对缓存穿透和缓存雪崩问题</h3><p><strong>分析</strong>:这两个问题，说句实在话，一般中小型传统软件企业，很难碰到这个问题。如果有大并发的项目，流量有几百万左右。这两个问题一定要深刻考虑。<br><strong>回答</strong>:如下所示<br><strong>缓存穿透</strong>，即黑客故意去请求缓存中不存在的数据，导致所有的请求都怼到数据库上，从而数据库连接异常。<br><strong>解决方案</strong>:<br>(一)利用互斥锁，缓存失效的时候，先去获得锁，得到锁了，再去请求数据库。没得到锁，则休眠一段时间重试<br>(二)采用异步更新策略，无论key是否取到值，都直接返回。value值中维护一个缓存失效时间，缓存如果过期，异步起一个线程去读数据库，更新缓存。需要做<strong>缓存预热</strong>(项目启动前，先加载缓存)操作。<br>(三)提供一个能迅速判断请求是否有效的拦截机制，比如，利用布隆过滤器，内部维护一系列合法有效的key。迅速判断出，请求所携带的Key是否合法有效。如果不合法，则直接返回。<br><strong>缓存雪崩</strong>，即缓存同一时间大面积的失效，这个时候又来了一波请求，结果请求都怼到数据库上，从而导致数据库连接异常。<br><strong>解决方案</strong>:<br>(一)给缓存的失效时间，加上一个随机值，避免集体失效。<br>(二)使用互斥锁，但是该方案吞吐量明显下降了。<br>(三)双缓存。我们有两个缓存，缓存A和缓存B。缓存A的失效时间为20分钟，缓存B不设失效时间。自己做缓存预热操作。然后细分以下几个小点</p>
+<ul>
+<li>I 从缓存A读数据库，有则直接返回</li>
+<li>II A没有数据，直接从B读数据，直接返回，并且异步启动一个更新线程。</li>
+<li>III 更新线程同时更新缓存A和缓存B。</li>
+</ul>
+<h3 id="8、如何解决redis的并发竞争key问题"><a href="#8、如何解决redis的并发竞争key问题" class="headerlink" title="8、如何解决redis的并发竞争key问题"></a>8、如何解决redis的并发竞争key问题</h3><p><strong>分析</strong>:这个问题大致就是，同时有多个子系统去set一个key。这个时候要注意什么呢？大家思考过么。需要说明一下，博主提前百度了一下，发现答案基本都是推荐用redis事务机制。博主<strong>不推荐使用redis的事务机制。</strong>因为我们的生产环境，基本都是redis集群环境，做了数据分片操作。你一个事务中有涉及到多个key操作的时候，这多个key不一定都存储在同一个redis-server上。因此，<strong>redis的事务机制，十分鸡肋。</strong><br><strong>回答:</strong>如下所示<br>(1)如果对这个key操作，<strong>不要求顺序</strong><br>这种情况下，准备一个分布式锁，大家去抢锁，抢到锁就做set操作即可，比较简单。<br>(2)如果对这个key操作，<strong>要求顺序</strong><br>假设有一个key1,系统A需要将key1设置为valueA,系统B需要将key1设置为valueB,系统C需要将key1设置为valueC.<br>期望按照key1的value值按照 valueA–&gt;valueB–&gt;valueC的顺序变化。这种时候我们在数据写入数据库的时候，需要保存一个时间戳。假设时间戳如下</p>
+<pre><code>系统A key 1 {valueA  3:00}
+系统B key 1 {valueB  3:05}
+系统C key 1 {valueC  3:10}
+</code></pre><p>那么，假设这会系统B先抢到锁，将key1设置为{valueB 3:05}。接下来系统A抢到锁，发现自己的valueA的时间戳早于缓存中的时间戳，那就不做set操作了。以此类推。</p>
+<p>其他方法，比如利用队列，将set方法变成串行访问也可以。总之，灵活变通。</p>
+<p>此篇纯引用 以下为自己测试的Springboot整合Redis</p>
+<p>今天初步了解了一下Redis的操作，对于整合网上已有大部分教程，这里就引用一个博主较好的工具类使用来结束Redis的相关学习，对于具体的内容需要细化去体会。各位看官可自行获取相关介绍。</p>
+<p>不多说了，直接教程</p>
+<p>第一步：</p>
+<p>配置yml  这里的pool四个参数在Idea中某些插件可能报错，但不会影响使用</p>
+<pre><code class="yml">#Tomcat服务配置
+server:
+  port: 8081
+  # session 过期时间，单位：秒
+
+spring:
+  # redis
+  redis:
+    database: 0
+    timeout: 1000
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: 123456
+    # 连接池最大连接数（使用负值表示没有限制）
+    pool:
+      max-active: 200
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      # 连接池中的最大空闲连接
+      max-idle: 10
+      # 连接池中的最小空闲连接
+      min-idle: 0
+  #数据库数据源配置
+  datasource:
+    name: studytext
+    url: jdbc:mysql://localhost:3306/studytext?userUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyIntlisBit=false
+    username: root
+    password: root
+    #使用数据库Druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    #数据库连接池配置
+    druid:
+      #初始化大小
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      #配置获取连接等待超时时间
+      max-wait: 2000
+      time-between-eviction-runs-millis: 60000
+      # 配置最小生存时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开pscache
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      #间隔多久检测，检测需关闭空闲连接，单位ms
+    dbcp2:
+      num-tests-per-eviction-run:
+</code></pre>
+<p>第二步：</p>
+<p>加载配置类  此篇幅设计是把键值设计成String类型  值为Object类型</p>
+<pre><code class="java">import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * redis配置类
+ *
+ * @author ZENG.XIAO.YAN
+ * @date 2018年6月6日
+ */
+
+@Configuration
+public class RedisConfig {
+    @Bean
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;String, Object&gt;();
+        template.setConnectionFactory(factory);
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        // key采用String的序列化方式
+        template.setKeySerializer(stringRedisSerializer);
+        // hash的key也采用String的序列化方式
+        template.setHashKeySerializer(stringRedisSerializer);
+        // value序列化方式采用jackson
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        // hash的value序列化方式采用jackson
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
+}
+</code></pre>
+<p>第三步：</p>
+<p>这里补充一下…方法里三个点的写法，笔者第一次这么用，方便没用过的人看</p>
+<p><img src="C:\Users\Administrator\Desktop\bolg图片\Redis1.png" alt="1567070939673"></p>
+<p>编写Redis工具类：</p>
+<pre><code class="java">import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+
+/**
+ * Redis工具类
+ * @date   2018年6月7日
+ */
+@Component
+public final class RedisUtil {
+
+    @Autowired
+    private RedisTemplate&lt;String, Object&gt; redisTemplate;
+
+    // =============================common============================
+    /**
+     * 指定缓存失效时间
+     * @param key 键
+     * @param time 时间(秒)
+     * @return
+     */
+    public boolean expire(String key, long time) {
+        try {
+            if (time &gt; 0) {
+                redisTemplate.expire(key, time, TimeUnit.SECONDS);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 根据key 获取过期时间
+     * @param key 键 不能为null
+     * @return 时间(秒) 返回0代表为永久有效
+     */
+    public long getExpire(String key) {
+        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 判断key是否存在
+     * @param key 键
+     * @return true 存在 false不存在
+     */
+    public boolean hasKey(String key) {
+        try {
+            return redisTemplate.hasKey(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 删除缓存
+     * @param key 可以传一个值 或多个
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public void del(String... key) {
+        if (key != null &amp;&amp; key.length &gt; 0) {
+            if (key.length == 1) {
+                redisTemplate.delete(key[0]);
+            } else {
+                redisTemplate.delete(CollectionUtils.arrayToList(key));
+            }
+        }
+    }
+
+    // ============================String=============================
+    /**
+     * 普通缓存获取
+     * @param key 键
+     * @return 值
+     */
+    public Object get(String key) {
+        return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 普通缓存放入
+     * @param key 键
+     * @param value 值
+     * @return true成功 false失败
+     */
+    public boolean set(String key, Object value) {
+        try {
+            redisTemplate.opsForValue().set(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    /**
+     * 普通缓存放入并设置时间
+     * @param key 键
+     * @param value 值
+     * @param time 时间(秒) time要大于0 如果time小于等于0 将设置无限期
+     * @return true成功 false 失败
+     */
+    public boolean set(String key, Object value, long time) {
+        try {
+            if (time &gt; 0) {
+                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            } else {
+                set(key, value);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * key对应的value 递增
+     * @param key 键
+     * @param delta 要增加几(大于0)
+     * @return
+     */
+    public long incr(String key, long delta) {
+        if (delta &lt; 0) {
+            throw new RuntimeException(&quot;递增因子必须大于0&quot;);
+        }
+        return redisTemplate.opsForValue().increment(key, delta);
+    }
+
+    /**
+     * key对应的value 递减
+     * @param key 键
+     * @param delta 要减少几(小于0)
+     * @return
+     */
+    public long decr(String key, long delta) {
+        if (delta &lt; 0) {
+            throw new RuntimeException(&quot;递减因子必须大于0&quot;);
+        }
+        return redisTemplate.opsForValue().increment(key, -delta);
+    }
+
+    // ================================Map=================================
+    /**
+     * HashGet
+     * @param key 键 不能为null
+     * @param item 项 不能为null
+     * @return 值
+     */
+    public Object hget(String key, String item) {
+        return redisTemplate.opsForHash().get(key, item);
+    }
+
+    /**
+     * 获取hashKey对应的所有键值
+     * @param key 键
+     * @return 对应的多个键值
+     */
+    public Map&lt;Object, Object&gt; hmget(String key) {
+        return redisTemplate.opsForHash().entries(key);
+    }
+
+    /**
+     * HashSet
+     * @param key 键
+     * @param map 对应多个键值
+     * @return true 成功 false 失败
+     */
+    public boolean hmset(String key, Map&lt;String, Object&gt; map) {
+        try {
+            redisTemplate.opsForHash().putAll(key, map);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * HashSet 并设置时间
+     * @param key 键
+     * @param map 对应多个键值
+     * @param time 时间(秒)
+     * @return true成功 false失败
+     */
+    public boolean hmset(String key, Map&lt;String, Object&gt; map, long time) {
+        try {
+            redisTemplate.opsForHash().putAll(key, map);
+            if (time &gt; 0) {
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 向一张hash表中放入数据,如果不存在将创建
+     * @param key 键
+     * @param item 项
+     * @param value 值
+     * @return true 成功 false失败
+     */
+    public boolean hset(String key, String item, Object value) {
+        try {
+            redisTemplate.opsForHash().put(key, item, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 向一张hash表中放入数据,如果不存在将创建
+     * @param key 键
+     * @param item 项
+     * @param value 值
+     * @param time 时间(秒) 注意:如果已存在的hash表有时间,这里将会替换原有的时间
+     * @return true 成功 false失败
+     */
+    public boolean hset(String key, String item, Object value, long time) {
+        try {
+            redisTemplate.opsForHash().put(key, item, value);
+            if (time &gt; 0) {
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 删除hash表中的值
+     * @param key 键 不能为null
+     * @param item 项 可以使多个 不能为null
+     */
+    public void hdel(String key, Object... item) {
+        redisTemplate.opsForHash().delete(key, item);
+    }
+
+    /**
+     * 判断hash表中是否有该项的值
+     * @param key 键 不能为null
+     * @param item 项 不能为null
+     * @return true 存在 false不存在
+     */
+    public boolean hHasKey(String key, String item) {
+        return redisTemplate.opsForHash().hasKey(key, item);
+    }
+
+    /**
+     * hash递增 如果不存在,就会创建一个 并把新增后的值返回
+     * @param key 键
+     * @param item 项
+     * @param by 要增加几(大于0)
+     * @return
+     */
+    public double hincr(String key, String item, double by) {
+        return redisTemplate.opsForHash().increment(key, item, by);
+    }
+
+    /**
+     * hash递减
+     * @param key 键
+     * @param item 项
+     * @param by 要减少记(小于0)
+     * @return
+     */
+    public double hdecr(String key, String item, double by) {
+        return redisTemplate.opsForHash().increment(key, item, -by);
+    }
+
+    // ============================set=============================
+    /**
+     * 根据key获取Set中的所有值
+     * @param key 键
+     * @return
+     */
+    public Set&lt;Object&gt; sGet(String key) {
+        try {
+            return redisTemplate.opsForSet().members(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 根据value从一个set中查询,是否存在
+     * @param key 键
+     * @param value 值
+     * @return true 存在 false不存在
+     */
+    public boolean sHasKey(String key, Object value) {
+        try {
+            return redisTemplate.opsForSet().isMember(key, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 将数据放入set缓存
+     * @param key 键
+     * @param values 值 可以是多个
+     * @return 成功个数
+     */
+    public long sSet(String key, Object... values) {
+        try {
+            return redisTemplate.opsForSet().add(key, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 将set数据放入缓存
+     * @param key 键
+     * @param time 时间(秒)
+     * @param values 值 可以是多个
+     * @return 成功个数
+     */
+    public long sSetAndTime(String key, long time, Object... values) {
+        try {
+            Long count = redisTemplate.opsForSet().add(key, values);
+            if (time &gt; 0){
+                expire(key, time);
+            }
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 获取set缓存的长度
+     * @param key 键
+     * @return
+     */
+    public long sGetSetSize(String key) {
+        try {
+            return redisTemplate.opsForSet().size(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 移除值为value的
+     * @param key 键
+     * @param values 值 可以是多个
+     * @return 移除的个数
+     */
+    public long setRemove(String key, Object... values) {
+        try {
+            Long count = redisTemplate.opsForSet().remove(key, values);
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    // ===============================list=================================
+
+    /**
+     * 获取list缓存的内容
+     * @param key 键
+     * @param start 开始
+     * @param end 结束 0 到 -1代表所有值
+     * @return
+     */
+    public List&lt;Object&gt; lGet(String key, long start, long end) {
+        try {
+            return redisTemplate.opsForList().range(key, start, end);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 获取list缓存的长度
+     * @param key 键
+     * @return
+     */
+    public long lGetListSize(String key) {
+        try {
+            return redisTemplate.opsForList().size(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * 通过索引 获取list中的值
+     * @param key 键
+     * @param index 索引 index&gt;=0时， 0 表头，1 第二个元素，依次类推；index&lt;0时，-1，表尾，-2倒数第二个元素，依次类推
+     * @return
+     */
+    public Object lGetIndex(String key, long index) {
+        try {
+            return redisTemplate.opsForList().index(key, index);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 将list放入缓存
+     * @param key 键
+     * @param value 值
+     * @return
+     */
+    public boolean lSet(String key, Object value) {
+        try {
+            redisTemplate.opsForList().rightPush(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 将list放入缓存
+     * @param key 键
+     * @param value 值
+     * @param time 时间(秒)
+     * @return
+     */
+    public boolean lSet(String key, Object value, long time) {
+        try {
+            redisTemplate.opsForList().rightPush(key, value);
+            if (time &gt; 0){
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 将list放入缓存
+     * @param key 键
+     * @param value 值
+     * @return
+     */
+    public boolean lSet(String key, List&lt;Object&gt; value) {
+        try {
+            redisTemplate.opsForList().rightPushAll(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 将list放入缓存
+     * 
+     * @param key 键
+     * @param value 值
+     * @param time 时间(秒)
+     * @return
+     */
+    public boolean lSet(String key, List&lt;Object&gt; value, long time) {
+        try {
+            redisTemplate.opsForList().rightPushAll(key, value);
+            if (time &gt; 0){
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 根据索引修改list中的某条数据
+     * @param key 键
+     * @param index 索引
+     * @param value 值
+     * @return
+     */
+    public boolean lUpdateIndex(String key, long index, Object value) {
+        try {
+            redisTemplate.opsForList().set(key, index, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 移除N个值为value
+     * @param key 键
+     * @param count 移除多少个
+     * @param value 值
+     * @return 移除的个数
+     */
+    public long lRemove(String key, long count, Object value) {
+        try {
+            Long remove = redisTemplate.opsForList().remove(key, count, value);
+            return remove;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+}
+</code></pre>
+<p>最后在补充说明一下，Redis没有提供批量删除键的功能，也就是没法传个list去删除，但有上述的…数组形式的删除。其次还有通配符删除</p>
+<p>以下是自己测的一个样例：</p>
+<pre><code class="java">        redisUtil.set(&quot;hu1&quot;,&quot;hu1&quot;);
+        redisUtil.set(&quot;hu2&quot;,&quot;hu2&quot;);
+        redisUtil.set(&quot;hu3&quot;,&quot;hu3&quot;);
+        redisUtil.set(&quot;hu4&quot;,&quot;hu4&quot;);
+        redisUtil.set(&quot;hu5&quot;,&quot;hu5&quot;);
+        redisUtil.set(&quot;hu6&quot;,&quot;hu6&quot;);
+        redisUtil.set(&quot;hu7&quot;,&quot;hu7&quot;);
+        redisUtil.del(&quot;hu1&quot;,&quot;hu2&quot;,&quot;hu3&quot;,&quot;hu4&quot;);
+        Set&lt;String&gt; keys = redisTemplate.keys(&quot;hu&quot; + &quot;*&quot;);
+        redisTemplate.delete(keys);
+</code></pre>
+<p>那么Redis整合Springboot就到此结束了。能用是一回事，笔者也想了解他的一些使用问题，及底层原理。后续会出一篇专门针对Redis的</p>
+<p>本文工具类引用某博主的，因为找不到链接就不注明了！</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/09/14/干掉if-else,给代码来点设计模式/" title>
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/09/14/JWT框架介绍-Springboot整合/" title="JWT(JSON Web Token)介绍及Springboot整合">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引言"><span class="post-toc-text">引言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么写这篇文章"><span class="post-toc-text">为什么写这篇文章?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#复习要点"><span class="post-toc-text">复习要点?</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、为什么使用redis"><span class="post-toc-text">1、为什么使用redis</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、使用redis有什么缺点"><span class="post-toc-text">2、使用redis有什么缺点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、单线程的redis为什么这么快"><span class="post-toc-text">3、单线程的redis为什么这么快</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、redis的数据类型，以及每种数据类型的使用场景"><span class="post-toc-text">4、redis的数据类型，以及每种数据类型的使用场景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、redis的过期策略以及内存淘汰机制"><span class="post-toc-text">5、redis的过期策略以及内存淘汰机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6、redis和数据库双写一致性问题"><span class="post-toc-text">6、redis和数据库双写一致性问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7、如何应对缓存穿透和缓存雪崩问题"><span class="post-toc-text">7、如何应对缓存穿透和缓存雪崩问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8、如何解决redis的并发竞争key问题"><span class="post-toc-text">8、如何解决redis的并发竞争key问题</span></a></li></ol></li></ol>
+			</nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

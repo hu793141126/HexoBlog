@@ -1,0 +1,507 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+
+
+	<!DOCTYPE html>
+	<html>
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<title>Docker简单介绍</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hyhua">
+    <meta name="keywords" content>
+    <meta name="description" content>
+   	<!-- css -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- favicon -->
+	<link href="/img/favicon.ico" rel="Shortcut Icon" type="image/ico">
+	
+	<!-- font-awesome -->
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+	<body>	
+		<!--Preloader-->
+<div id="preloader">
+	<div id="status">
+		<img alt="PRELOADER" src="/img/logo.png">
+	</div>
+</div>
+<!--Preloader end-->
+
+<!-- header -->
+
+	<header id="header-bg-2">
+
+	
+		<div id="cd-logo"><a href="/"><img src="/img/logo.png" alt="Logo"></a></div>
+	
+	
+	<!-- motto or description -->
+		
+ 		<p class="motto"></p>
+	
+	
+	<!-- current page name or title -->
+	
+		
+		
+			
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Docker简单介绍》</p>
+			
+		
+	
+	
+	<!-- others: such as change-bg, time... -->
+	<p class="page-name-other">
+		9/14/2019 
+		<style type="text/css">
+	header:after {
+		content: '';
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #222222;
+		opacity: .5;
+		z-index: -1;
+	}
+	
+	.change-header-bg{
+		font-style: normal;
+	}
+	.change-header-bg i{
+		text-align: center;
+		cursor: pointer;
+		pointer-events: bounding-box;
+	}
+	@media(max-width:512px) {
+		.change-header-bg {
+			display: none;
+			visibility: hidden;
+		}
+	}
+	
+</style>
+
+<script type="text/javascript">
+	function changeHeaderBg(){
+		var random_bg = Math.floor(Math.random() * 109 + 1);
+		var bg = 'url(' + random_bg + '.jpg)';
+		$("#header-bg-2").css("background-image", bg);
+	}
+</script>
+
+<span class="change-header-bg">
+	——&nbsp;<i class="fa fa-camera-retro" onclick="changeHeaderBg()"></i>	
+</span>
+	</p>		
+</header>
+
+<!-- nav -->
+<div id="cd-nav">
+	<a href="#0" title="menu" class="cd-nav-trigger"><span></span></a>
+
+	<nav id="cd-main-nav">
+		<ul>
+			
+      		<li class="fa fa-/">
+           		<a href="/" title="主页">主页</a>	
+      		</li>
+    		
+      		<li class="fa fa-/archives">
+           		<a href="/archives" title="归档">归档</a>	
+      		</li>
+    		
+      		<li class="fa fa-/categories">
+           		<a href="/categories" title="分类">分类</a>	
+      		</li>
+    		
+      		<li class="fa fa-/tags">
+           		<a href="/tags" title="标签">标签</a>	
+      		</li>
+    		
+      		<li class="fa fa-/about">
+           		<a href="/about" title="关于">关于</a>	
+      		</li>
+    		
+      		<li class="fa fa-/gallery">
+           		<a href="/gallery" title="相册">相册</a>	
+      		</li>
+    		
+    		
+        	
+		</ul>
+	</nav>
+</div>
+
+		<!--main-->
+		<main> 
+		<div class="page-container">
+		<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="am-u-md-8 am-u-sm-12">
+
+		<article class="am-article blog-article-p">
+
+			<div class="am-article-hd">
+				
+
+
+				<h1 class="am-article-title blog-text-center">
+					
+					
+	
+		<a href="/2019/09/14/Docker框架介绍/" itemprop="url">		
+			Docker简单介绍		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/09/14/Docker框架介绍/" itemprop="url">
+	<time datetime="2019-09-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-09-14
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
+							
+								<a href="#docker" title="docker" rel="1">docker</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<p>  Docker 引擎是用来运行和管理容器的核心软件。通常人们会简单地将其代指为 Docker 或 Docker 平台。</p>
+<p>如果你对 VMware 略知一二，那么可以将 Docker 引擎理解为 ESXi 的角色。</p>
+<p>基于开放容器计划（OCI）相关标准的要求，Docker 引擎采用了模块化的设计原则，其组件是可替换的。</p>
+<p>从多个角度来看，Docker 引擎就像汽车引擎——二者都是模块化的，并且由许多可交换的部件组成。</p>
+<p>汽车引擎由许多专用的部件协同工作，从而使汽车可以行驶，例如进气管、节气门、气缸、火花塞、排气管等。</p>
+<p>Docker 引擎由许多专用的工具协同工作，从而可以创建和运行容器，例如 API、执行驱动、运行时、shim 进程等。</p>
+<p>Docker 引擎由如下主要的组件构成：Docker 客户端（Docker Client）、Docker 守护进程（Docker daemon）、containerd 以及 runc。它们共同负责容器的创建和运行。</p>
+<p>总体逻辑如下图所示。  </p>
+<p><img src="http://blog.mibook.top/\docker.gif" alt></p>
+<p>  Docker 首次发布时，Docker 引擎由两个核心组件构成：LXC 和 Docker daemon。</p>
+<p>Docker daemon 是单一的二进制文件，包含诸如 Docker 客户端、Docker API、容器运行时、镜像构建等。</p>
+<p>LXC 提供了对诸如命名空间（Namespace）和控制组（CGroup）等基础工具的操作能力，它们是基于 <a href="http://c.biancheng.net/linux_tutorial/" target="_blank" rel="noopener">Linux</a> 内核的容器虚拟化技术。</p>
+<p>下图阐释了在 Docker 旧版本中，Docker daemon、LXC 和操作系统之间的交互关系。  </p>
+<p><img src="http://blog.mibook.top/docker2.gif" alt></p>
+<h2 id="摆脱-LXC"><a href="#摆脱-LXC" class="headerlink" title="摆脱 LXC"></a>摆脱 LXC</h2><p>对 LXC 的依赖自始至终都是个问题。</p>
+<p>首先，LXC 是基于 Linux 的。这对于一个立志于跨平台的项目来说是个问题。</p>
+<p>其次，如此核心的组件依赖于外部工具，这会给项目带来巨大风险，甚至影响其发展。</p>
+<p>因此，Docker 公司开发了名为 Libcontainer 的自研工具，用于替代 LXC。</p>
+<p>Libcontainer 的目标是成为与平台无关的工具，可基于不同内核为 Docker 上层提供必要的容器交互功能。</p>
+<p>在 Docker 0.9 版本中，Libcontainer 取代 LXC 成为默认的执行驱动。</p>
+<h2 id="摒弃大而全的-Docker-daemon"><a href="#摒弃大而全的-Docker-daemon" class="headerlink" title="摒弃大而全的 Docker daemon"></a>摒弃大而全的 Docker daemon</h2><p>随着时间的推移，Docker daemon 的整体性带来了越来越多的问题。难于变更、运行越来越慢。这并非生态（或Docker公司）所期望的。</p>
+<p>Docker 公司意识到了这些问题，开始努力着手拆解这个大而全的 Docker daemon 进程，并将其模块化。</p>
+<p>这项任务的目标是尽可能拆解出其中的功能特性，并用小而专的工具来实现它。这些小工具可以是可替换的，也可以被第三方拿去用于构建其他工具。</p>
+<p>这一计划遵循了在 UNIX 中得以实践并验证过的一种软件哲学：小而专的工具可以组装为大型工具。</p>
+<p>这项拆解和重构 Docker 引擎的工作仍在进行中。不过，所有容器执行和容器运行时的代码已经完全从 daemon 中移除，并重构为小而专的工具。</p>
+<p>目前 Docker 引擎的架构示意图如下图所示，图中有简要的描述。</p>
+<p><img src="C:\Users\Administrator\Desktop\bolg图片\docker3.gif" alt></p>
+<h2 id="开放容器计划（OCI）的影响"><a href="#开放容器计划（OCI）的影响" class="headerlink" title="开放容器计划（OCI）的影响"></a>开放容器计划（OCI）的影响</h2><p>当 Docker 公司正在进行 Docker daemon 进程的拆解和重构的时候，OCI 也正在着手定义两个容器相关的规范（或者说标准）。</p>
+<p>镜像规范和容器运行时规范，两个规范均于 2017 年 7 月发布了 1.0 版。</p>
+<p>Docker 公司参与了这些规范的制定工作，并贡献了许多的代码。</p>
+<p>从 Docker 1.11 版本（2016 年初）开始，Docker 引擎尽可能实现了 OCI 的规范。例如，Docker daemon 不再包含任何容器运行时的代码——所有的容器运行代码在一个单独的 OCI 兼容层中实现。</p>
+<p>默认情况下，Docker 使用 runc 来实现这一点。runc 是 OCI 容器运行时标准的参考实现。</p>
+<p>如上图中的 runc 容器运行时层。runc 项目的目标之一就是与 OCI 规范保持一致。</p>
+<p>目前 OCI 规范均为 1.0 版本，我们不希望它们频繁地迭代，毕竟稳定胜于一切。</p>
+<p>除此之外，Docker 引擎中的 containerd 组件确保了 Docker 镜像能够以正确的 OCI Bundle 的格式传递给 runc。</p>
+<p>其实，在 OCI 规范以 1.0 版本正式发布之前，Docker 引擎就已经遵循该规范实现了部分功能。</p>
+<h2 id="runc"><a href="#runc" class="headerlink" title="runc"></a>runc</h2><p>如前所述，runc 是 OCI 容器运行时规范的参考实现。Docker 公司参与了规范的制定以及 runc 的开发。</p>
+<p>去粗取精，会发现 runc 实质上是一个轻量级的、针对 Libcontainer 进行了包装的命令行交互工具（Libcontainer 取代了早期 Docker 架构中的 LXC）。</p>
+<p>runc 生来只有一个作用——创建容器，这一点它非常拿手，速度很快！不过它是一个 CLI 包装器，实质上就是一个独立的容器运行时工具。</p>
+<p>因此直接下载它或基于源码编译二进制文件，即可拥有一个全功能的 runc。但它只是一个基础工具，并不提供类似 Docker 引擎所拥有的丰富功能。</p>
+<p>有时也将 runc 所在的那一层称为“OCI 层”，如上图所示。关于 runc 的发布信息见 GitHub 中 opencontainers/runc 库的 release。</p>
+<h2 id="containerd"><a href="#containerd" class="headerlink" title="containerd"></a>containerd</h2><p>在对 Docker daemon 的功能进行拆解后，所有的容器执行逻辑被重构到一个新的名为 containerd（发音为 container-dee）的工具中。</p>
+<p>它的主要任务是容器的生命周期管理——start | stop | pause | rm….</p>
+<p>containerd 在 Linux 和 Windows 中以 daemon 的方式运行，从 1.11 版本之后 Docker 就开始在 Linux 上使用它。</p>
+<p>Docker 引擎技术栈中，containerd 位于 daemon 和 runc 所在的 OCI 层之间。Kubernetes 也可以通过 cri-containerd 使用 containerd。</p>
+<p>如前所述，containerd 最初被设计为轻量级的小型工具，仅用于容器的生命周期管理。然而，随着时间的推移，它被赋予了更多的功能，比如镜像管理。</p>
+<p>其原因之一在于，这样便于在其他项目中使用它。比如，在 Kubernetes 中，containerd 就是一个很受欢迎的容器运行时。</p>
+<p>然而在 Kubernetes 这样的项目中，如果 containerd 能够完成一些诸如 push 和 pull 镜像这样的操作就更好了。</p>
+<p>因此，如今 containerd 还能够完成一些除容器生命周期管理之外的操作。不过，所有的额外功能都是模块化的、可选的，便于自行选择所需功能。</p>
+<p>所以，Kubernetes 这样的项目在使用 containerd 时，可以仅包含所需的功能。</p>
+<p>containerd 是由 Docker 公司开发的，并捐献给了云原生计算基金会（Cloud Native Computing Foundation, CNCF）。2017 年 12 月发布了 1.0 版本，具体的发布信息见 GitHub 中的 containerd/ containerd 库的 releases。</p>
+<h2 id="启动一个新的容器"><a href="#启动一个新的容器" class="headerlink" title="启动一个新的容器"></a>启动一个新的容器</h2><p>现在我们对 Docker 引擎已经有了一个总体认识，也了解了一些历史，下面介绍一下创建新容器的过程。</p>
+<p>常用的启动容器的方法就是使用 Docker 命令行工具。下面的</p>
+<pre><code>docker container run
+</code></pre><p>命令会基于 alpine:latest 镜像启动一个新容器。</p>
+<p>$ docker container run –name ctr1 -it alpine:latest sh</p>
+<p>当使用 Docker 命令行工具执行如上命令时，Docker 客户端会将其转换为合适的 API 格式，并发送到正确的 API 端点。</p>
+<p>API 是在 daemon 中实现的。这套功能丰富、基于版本的 REST API 已经成为 Docker 的标志，并且被行业接受成为事实上的容器 API。</p>
+<p>一旦 daemon 接收到创建新容器的命令，它就会向 containerd 发出调用。daemon 已经不再包含任何创建容器的代码了！</p>
+<p>daemon 使用一种 CRUD 风格的 API，通过 gRPC 与 containerd 进行通信。</p>
+<p>虽然名叫 containerd，但是它并不负责创建容器，而是指挥 runc 去做。</p>
+<p>containerd 将 Docker 镜像转换为 OCI bundle，并让 runc 基于此创建一个新的容器。</p>
+<p>然后，runc 与操作系统内核接口进行通信，基于所有必要的工具（Namespace、CGroup等）来创建容器。容器进程作为 runc 的子进程启动，启动完毕后，runc 将会退出。</p>
+<p>至此，容器启动完毕。整个过程如下图所示。</p>
+<p><img src="C:\Users\Administrator\Desktop\bolg图片\docker4.gif" alt></p>
+<h2 id="该模型的显著优势"><a href="#该模型的显著优势" class="headerlink" title="该模型的显著优势"></a>该模型的显著优势</h2><p>将所有的用于启动、管理容器的逻辑和代码从 daemon 中移除，意味着容器运行时与 Docker daemon 是解耦的，有时称之为“无守护进程的容器（daemonless container）”，如此，对 Docker daemon 的维护和升级工作不会影响到运行中的容器。</p>
+<p>在旧模型中，所有容器运行时的逻辑都在 daemon 中实现，启动和停止 daemon 会导致宿主机上所有运行中的容器被杀掉。</p>
+<p>这在生产环境中是一个大问题——想一想新版 Docker 的发布频次吧！每次 daemon 的升级都会杀掉宿主机上所有的容器，这太糟了！</p>
+<p>幸运的是，这已经不再是个问题。</p>
+<h2 id="shim"><a href="#shim" class="headerlink" title="shim"></a>shim</h2><p>shim 是实现无 daemon 的容器（用于将运行中的容器与 daemon 解耦，以便进行 daemon 升级等操作）不可或缺的工具。</p>
+<p>前面提到，containerd 指挥 runc 来创建新容器。事实上，每次创建容器时它都会 fork 一个新的 runc 实例。</p>
+<p>不过，一旦容器创建完毕，对应的 runc 进程就会退出。因此，即使运行上百个容器，也无须保持上百个运行中的 runc 实例。</p>
+<p>一旦容器进程的父进程 runc 退出，相关联的 containerd-shim 进程就会成为容器的父进程。作为容器的父进程，shim 的部分职责如下。</p>
+<ul>
+<li><p>保持所有 STDIN 和 STDOUT 流是开启状态，从而当 daemon 重启的时候，容器不会因为管道（pipe）的关闭而终止。</p>
+</li>
+<li><p>将容器的退出状态反馈给 daemon。</p>
+<h1 id="在-Linux-中的实现"><a href="#在-Linux-中的实现" class="headerlink" title="在 Linux 中的实现"></a>在 Linux 中的实现</h1><p>在 Linux 系统中，前面谈到的组件由单独的二进制来实现，具体包括 dockerd(Docker daemon)、docker-containerd(containerd)、docker-containerd-shim (shim) 和 docker-runc (runc)。</p>
+<p>通过在 Docker 宿主机的 Linux 系统中执行 ps 命令可以看到以上组件的进程。当然，有些进程只有在运行容器的时候才可见。</p>
+<h2 id="daemon-的作用"><a href="#daemon-的作用" class="headerlink" title="daemon 的作用"></a>daemon 的作用</h2><p>当所有的执行逻辑和运行时代码都从 daemon 中剥离出来之后，问题出现了—— daemon 中还剩什么？</p>
+<p>显然，随着越来越多的功能从 daemon 中拆解出来并被模块化，这一问题的答案也会发生变化。</p>
+<p>不过，daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排。</p>
+</li>
+</ul>
+<h2 id="容器和虚拟机"><a href="#容器和虚拟机" class="headerlink" title="容器和虚拟机"></a>容器和虚拟机</h2><p>容器和虚拟机都依赖于宿主机才能运行。宿主机可以是笔记本，是数据中心的物理服务器，也可以是公有云的某个实例。</p>
+<p>在下面的示例中，假设宿主机是一台需要运行 4 个业务应用的物理服务器。</p>
+<p>在虚拟机模型中，首先要开启物理机并启动 Hypervisor 引导程序。一旦 Hypervisor 启动，就会占有机器上的全部物理资源，如 CPU、RAM、存储和 NIC。</p>
+<p>Hypervisor 接下来就会将这些物理资源划分为虚拟资源，并且看起来与真实物理资源完全一致。</p>
+<p>然后 Hypervisor 会将这些资源打包进一个叫作虚拟机（VM）的软件结构当中。这样用户就可以使用这些虚拟机，并在其中安装操作系统和应用。</p>
+<p>前面提到需要在物理机上运行 4 个应用，所以在 Hypervisor 之上需要创建 4 个虚拟机并安装 4 个操作系统，然后安装 4 个应用。当操作完成后，结构如下图所示。</p>
+<p><img src="http://blog.mibook.top/docker5.gif" alt></p>
+<p>  而容器模型则略有不同。</p>
+<p>服务器启动之后，所选择的操作系统会启动。在 Docker 世界中可以选择 Linux，或者内核支持内核中的容器原语的新版本 Windows。</p>
+<p>与虚拟机模型相同，OS 也占用了全部硬件资源。在 OS 层之上，需要安装容器引擎（如 Docker）。</p>
+<p>容器引擎可以获取系统资源，比如进程树、文件系统以及网络栈，接着将资源分割为安全的互相隔离的资源结构，称之为容器。</p>
+<p>每个容器看起来就像一个真实的操作系统，在其内部可以运行应用。按照前面的假设，需要在物理机上运行 4 个应用。</p>
+<p>因此，需要划分出 4 个容器并在每个容器中运行一个应用，如下图所示。  </p>
+<p><img src="http://blog.mibook.top/\docker6.gif" alt></p>
+<p>  <strong>从更高层面上来讲，Hypervisor 是硬件虚拟化（Hardware Virtualization）——Hypervisor 将硬件物理资源划分为虚拟资源。</strong></p>
+<p><strong>容器是操作系统虚拟化（OS Virtualization）——容器将系统资源划分为虚拟资源。</strong>  </p>
+<h2 id="虚拟机的额外开销"><a href="#虚拟机的额外开销" class="headerlink" title="虚拟机的额外开销"></a>虚拟机的额外开销</h2><p>基于前文所述内容，接下来会着重探讨 Hypervisor 模型的一个主要问题。</p>
+<p>首先我们的目标是在一台物理机上运行 4 个业务相关应用。每种模型示例中都安装了一个操作系统或者 Hypervisor（一种针对虚拟机高度优化后的操作系统）。</p>
+<p>虚拟机模型将底层硬件资源划分到虚拟机当中。每个虚拟机都是包含了虚拟 CPU、虚拟 RAM、虚拟磁盘等资源的一种软件结构。</p>
+<p>因此，每个虚拟机都需要有自己的操作系统来声明、初始化并管理这些虚拟资源。</p>
+<p>但是，操作系统本身是有其额外开销的。例如，每个操作系统都消耗一点 CPU、一点 RAM、一点存储空间等。</p>
+<p>每个操作系统都需要独立的许可证，并且都需要打补丁升级，每个操作系统也都面临被攻击的风险。</p>
+<p>通常将这种现象称作 OS Tax 或者 VM Tax，每个操作系统都占用一定的资源。</p>
+<p>容器模型具有在宿主机操作系统中运行的单个内核。在一台主机上运行数十个甚至数百个容器都是可能的——容器共享一个操作系统/内核。</p>
+<p>这意味着只有一个操作系统消耗 CPU、RAM 和存储资源，只有一个操作系统需要授权，只有一个操作系统需要升级和打补丁。同时，只有一个操作系统面临被攻击的风险。简言之，就是只有一份 OS 损耗。</p>
+<p>在上述单台机器上只需要运行 4 个业务应用的场景中，也许问题尚不明显。但当需要运行成百上千应用的时候，就会引起质的变化。</p>
+<p>另一个值得考虑的事情是启动时间。因为容器并不是完整的操作系统，所以其启动要远比虚拟机快。</p>
+<p>切记，在容器内部并不需要内核，也就没有定位、解压以及初始化的过程——更不用提在内核启动过程中对硬件的遍历和初始化了。</p>
+<p>这些在容器启动的过程中统统都不需要！唯一需要的是位于下层操作系统的共享内核是启动了的！最终结果就是，容器可以在 1s 内启动。唯一对容器启动时间有影响的就是容器内应用启动所花费的时间。</p>
+<p>这就是容器模型要比虚拟机模型简洁并且高效的原因了。使用容器可以在更少的资源上运行更多的应用，启动更快，并且支付更少的授权和管理费用，同时面对未知攻击的风险也更小。</p>
+
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2019/09/14/JWT框架介绍-Springboot整合/" title="JWT(JSON Web Token)介绍及Springboot整合">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/09/14/反射基础代码介绍/" title="java 反射代码复习">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MTAzNC8xNzU1OQ==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+		<aside class="post-widget">
+			<nav class="post-toc-wrap" id="post-toc">
+				
+					<strong>文章目录</strong>
+				
+				
+				<!--toc(post.content)-->
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摆脱-LXC"><span class="post-toc-text">摆脱 LXC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摒弃大而全的-Docker-daemon"><span class="post-toc-text">摒弃大而全的 Docker daemon</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开放容器计划（OCI）的影响"><span class="post-toc-text">开放容器计划（OCI）的影响</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#runc"><span class="post-toc-text">runc</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#containerd"><span class="post-toc-text">containerd</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动一个新的容器"><span class="post-toc-text">启动一个新的容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#该模型的显著优势"><span class="post-toc-text">该模型的显著优势</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shim"><span class="post-toc-text">shim</span></a></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在-Linux-中的实现"><span class="post-toc-text">在 Linux 中的实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#daemon-的作用"><span class="post-toc-text">daemon 的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器和虚拟机"><span class="post-toc-text">容器和虚拟机</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#虚拟机的额外开销"><span class="post-toc-text">虚拟机的额外开销</span></a></li></ol>
+			</li></nav>
+			<div class="post-toc-bar"><div>
+		</div></div></aside>
+	
+
+	</div>
+</div>
+		</div>
+		</main>
+		
+		<!--footer-->
+		<footer>
+	<div class="blog-text-center">
+		<div class="theme-annie-social">
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Github" target="_blank"><i class="fa fa-github"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Weibo" target="_blank"><i class="fa fa-weibo"></i>&nbsp;</a>
+				
+				
+					<a href="https://hu793141126.github.io/about/" title="Email" target="_blank"><i class="fa fa-envelope-o"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="QQ" target="_blank"><i class="fa fa-qq"></i>&nbsp;</a>
+					
+				
+					<a href="https://hu793141126.github.io/about/" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>&nbsp;</a>
+						
+				
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			
+				&copy; 2017 - 2019, content by Hyhua. All Rights Reserved.			       	
+			
+		</div>
+	</div>
+
+	<div class="blog-text-center">
+		<div class="theme-annie-copyright">
+			<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">Xiaohua博客页总访问量<span id="busuanzi_value_site_pv"></span>次</span>	
+		</div>
+	</div>
+</footer>
+		<!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
+
+<script>
+	window.jQuery || document.write('<script src="/js/jquery-2.1.1.min.js"><\/script>')
+</script>
+
+<style>
+	.motto {
+		color: #000000;
+		font-size: 20px;
+		margin: 100px 25% 0;
+		width: 50%;
+		line-height: 1.4;
+		font-family:"KaiTi", "STXingkai", "Source Sans Pro", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+		text-align: center;
+	}
+	@media(max-width: 890px) {
+		.motto {	
+			margin: 100px 10% 0;
+			width: 80%;
+		}
+	}
+	@media(max-width: 890px) {
+		.motto {
+			margin: 100px 5% 0;
+			width: 90%;
+		}
+	}
+</style>
+
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
+
+
+
+
+
+	<script type="text/javascript" src="/js/love.js"></script>
+
+
+
+	<script type="text/javascript" src="/js/toc.js"></script>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+	//generate a random img that pre_name 'from 0 to 110'
+	var random_bg = Math.floor(Math.random() * 109 + 1);
+
+	//var bg = 'url(/img/random/' + random_bg + '.jpg)';		
+	var bg = 'url(' + random_bg + '.jpg)';
+
+	$("#header-bg-2").css("background-image", bg);
+</script>
+		
+		<!--back to top-->
+        <style type="text/css">
+	#totop {
+		background: white;
+		border-radius: 50%;
+		position: fixed;
+		right: 5.4%;
+		bottom: 80px;
+		cursor: pointer;
+	}
+	
+	#totop a {
+		color: #474747;
+		background-color: transparent;
+		padding: 10px;
+		text-decoration: none;
+	}
+	
+	@media(max-width:512px) {
+		#totop {
+			display: none;
+			visibility: hidden;
+		}
+	}
+</style>
+
+
+	<div id="totop">
+  		<a href="javascript:;" class="fa fa-arrow-up"></a>
+	</div>
+
+	</body>
+	</html>
+

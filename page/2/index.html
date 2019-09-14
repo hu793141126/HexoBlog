@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		8/26/2019 
+		9/14/2019 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -155,14 +155,14 @@
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/8.jpg" class="am-u-sm-12">
+					<img src="/img/15.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">
-	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
-  		2019-07-14
+						<a href="/2019/08/11/5种队列模式解析-RabbitMq相关/" itemprop="url">
+	<time datetime="2019-08-11T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-11
   </time>
 </a>    
 
@@ -170,8 +170,8 @@
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">		
-			SpringSecurity-异常处理捕获		
+		<a href="/2019/08/11/5种队列模式解析-RabbitMq相关/" itemprop="url">		
+			5种队列-RabiitMq消息队列相关知识		
 		</a>
 	
 
@@ -180,18 +180,20 @@
 					
 						<p>
 							
-								SpringSecurity-异常处理捕获1.简单引入上一节讲述了SpringSecurity实现自动登录，但两节过程中登录失败都会跳转至/login/error链接，这是为什么呢？我们跟着博主一起来看下
-其实这是默认的错误处理链接，你也可以设置相应的路径来控制错误的输出页面，当然我们一般是根据异常情况来区分错误界面的
-首先看下原来登录错误的界面
+								5种队列一、简单队列 
 
- /login?error 是 Spring s	
+P：消息的生产者 producerC：消息的消费者 consumer红色：队列 queue
+简单队列的生产者和消费者关系一对一但有时我们的需求，需要一个生产者，对应多个消费者，那就可以采用第二种模式 
+二、Work模式 .
+
+一个生产者、2个消费者。但MQ中一个消息只能被一个消费者获取。即消息要么被C1获取，要么被C2获取。这种模式适用于类似集群，能者多劳。性能好的可以安	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" class="pull-right">
+							<a href="/2019/08/11/5种队列模式解析-RabbitMq相关/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -203,14 +205,14 @@
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/11.jpg" class="am-u-sm-12">
+					<img src="/img/18.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/14/Springboot集成SpringSecurity-自动登录实现/" itemprop="url">
-	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
-  		2019-07-14
+						<a href="/2019/08/11/Swagger基础使用及入门/" itemprop="url">
+	<time datetime="2019-08-11T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-11
   </time>
 </a>    
 
@@ -218,8 +220,8 @@
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/14/Springboot集成SpringSecurity-自动登录实现/" itemprop="url">		
-			SpringSecurity-自动登录实现		
+		<a href="/2019/08/11/Swagger基础使用及入门/" itemprop="url">		
+			Swagger 基础使用及入门		
 		</a>
 	
 
@@ -228,19 +230,20 @@
 					
 						<p>
 							
-								SpringSecurity-自动登录实现本篇幅紧跟SpringSecurity简单介绍及使用
-在上一篇的基础上我们进行自动登录的实现：
-这里不是实现自动登录，而是介绍实现的方式
-1.不处理相关Cookie：（Cookie存储的是一个包含用户名等信息的加密字符串）
-一：修改login.html在登陆页添加自动登录的选项，注意自动登录字段的 name 必须是 remember-me ：
-&lt;!D	
+								Swagger 基础使用及入门官网WIKI常用注解： 
+
+@Api()用于类；表示标识这个类是swagger的资源 
+@ApiOperation()用于方法；表示一个http请求的操作 
+@ApiParam()用于方法，参数，字段说明；表示对参数的添加元数据（说明或是否必填等） 
+@ApiModel()用于类表示对类进行说明，用于参数用实体类接收 
+@ApiModelProperty()用于方法，	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/14/Springboot集成SpringSecurity-自动登录实现/" class="pull-right">
+							<a href="/2019/08/11/Swagger基础使用及入门/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -252,14 +255,14 @@
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/3.jpg" class="am-u-sm-12">
+					<img src="/img/23.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/14/Slf4j和Log4j的区别/" itemprop="url">
-	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
-  		2019-07-14
+						<a href="/2019/08/11/Hibernator-Validator介绍及使用/" itemprop="url">
+	<time datetime="2019-08-11T04:04:47.000Z" itemprop="datePublished">
+  		2019-08-11
   </time>
 </a>    
 
@@ -267,8 +270,8 @@
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/14/Slf4j和Log4j的区别/" itemprop="url">		
-			Slf4j和Log4j以及Logback的区别		
+		<a href="/2019/08/11/Hibernator-Validator介绍及使用/" itemprop="url">		
+			Hibernator-Validator介绍及使用		
 		</a>
 	
 
@@ -277,16 +280,15 @@
 					
 						<p>
 							
-								Slf4j和Log4j以及Logback的区别(个人简单理解：Log4j是具体是日志实现，Slf4j是日志的抽象层。类似于面向接口开发)
-Spirngboot默认使用的logback则类似于log4j是具体的日志实现方式
-因此不难看出，slf4j类似于各种日志框架的api层，这样如果我们在我们需要使用日志的地方，采用slf4j的api而不是采用特定的日志框架的api去产生日志，在可扩展性和可维护性	
+								1 - Validator框架的下载和安装我们经常可以看到类似登录、注册、修改信息这种网页，这种页面我们在平常的开发中需要对用户提交的表单数据进行验证并错误提醒，同时为了减轻服务器压力和安全性，都需要在前端和后端写两次验证，工作量不可谓不大
+前言-0.0科技的进步是靠懒人推动的，但是这里说的懒人不是说纯懒的那种！开发过程我想最痛苦的事情就是做那种不懂脑子的体力活，即苦逼，又无趣，那么这样的体力活，	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/14/Slf4j和Log4j的区别/" class="pull-right">
+							<a href="/2019/08/11/Hibernator-Validator介绍及使用/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -298,12 +300,12 @@ Spirngboot默认使用的logback则类似于log4j是具体的日志实现方式
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/1.jpg" class="am-u-sm-12">
+					<img src="/img/7.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/14/Java-反射初识/" itemprop="url">
+						<a href="/2019/07/14/Springboot集成SpringSecurity-简单介绍及使用/" itemprop="url">
 	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
   		2019-07-14
   </time>
@@ -313,8 +315,8 @@ Spirngboot默认使用的logback则类似于log4j是具体的日志实现方式
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/14/Java-反射初识/" itemprop="url">		
-			反射是框架设计的灵魂		
+		<a href="/2019/07/14/Springboot集成SpringSecurity-简单介绍及使用/" itemprop="url">		
+			Spring security框架简介		
 		</a>
 	
 
@@ -323,17 +325,14 @@ Spirngboot默认使用的logback则类似于log4j是具体的日志实现方式
 					
 						<p>
 							
-								反射是框架设计的灵魂（使用的前提条件：必须先得到代表的字节码的Class，Class类用于表示.class文件（字节码））
-一、反射的概述
-JAVA反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
-要想解剖一个类,必须先要获取到该类的字节码文件对	
+								一、Spring security框架简介1、简介​           一个能够为基于Spring的企业应用系统提供声明式的安全訪问控制解决方式的安全框架（简单说是对访问权限进行控制嘛），应用的安全性包括用户认证（Authentication）和用户授权（Authorization）两个部分。用户认证指的是验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/14/Java-反射初识/" class="pull-right">
+							<a href="/2019/07/14/Springboot集成SpringSecurity-简单介绍及使用/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -496,14 +495,14 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/14.jpg" class="am-u-sm-12">
+					<img src="/img/1.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/08/Mall学习计划/" itemprop="url">
-	<time datetime="2019-07-08T04:04:47.000Z" itemprop="datePublished">
-  		2019-07-08
+						<a href="/2019/07/14/Java-反射初识/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
   </time>
 </a>    
 
@@ -511,8 +510,8 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/08/Mall学习计划/" itemprop="url">		
-			2019下半年学习计划		
+		<a href="/2019/07/14/Java-反射初识/" itemprop="url">		
+			反射是框架设计的灵魂		
 		</a>
 	
 
@@ -521,16 +520,17 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					
 						<p>
 							
-								2019下半年学习计划基于学习和技术提升，在此对2019年下半年的学习计划做一个简单概括，希望对此起一个简单的督促作用。
-1.学习目标：目标明确：在工作之外的时间实现一个全栈式的前后端电商项目，引用Github著名Star项目mall为基础进行学习性开发。输出学习文档相关记录
-2.目标简介：mall介绍：该项目是一套电商系统，包括前台商城系统及后台管理系统，基于SpringBoot+MyBatis	
+								反射是框架设计的灵魂（使用的前提条件：必须先得到代表的字节码的Class，Class类用于表示.class文件（字节码））
+一、反射的概述
+JAVA反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+要想解剖一个类,必须先要获取到该类的字节码文件对	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/08/Mall学习计划/" class="pull-right">
+							<a href="/2019/07/14/Java-反射初识/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -542,14 +542,14 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/19.jpg" class="am-u-sm-12">
+					<img src="/img/6.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/07/02/正则表达式简单使用/" itemprop="url">
-	<time datetime="2019-07-02T04:04:47.000Z" itemprop="datePublished">
-  		2019-07-02
+						<a href="/2019/07/14/Springboot-集成Easticsearch进行增删改查/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
   </time>
 </a>    
 
@@ -557,8 +557,8 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/07/02/正则表达式简单使用/" itemprop="url">		
-			正则表达式简单使用		
+		<a href="/2019/07/14/Springboot-集成Easticsearch进行增删改查/" itemprop="url">		
+			Springboot-集成Easticsearch进行增删改查		
 		</a>
 	
 
@@ -567,16 +567,19 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					
 						<p>
 							
-								正则表达式简单使用注：本文引用非原创 原创地址：https://www.cnblogs.com/zery/p/3438845.html
-一 前言　　对于正则表达式，相信很多人都知道，但是很多人的第一感觉就是难学，因为看第一眼时，觉得完全没有规律可寻，而且全是一堆各种各样的特殊符号，完全不知所云。
-其实只是对正则不了解而以，了解了你就会发现，原来就这样啊正则所用的相关字符其实不多，也不难记，更不难懂	
+								Springboot-集成Easticsearch进行增删改查1.首先大概了解ES的一些概念类比：如果把Es类比成传统的关系型数据库，那么
+Index对应的就是传统数据库的数据库名
+type对应的是传统数据库的表
+Document对应的是传统数据库的一行数据
+概念对比表如图：
+2.Spring集成Es需要引用Es的Jar包，此包目前支持的版本还不能至最新（相关版本问题请自己解决）本测试使用的环境为	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/07/02/正则表达式简单使用/" class="pull-right">
+							<a href="/2019/07/14/Springboot-集成Easticsearch进行增删改查/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
@@ -588,14 +591,14 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 			<article class="am-g blog-entry-article">
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-					<img src="/img/18.jpg" class="am-u-sm-12">
+					<img src="/img/8.jpg" class="am-u-sm-12">
 				</div>	
 
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 					<span class="theme-annie-post-date">
-						<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">
-	<time datetime="2019-06-27T16:07:51.448Z" itemprop="datePublished">
-  		2019-06-28
+						<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">
+	<time datetime="2019-07-14T04:04:47.000Z" itemprop="datePublished">
+  		2019-07-14
   </time>
 </a>    
 
@@ -603,8 +606,8 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					<span class="theme-annie-post-title">
 						
 	
-		<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" itemprop="url">		
-			Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）		
+		<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" itemprop="url">		
+			SpringSecurity-异常处理捕获		
 		</a>
 	
 
@@ -613,16 +616,18 @@ JAVA反射机制是指在运行状态中，对于任意一个类，都能够知�
 					
 						<p>
 							
-								Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）在项目开发中，常常要对日志进行一个输出保存，今天我们简单搭建一个基于SpringAop的日志环境。
-1.首先声明相关Pom,日志需要的包为Aop包，我常用Lombook,根据需求自行导入Mybatis,和数据库驱动。pom.xml    &lt;dependencies&gt;
-        &l	
+								SpringSecurity-异常处理捕获1.简单引入上一节讲述了SpringSecurity实现自动登录，但两节过程中登录失败都会跳转至/login/error链接，这是为什么呢？我们跟着博主一起来看下
+其实这是默认的错误处理链接，你也可以设置相应的路径来控制错误的输出页面，当然我们一般是根据异常情况来区分错误界面的
+首先看下原来登录错误的界面
+
+ /login?error 是 Spring s	
 							  
 						</p> 
 					
 
 					
 						<span class="continue-read">      	
-							<a href="/2019/06/28/Springboot-Aop日志（国际化版）及前后端分离JAVA后台环境搭建（整合Mybatis版）/" class="pull-right">
+							<a href="/2019/07/14/Springboot集成SpringSecurity-异常处理捕获/" class="pull-right">
 								展开全文
 							</a>		
 						</span>
